@@ -1,0 +1,1457 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="Nouvel An à Copenhague">
+<meta property="og:description" content="Dates, voiture ou avion, logement, budget : donne tes réponses avant le 31 octobre.">
+<meta property="og:type" content="website">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Nouvel An à Copenhague</title>
+<meta name="description" content="Nouvel An 2026-27 à Copenhague : dates, voiture ou avion, logement, budget. Donne tes réponses avant le 31 octobre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: night-harbour hero with the 31/10 deadline, sticky chip nav, then one scrolling column; the form sits beside a sticky estimate on wide screens. */
+:root{
+  --bg:#EDF0F3; --surface:#FFFFFF; --surface-2:#E2E7EC; --line:#C9D2DA;
+  --ink:#13202B; --ink-2:#4A5866;
+  --accent:#9A5300; --accent-fill:#E39B2D; --accent-bg:#F7E6CB;
+  --car:#1D6B66; --car-bg:#D5ECE9; --plane:#5A4A99; --plane-bg:#E4E0F4;
+  --ok:#2C7A4C; --ok-bg:#D8EFE1; --warn:#9A5B00; --warn-bg:#FBEACB; --bad:#A8372B; --bad-bg:#F7DCD8;
+  /* hero is always night: Copenhagen after 15:46 */
+  --night:#0D1824; --night-2:#18293A; --night-ink:#EAF0F5; --night-dim:#9FB3C5; --lamp:#F2B44C;
+  --f-display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B131B; --surface:#131F29; --surface-2:#1A2833; --line:#2A3B48;
+  --ink:#E5ECF1; --ink-2:#9DAEBC;
+  --accent:#F2B44C; --accent-fill:#E39B2D; --accent-bg:#3A2A12;
+  --car:#58BDB3; --car-bg:#14332F; --plane:#AE9FEA; --plane-bg:#2A2547;
+  --ok:#62C98F; --ok-bg:#163223; --warn:#F0B04A; --warn-bg:#3A2A10; --bad:#F2806F; --bad-bg:#3D1C18;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B131B; --surface:#131F29; --surface-2:#1A2833; --line:#2A3B48;
+  --ink:#E5ECF1; --ink-2:#9DAEBC;
+  --accent:#F2B44C; --accent-fill:#E39B2D; --accent-bg:#3A2A12;
+  --car:#58BDB3; --car-bg:#14332F; --plane:#AE9FEA; --plane-bg:#2A2547;
+  --ok:#62C98F; --ok-bg:#163223; --warn:#F0B04A; --warn-bg:#3A2A10; --bad:#F2806F; --bad-bg:#3D1C18;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+.eyebrow{font:600 .78rem/1 var(--f-display);text-transform:uppercase;letter-spacing:.09em;color:var(--ink-2)}
+.muted{color:var(--ink-2)}
+.small{font-size:.875rem}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono);font-size:.85em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* HERO */
+.hero{background:radial-gradient(120% 90% at 85% 0%, var(--night-2), var(--night) 60%);color:var(--night-ink);padding-block:clamp(36px,7vw,72px) 32px}
+.hero .wrap{display:grid;gap:26px}
+.hero .eyebrow{color:var(--lamp)}
+.hero h1{font-size:clamp(2.4rem,7vw,4.4rem);font-weight:700;letter-spacing:-.025em;max-width:14ch}
+.hero .lead{font-size:1.12rem;color:var(--night-dim);max-width:60ch}
+.hero .lead strong{color:var(--night-ink)}
+.hero-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 1rem/1 var(--f-display);padding:13px 20px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none}
+.btn-lamp{background:var(--lamp);color:#1B1305}
+.btn-lamp:hover{filter:brightness(1.07)}
+.btn-ghost-night{border-color:#3A5269;color:var(--night-ink);background:transparent}
+.btn-ghost-night:hover{background:#ffffff12}
+.deadline{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;max-width:720px;border:1px solid #6B5326;background:#2A2113;border-radius:var(--r);padding:16px 18px}
+.deadline .jj{font:700 2.2rem/1 var(--f-display);color:var(--lamp);font-variant-numeric:tabular-nums;text-align:center;min-width:3.2ch}
+.deadline .jj small{display:block;font:600 .7rem/1.2 var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--night-dim);margin-top:4px}
+.deadline p{color:var(--night-dim);font-size:.98rem}
+.deadline b{color:var(--night-ink)}
+.daylight{max-width:560px;display:grid;gap:8px}
+.dl-bar{position:relative;height:30px;border-radius:6px;background:#06101A;overflow:hidden;border:1px solid #233649}
+.dl-sun{position:absolute;top:0;bottom:0;left:calc(8.62/24*100%);width:calc(7.15/24*100%);background:linear-gradient(90deg,#3E5C78,#9DB8CF 45%,#9DB8CF 55%,#3E5C78)}
+.dl-fw{position:absolute;top:4px;bottom:4px;left:calc(23/24*100%);width:3px;border-radius:2px;background:var(--lamp);box-shadow:0 0 10px 2px var(--lamp)}
+.dl-scale{display:flex;justify-content:space-between;font:500 .72rem/1 var(--f-mono);color:var(--night-dim)}
+.dl-cap{font-size:.9rem;color:var(--night-dim)}
+.dl-cap b{color:var(--night-ink)}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.nav a{flex:none;text-decoration:none;color:var(--ink);font:600 .92rem/1 var(--f-display);padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.nav a:hover{border-color:var(--accent)}
+
+section.block{padding-block:clamp(40px,6vw,64px);border-bottom:1px solid var(--line)}
+.sec-head{display:grid;gap:8px;margin-bottom:24px;max-width:70ch}
+.sec-head p{color:var(--ink-2)}
+
+/* ESSENTIEL */
+.essentials{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.ess{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
+.ess .big{font:700 1.5rem/1.1 var(--f-display)}
+.ess ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--ink-2)}
+.ess ul b{color:var(--ink)}
+
+/* WHO BOOKS WHAT */
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:16px}
+.who .col{border-radius:var(--r);padding:18px;display:grid;gap:10px;align-content:start}
+.who .group{background:var(--accent-bg);border:1px solid var(--accent)}
+.who .self{background:var(--surface);border:1px dashed var(--ink-2)}
+.who ul{margin:0;padding-left:18px;display:grid;gap:4px}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+@media (max-width:880px){.form-grid{grid-template-columns:minmax(0,1fr)}}
+form{display:grid;gap:14px;min-width:0}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:18px;margin:0;display:grid;gap:14px;min-width:0}
+legend{font:700 1.05rem/1 var(--f-display);padding:0 6px;display:flex;gap:8px;align-items:center}
+.q{display:grid;gap:8px;min-width:0}
+.q > label,.q > .ql{font-weight:700}
+.ql{font-weight:700}
+.q .hint{font-size:.875rem;color:var(--ink-2)}
+.hint.warn{color:var(--warn)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:inline-flex}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip > span{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:.95rem;line-height:1.2;transition:background .12s,border-color .12s}
+.chip input:checked + span{background:var(--accent-bg);border-color:var(--accent);font-weight:700}
+.chip input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.chip:hover > span{border-color:var(--ink-2)}
+.chip input:disabled{cursor:not-allowed}
+.chip input:disabled + span{opacity:.38;text-decoration:line-through}
+.chip .star{color:var(--accent)}
+.check{display:flex;gap:10px;align-items:center;font-size:.95rem;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--accent);margin:0}
+input[type=text],input[type=number],textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
+input[type=number]{width:110px}
+textarea{min-height:84px;resize:vertical}
+input[type=text]:focus,textarea:focus,input[type=number]:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.lgroup{display:grid;gap:8px}
+.lgroup + .lgroup{margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px}
+.rcard{position:relative;display:block;cursor:pointer}
+.rcard input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.rcard .in{display:grid;gap:4px;height:100%;padding:10px 12px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.rcard .in b{font-family:var(--f-display);font-size:1rem}
+.rcard .in .p{font:500 .85rem/1.3 var(--f-mono);color:var(--accent)}
+.rcard .in .d{font-size:.85rem;color:var(--ink-2)}
+.rcard .plan{height:84px;width:100%;margin-bottom:4px}
+.rcard input:checked + .in{border-color:var(--accent);background:var(--accent-bg);box-shadow:inset 0 0 0 1px var(--accent)}
+.rcard input:focus-visible + .in{outline:2px solid var(--accent);outline-offset:2px}
+.sub{border-left:3px solid var(--line);padding-left:14px;display:grid;gap:14px}
+.sub.car{border-color:var(--car)} .sub.plane{border-color:var(--plane)}
+.editing{background:var(--warn-bg);color:var(--ink);border:1px solid var(--warn);border-radius:10px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer}
+.savebar{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn-main{background:var(--ink);color:var(--bg)}
+.btn-main:hover{opacity:.9}
+.btn-main[disabled]{opacity:.5;cursor:wait}
+.btn-line{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn-line:hover{border-color:var(--ink-2)}
+.status{font-size:.92rem}
+.status.ok{color:var(--ok)} .status.err{color:var(--bad)}
+.notice{border-radius:10px;padding:12px 14px;font-size:.92rem;background:var(--surface-2);display:grid;gap:8px}
+.notice.err{background:var(--bad-bg)}
+.notice .row{display:flex;flex-wrap:wrap;gap:14px}
+.copybox{width:100%;min-height:150px;font:500 .82rem/1.5 var(--f-mono)}
+
+/* ESTIMATE */
+.est{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px}
+@media (max-width:880px){.est{position:static}}
+.est-total{font:700 2.1rem/1 var(--f-display);font-variant-numeric:tabular-nums}
+.est-total small{font:400 .95rem var(--f-body);color:var(--ink-2)}
+.est-lines{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.est-lines li{display:flex;justify-content:space-between;gap:12px;font-size:.92rem;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.est-lines li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+.est-note{font-size:.82rem;color:var(--ink-2)}
+.pill{display:inline-flex;align-items:center;gap:6px;font:700 .78rem/1 var(--f-body);padding:5px 9px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.car{background:var(--car-bg);color:var(--car)} .pill.plane{background:var(--plane-bg);color:var(--plane)} .pill.neutral{background:var(--surface-2);color:var(--ink-2)}
+.pill.group{background:var(--accent-bg);color:var(--accent)}
+
+/* GROUP */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.kpi .v{font:700 2rem/1 var(--f-display);font-variant-numeric:tabular-nums}
+.kpi .l{font-size:.88rem;color:var(--ink-2)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px;margin-top:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.scroll-x{overflow-x:auto;min-width:0}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .78rem/1.2 var(--f-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.nights th,.nights td{text-align:center;padding:7px 5px}
+.nights th{text-transform:none;letter-spacing:0;font-size:.78rem;white-space:nowrap}
+.nights th:first-child,.nights td:first-child{text-align:left;white-space:nowrap}
+.nights .star{color:var(--accent)}
+.cell{display:block;height:18px;min-width:22px;border-radius:4px;background:var(--surface-2)}
+.cell.on{background:var(--accent-fill)}
+.cell.maybe{background:repeating-linear-gradient(135deg,var(--accent-fill) 0 4px,transparent 4px 8px);border:1px solid var(--accent-fill)}
+.nights tfoot td{font-weight:700;font-variant-numeric:tabular-nums;border-bottom:0}
+.nights tfoot tr + tr td{font-weight:400;color:var(--ink-2)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;gap:4px}
+.bar .t{display:flex;justify-content:space-between;gap:10px;font-size:.92rem}
+.bar .t b{font-variant-numeric:tabular-nums}
+.bar .track{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}
+.bar .fill{height:100%;border-radius:5px;background:var(--accent-fill)}
+.bar .fill.car{background:var(--car)} .bar .fill.plane{background:var(--plane)} .bar .fill.dim{background:var(--ink-2);opacity:.45}
+.people td .acts{display:flex;gap:10px;flex-wrap:wrap}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;display:grid;gap:8px;justify-items:center}
+.closing{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;padding:12px 16px;border-radius:var(--r);background:var(--accent-bg);border:1px solid var(--accent)}
+
+/* OPTIONS */
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:12px;align-content:start}
+.opt.car{border-top:4px solid var(--car)} .opt.plane{border-top:4px solid var(--plane)}
+.opt .price{font:700 1.6rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.93rem}
+.opt dt{color:var(--ink-2)} .opt dd{margin:0}
+.proscons{display:grid;gap:6px;font-size:.93rem;margin:0;padding:0;list-style:none}
+.proscons li{padding-left:22px;position:relative}
+.proscons li::before{position:absolute;left:0;font-weight:700}
+.proscons .pro::before{content:"+";color:var(--ok)}
+.proscons .con::before{content:"–";color:var(--bad)}
+.subhead{margin:36px 0 14px;display:grid;gap:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.filters button{font:600 .88rem/1 var(--f-body);padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.price-cell{font:700 1rem var(--f-display);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.best td{background:var(--accent-bg)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 18px}
+details[open]{padding-bottom:16px}
+summary{cursor:pointer;padding:16px 0;font:600 1rem var(--f-display)}
+
+/* PLANS */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.plancard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px;align-content:start;margin:0}
+.plancard.shared{border-color:var(--accent)}
+.plancard header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.plancard .plan{width:100%;height:auto;max-width:100%;background:var(--bg);border-radius:8px}
+.plancard figcaption{font-size:.93rem;color:var(--ink-2)}
+.plancard .pr{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
+.plancard .pr b{font:700 1.35rem/1 var(--f-display);font-variant-numeric:tabular-nums}
+.meters{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:.88rem;align-items:center;margin:0}
+.meters dt{color:var(--ink-2)} .meters dd{margin:0;display:flex;gap:4px}
+.meters i{width:12px;height:12px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line)}
+.meters i.on{background:var(--accent-fill);border-color:var(--accent-fill)}
+.plan .wall{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.plan .wall.liv{fill:var(--accent-bg)}
+.plan .wall.wet{fill:var(--plane-bg)}
+.plan .wall.kitr{fill:var(--car-bg)}
+.plan .bed{fill:var(--surface-2);stroke:var(--ink-2);stroke-width:1}
+.plan .pillow{fill:var(--surface);stroke:var(--ink-2);stroke-width:.6}
+.plan .upper{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:3 2}
+.plan .pp{fill:var(--accent-fill);stroke:var(--surface);stroke-width:1}
+.plan .sofa{fill:var(--surface-2);stroke:var(--ink-2);stroke-width:1}
+.plan .kit{fill:var(--surface);stroke:var(--car);stroke-width:1.2}
+.plan .burner{fill:none;stroke:var(--car);stroke-width:1}
+.plan .furn{fill:var(--surface);stroke:var(--ink-2);stroke-width:1}
+.plan .mezz{fill:none;stroke:var(--plane);stroke-width:1.5;stroke-dasharray:5 3}
+.plan .rl{fill:var(--ink-2);font:600 9px var(--f-body)}
+.plan .rl.mz{fill:var(--plane)}
+.plan.mini .rl{display:none}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--ink-2);margin-bottom:14px}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:12px;height:12px;border-radius:3px;border:1px solid var(--ink-2)}
+
+/* INFOS */
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.checks ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.checks li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:.95rem}
+.checks li .ic{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font:700 .8rem/1 var(--f-display)}
+.ic.w{background:var(--warn-bg);color:var(--warn)} .ic.i{background:var(--surface-2);color:var(--ink-2)}
+.acts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+footer{padding-block:32px 48px;color:var(--ink-2);font-size:.88rem}
+footer .wrap{display:grid;gap:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div style="display:grid;gap:16px">
+      <span class="eyebrow">Réveillon 2026 · entre amis</span>
+      <h1>Nouvel An à Copenhague</h1>
+      <p class="lead">Le cœur du séjour va du <strong>lundi 28 décembre au dimanche 3 janvier</strong>, mais chacun arrive et repart quand il veut. Cette page résume tout ce qu'on a trouvé et te laisse <strong>donner tes dates, ton transport et ton logement préféré</strong>. Les réponses de tout le monde s'affichent sur la page.</p>
+    </div>
+    <div class="deadline" id="deadlineBox">
+      <div class="jj" id="deadlineDays">…<small>jours</small></div>
+      <p><b>Avant le samedi 31 octobre</b> : dis si tu viens en voiture et si tu veux le logement partagé. Le groupe réserve ces deux-là. <b>Vols et hôtels perso : chacun réserve de son côté</b>, quand il veut.</p>
+    </div>
+    <div class="hero-row">
+      <a class="btn btn-lamp" href="#moi">Donner mes réponses</a>
+      <a class="btn btn-ghost-night" href="#groupe">Voir qui vient</a>
+    </div>
+    <div class="daylight" aria-label="Durée du jour à Copenhague le 31 décembre">
+      <div class="dl-bar"><div class="dl-sun"></div><div class="dl-fw" title="Feu d'artifice de Tivoli, 23 h"></div></div>
+      <div class="dl-scale"><span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span><span>24 h</span></div>
+      <p class="dl-cap">Le 31 décembre : <b>environ 7 h de jour</b>, lever vers 8 h 37, coucher à <b>15 h 46</b>. Le point orange, c'est le feu d'artifice de Tivoli à <b>23 h</b>.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#essentiel">L'essentiel</a>
+    <a href="#moi">Mes choix</a>
+    <a href="#groupe">Le groupe</a>
+    <a href="#logement">Logements</a>
+    <a href="#transport">Transport</a>
+    <a href="#infos">À savoir</a>
+  </div>
+</nav>
+
+<main>
+<section class="block" id="essentiel">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">En une minute</span>
+      <h2>L'essentiel</h2>
+      <p>Les prix sont des relevés du 12 octobre 2026, par personne, aller-retour. Ils bougent vite, on revérifie tout avant de réserver.</p>
+    </div>
+    <div class="essentials">
+      <div class="ess">
+        <span class="eyebrow">Quand</span>
+        <span class="big">28 déc. → 3 janv.</span>
+        <ul>
+          <li>Jusqu'à <b>6 nuits</b> pour le séjour complet</li>
+          <li>Arrivée possible dès le <b>26 déc.</b>, départ jusqu'au <b>5 janv.</b></li>
+          <li>Soirée du réveillon <b>déjà prévue</b> sur place</li>
+        </ul>
+      </div>
+      <div class="ess">
+        <span class="eyebrow">Comment venir</span>
+        <span class="big">Voiture ou avion</span>
+        <ul>
+          <li><b>Voiture</b> à 4-5 : <b>105 à 165 €</b>, ~13 h de route</li>
+          <li><b>Avion</b> direct : <b>280 à 385 €</b>, 2 h de vol</li>
+          <li>Le train (13-14 h) a été écarté</li>
+        </ul>
+      </div>
+      <div class="ess">
+        <span class="eyebrow">Où dormir</span>
+        <span class="big">Chambres privées</span>
+        <ul>
+          <li>Pas de dortoir, c'est acté</li>
+          <li>Hôtel low-cost à 2 par chambre : <b>~38 à 47 €/nuit</b></li>
+          <li>Logement partagé : plus convivial, <b>60 à 120 €/nuit</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="who">
+      <div class="col group">
+        <span class="eyebrow" style="color:var(--accent)">Le groupe réserve · réponse avant le 31/10</span>
+        <ul>
+          <li><b>La voiture</b> : qui conduit, qui monte, ferry ou pont</li>
+          <li><b>Le logement partagé</b> : Airbnb ou appart-hôtel, selon le nombre de personnes et les nuits</li>
+        </ul>
+      </div>
+      <div class="col self">
+        <span class="eyebrow">Chacun gère, quand il veut</span>
+        <ul>
+          <li><b>Son vol</b> : les vols relevés sont dans <a href="#transport">Transport</a></li>
+          <li><b>Sa chambre d'hôtel</b> s'il ne prend pas le logement partagé (Wakeup, Cabinn…)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="moi">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">À toi de jouer · 2 minutes</span>
+      <h2>Mes choix</h2>
+      <p>Réponds avec ce que tu sais aujourd'hui, tu pourras modifier plus tard. À droite, ton budget estimé se calcule au fur et à mesure.</p>
+    </div>
+    <div class="form-grid">
+      <form id="f" novalidate>
+        <div class="editing" id="editingBanner" hidden>
+          <span>Tu remplis la réponse de <b id="editingName">quelqu'un</b>.</span>
+          <button type="button" class="linkbtn" id="backToMine">Revenir à ma réponse</button>
+        </div>
+
+        <fieldset>
+          <legend>Toi</legend>
+          <div class="q">
+            <label for="prenom">Ton prénom</label>
+            <input type="text" id="prenom" name="prenom" autocomplete="given-name" maxlength="40" placeholder="Ex. Camille">
+          </div>
+          <div class="q">
+            <span class="ql" id="q-presence">Tu viens ?</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-presence">
+              <label class="chip"><input type="radio" name="presence" id="pr-oui" value="oui"><span>Oui, je viens</span></label>
+              <label class="chip"><input type="radio" name="presence" id="pr-pe" value="peutetre"><span>Peut-être</span></label>
+              <label class="chip"><input type="radio" name="presence" id="pr-non" value="non"><span>Non, pas cette fois</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <p class="notice" id="nonMsg" hidden>Dommage ! Tu peux changer d'avis à tout moment, ta réponse reste modifiable.</p>
+
+        <div id="detail" style="display:grid;gap:14px">
+        <fieldset>
+          <legend>Mes dates</legend>
+          <div class="q">
+            <span class="ql" id="q-arr">J'arrive le</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-arr" id="arrChips"></div>
+          </div>
+          <div class="q">
+            <span class="ql" id="q-dep">Je repars le</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-dep" id="depChips"></div>
+            <span class="hint" id="nightsHint">Choisis tes deux dates pour voir ton nombre de nuits.</span>
+          </div>
+          <label class="check"><input type="checkbox" id="flexible" name="flexible" value="oui"> Mes dates peuvent encore bouger</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mon transport</legend>
+          <div class="q">
+            <span class="ql" id="q-tr">Je viens en</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-tr">
+              <label class="chip"><input type="radio" name="transport" id="tr-car" value="voiture"><span>Voiture</span></label>
+              <label class="chip"><input type="radio" name="transport" id="tr-plane" value="avion"><span>Avion</span></label>
+              <label class="chip"><input type="radio" name="transport" id="tr-nsp" value="nsp"><span>Je ne sais pas encore</span></label>
+            </div>
+            <span class="hint">La voiture revient 2 à 3 fois moins cher, mais c'est ~13 h de route. Détails dans <a href="#transport">Transport</a>.</span>
+          </div>
+
+          <div class="sub car" id="carFields" hidden>
+            <span class="pill group" style="justify-self:start">Le groupe organise · réponse avant le 31/10</span>
+            <div class="q">
+              <span class="ql" id="q-role">En voiture, je suis</span>
+              <div class="chips" role="radiogroup" aria-labelledby="q-role">
+                <label class="chip"><input type="radio" name="role" id="ro-cond" value="conducteur"><span>J'ai une voiture et je conduis</span></label>
+                <label class="chip"><input type="radio" name="role" id="ro-peut" value="relais"><span>Je peux faire des relais (sans voiture)</span></label>
+                <label class="chip"><input type="radio" name="role" id="ro-pass" value="passager"><span>Passager</span></label>
+              </div>
+            </div>
+            <div id="carOwnerFields" hidden style="display:grid;gap:14px">
+              <div class="q">
+                <label for="places">Places libres en plus de toi</label>
+                <input type="number" id="places" name="places" min="0" max="8" step="1" inputmode="numeric" placeholder="3">
+              </div>
+              <div class="q">
+                <span class="ql" id="q-fuel">Carburant</span>
+                <div class="chips" role="radiogroup" aria-labelledby="q-fuel">
+                  <label class="chip"><input type="radio" name="carburant" id="fu-ess" value="essence"><span>Essence</span></label>
+                  <label class="chip"><input type="radio" name="carburant" id="fu-dsl" value="diesel"><span>Diesel</span></label>
+                  <label class="chip"><input type="radio" name="carburant" id="fu-oth" value="autre"><span>Hybride / électrique</span></label>
+                </div>
+                <span class="hint" id="dieselHint" hidden>Diesel : la zone à faibles émissions de Copenhague exige Euro 5 ou un filtre à particules, et la plaque doit être enregistrée avant d'entrer (amende 1 500 DKK). Voir <a href="#infos">À savoir</a>.</span>
+              </div>
+            </div>
+            <div class="q">
+              <span class="ql" id="q-iti">Itinéraire préféré</span>
+              <div class="chips" role="radiogroup" aria-labelledby="q-iti">
+                <label class="chip"><input type="radio" name="itineraire" id="it-ferry" value="ferry"><span>Ferry Puttgarden → Rødby</span></label>
+                <label class="chip"><input type="radio" name="itineraire" id="it-pont" value="pont"><span>Pont du Storebælt</span></label>
+                <label class="chip"><input type="radio" name="itineraire" id="it-egal" value="egal"><span>Peu importe</span></label>
+              </div>
+              <span class="hint">Même prix. Le ferry coupe la route (45 min de traversée), le pont évite l'horaire fixe mais ajoute ~150 km.</span>
+            </div>
+          </div>
+
+          <div class="sub plane" id="planeFields" hidden>
+            <span class="pill neutral" style="justify-self:start">Tu réserves ton vol toi-même</span>
+            <div class="q">
+              <span class="ql" id="q-ap">Aéroport de départ</span>
+              <div class="chips" role="radiogroup" aria-labelledby="q-ap">
+                <label class="chip"><input type="radio" name="aeroport" id="ap-ory" value="ORY"><span>Orly</span></label>
+                <label class="chip"><input type="radio" name="aeroport" id="ap-cdg" value="CDG"><span>Roissy-CDG</span></label>
+                <label class="chip"><input type="radio" name="aeroport" id="ap-eg" value="egal"><span>Peu importe</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <span class="ql" id="q-bag">Bagage</span>
+              <div class="chips" role="radiogroup" aria-labelledby="q-bag">
+                <label class="chip"><input type="radio" name="bagage" id="bg-sac" value="sac"><span>Petit sac sous le siège</span></label>
+                <label class="chip"><input type="radio" name="bagage" id="bg-cab" value="cabine"><span>Valise cabine</span></label>
+                <label class="chip"><input type="radio" name="bagage" id="bg-sou" value="soute"><span>Valise en soute</span></label>
+              </div>
+              <span class="hint">Transavia et Norwegian en tarif de base : petit sac uniquement. Une valise ajoute ~40 à 70 € A/R. Air France inclut la cabine 12 kg.</span>
+            </div>
+            <div class="q" id="myFlights"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mon logement</legend>
+          <div class="lgroup">
+            <span class="ql" id="q-lo1">Logement partagé, réservé par le groupe <span class="pill group">avant le 31/10</span></span>
+            <div class="cards" role="radiogroup" aria-labelledby="q-lo1" id="logeShared"></div>
+          </div>
+          <div class="lgroup">
+            <span class="ql" id="q-lo2">Ou je réserve mon hôtel moi-même</span>
+            <div class="cards" role="radiogroup" aria-labelledby="q-lo2" id="logeSelf"></div>
+          </div>
+          <span class="hint">Les schémas sont détaillés dans <a href="#logement">Logements</a>.</span>
+          <div class="q">
+            <span class="ql" id="q-ch">Chambre</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-ch">
+              <label class="chip"><input type="radio" name="chambre" id="ch-2" value="partage"><span>Je partage à 2</span></label>
+              <label class="chip"><input type="radio" name="chambre" id="ch-1" value="seul"><span>Je préfère une chambre seul·e</span></label>
+            </div>
+            <span class="hint">Seul·e à l'hôtel, tu paies la chambre entière (86 à 98 € la nuit chez Wakeup).</span>
+          </div>
+          <div class="q">
+            <label for="avec">Avec qui tu aimerais partager ta chambre ? <span class="muted">(facultatif)</span></label>
+            <input type="text" id="avec" name="avec" maxlength="60" placeholder="Ex. Léa">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mon budget</legend>
+          <div class="q">
+            <span class="ql" id="q-bu">Mon maximum pour transport + logement</span>
+            <div class="chips" role="radiogroup" aria-labelledby="q-bu">
+              <label class="chip"><input type="radio" name="budget" id="bu-1" value="400"><span>Moins de 400 €</span></label>
+              <label class="chip"><input type="radio" name="budget" id="bu-2" value="550"><span>400 à 550 €</span></label>
+              <label class="chip"><input type="radio" name="budget" id="bu-3" value="700"><span>550 à 700 €</span></label>
+              <label class="chip"><input type="radio" name="budget" id="bu-4" value="999"><span>Plus de 700 €</span></label>
+            </div>
+          </div>
+          <div class="q">
+            <label for="commentaire">Un mot pour le groupe ? <span class="muted">(facultatif)</span></label>
+            <textarea id="commentaire" name="commentaire" maxlength="600" placeholder="Contraintes, envies, questions…"></textarea>
+          </div>
+        </fieldset>
+        </div>
+
+        <div class="savebar">
+          <button type="submit" class="btn btn-main" id="saveBtn">Enregistrer mes réponses</button>
+          <button type="button" class="btn btn-line" id="copyMine">Copier mon récap</button>
+          <span class="status" id="saveStatus" role="status" aria-live="polite"></span>
+        </div>
+        <div class="notice" id="sameName" hidden></div>
+        <div id="fallback" hidden style="display:grid;gap:10px">
+          <p class="notice err" id="fallbackMsg"></p>
+          <textarea class="copybox" id="fallbackText" readonly aria-label="Récapitulatif à copier"></textarea>
+        </div>
+      </form>
+
+      <aside class="est" aria-labelledby="estTitle">
+        <span class="eyebrow" id="estTitle">Mon budget estimé</span>
+        <div class="est-total num" id="estTotal">—</div>
+        <ul class="est-lines" id="estLines"></ul>
+        <div id="estBudget"></div>
+        <p class="est-note">Transport aller-retour + logement. Hors repas, sorties et Tivoli. Fourchettes calculées sur les prix relevés le 12 oct. 2026.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="groupe">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" id="groupEyebrow">Les réponses</span>
+      <h2>Le groupe</h2>
+      <p>Qui vient, quelles nuits, comment, et ce que le groupe préfère pour dormir. Les « peut-être » sont hachurés.</p>
+    </div>
+    <div id="groupBody">
+      <div class="empty"><b>Chargement des réponses…</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="logement">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Comprendre les options</span>
+      <h2>Logements</h2>
+      <p>À quoi ressemble chaque formule, et qui dort où. Prix par personne et par nuit, à 2 par chambre. Le grand Airbnb a un coût fixe : si le groupe rétrécit, chacun paie plus.</p>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--accent-fill);border-color:var(--accent-fill);border-radius:50%"></i>une personne</span>
+      <span><i style="background:var(--accent-bg)"></i>pièce à vivre</span>
+      <span><i style="background:var(--car-bg)"></i>cuisine</span>
+      <span><i style="background:var(--plane-bg)"></i>salle de bain</span>
+    </div>
+    <div class="plans" id="planCards"></div>
+    <p class="small muted" style="margin-top:12px">Schémas indicatifs pour se représenter l'espace, pas les plans réels des annonces.</p>
+
+    <div class="subhead"><h3>Quartiers</h3></div>
+    <div class="acts-grid">
+      <div class="opt"><h3>Vesterbro</h3><p class="muted">Central, à côté de la gare et de Tivoli. Pratique pour ceux qui arrivent en avion comme en voiture.</p></div>
+      <div class="opt"><h3>Nørrebro</h3><p class="muted">Bars et restos, ambiance jeune.</p></div>
+      <div class="opt"><h3>Christianshavn</h3><p class="muted">Les canaux, très joli à pied.</p></div>
+      <div class="opt"><h3>Østerbro · Nordhavn</h3><p class="muted">Plus calme, front de mer, parking plus facile.</p></div>
+    </div>
+
+    <div class="subhead"><h3>Les adresses repérées</h3></div>
+    <details>
+      <summary>Voir les 15 établissements (prix et notes)</summary>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Nom</th><th>Type</th><th>Points clés</th><th>Note</th><th>Prix relevé</th></tr></thead>
+          <tbody id="hotelTable"></tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:10px">* Auberges : le prix affiché est probablement celui d'un lit en dortoir, pas d'une chambre privée. Appart-hôtels : estimations, aucun tarif de décembre relevé.</p>
+    </details>
+  </div>
+</section>
+
+<section class="block" id="transport">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Comprendre les options</span>
+      <h2>Transport</h2>
+      <p>Paris → Copenhague. 4 à 5 personnes préfèrent ne pas prendre l'avion, donc au moins une voiture part. Les autres réservent leur vol eux-mêmes.</p>
+    </div>
+    <div class="cmp">
+      <article class="opt car">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h3>Voiture</h3><span class="pill group">Organisé par le groupe</span></div>
+        <div class="price">105 – 165 € <span class="small muted">/ pers. A/R</span></div>
+        <dl>
+          <dt>Durée</dt><dd>~13 h par trajet, ~1 220 km</dd>
+          <dt>Total voiture</dt><dd class="num">520 à 660 € A/R (essence, péages, ferry), partagé à 4-5</dd>
+          <dt>Parking</dt><dd>~40 €/jour en garage d'hôtel, soit ~50 €/pers. sur 6 nuits</dd>
+        </dl>
+        <ul class="proscons">
+          <li class="pro">Le moins cher, bagages libres</li>
+          <li class="pro">Pas d'avion</li>
+          <li class="con">Longue route, surtout pour le séjour complet</li>
+          <li class="con">Pneus hiver 3PMSF exigés en Allemagne par temps de neige</li>
+        </ul>
+      </article>
+      <article class="opt plane">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h3>Avion</h3><span class="pill plane">Chacun réserve</span></div>
+        <div class="price">280 – 385 € <span class="small muted">/ pers. A/R</span></div>
+        <dl>
+          <dt>Aéroports</dt><dd>Orly (Transavia) ou Roissy (Air France, Norwegian)</dd>
+          <dt>Arrivée</dt><dd>Aéroport → gare centrale en 13 min, ~36 DKK (5 €)</dd>
+          <dt>Bagages</dt><dd>+40 à 70 € chez les low-cost</dd>
+        </dl>
+        <ul class="proscons">
+          <li class="pro">Rapide, dates libres</li>
+          <li class="pro">Idéal pour un séjour court</li>
+          <li class="con">2 à 3 fois plus cher</li>
+          <li class="con">Les prix montent à l'approche des fêtes</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="subhead">
+      <h3>Ferry ou pont, pour ceux qui conduisent</h3>
+      <p class="muted">Les deux reviennent au même prix. On choisit sur le confort et les horaires.</p>
+    </div>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th></th><th>Ferry Puttgarden → Rødby</th><th>Pont du Storebælt</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Distance A/R</th><td class="num">~2 400 km</td><td class="num">~2 700 km</td></tr>
+          <tr><th scope="row">Coût voiture A/R</th><td class="num">520 à 660 €</td><td class="num">530 à 590 €</td></tr>
+          <tr><th scope="row">Passage</th><td>48 à 118 € l'aller selon le tarif, jusqu'à 9 passagers inclus</td><td class="num">235 DKK (~32 €) par passage</td></tr>
+          <tr><th scope="row">Pour</th><td>Vraie pause de 45 min, ~150 km de moins</td><td>Pas d'horaire à respecter</td></tr>
+          <tr><th scope="row">Contre</th><td>Réserver en ligne (prix au port quasi doublé), tarif Low Price non remboursable</td><td>~3 h de route en plus sur l'A/R</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subhead">
+      <h3>Les vols relevés</h3>
+      <p class="muted">Prix aller-retour pour 1 adulte, Google Flights. Filtre par dates. Le moins cher de chaque combinaison est surligné. Pour d'autres dates, cherche directement sur Google Flights.</p>
+    </div>
+    <div class="filters" id="flightFilters" role="group" aria-label="Filtrer par dates"></div>
+    <div class="scroll-x">
+      <table id="flightTable">
+        <thead><tr><th>Dates</th><th>Aéroport</th><th>Compagnie</th><th>Aller</th><th>Prix A/R</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:10px">Avec escales (Iberia, LOT, Swiss…) : 391 à 1 212 € et 7 à 15 h de trajet, à éviter.</p>
+  </div>
+</section>
+
+<section class="block" id="infos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Avant de partir</span>
+      <h2>À savoir</h2>
+    </div>
+    <div class="checks">
+      <div class="panel">
+        <h3>Si tu conduis</h3>
+        <ul>
+          <li><span class="ic w">!</span><span><b>Pneus hiver 3PMSF</b> obligatoires en Allemagne par neige ou verglas, sur les 4 roues. Le marquage M+S seul ne suffit plus. Amende 60 à 120 €.</span></li>
+          <li><span class="ic w">!</span><span><b>Diesel</b> : Euro 5 minimum ou filtre à particules pour entrer dans Copenhague, plaque à enregistrer sur miljoezoner.dk avant d'arriver.</span></li>
+          <li><span class="ic i">i</span><span>Bruxelles, Anvers, Gand : zones à faibles émissions avec enregistrement de la plaque. En Allemagne, vignette verte dans la plupart des grandes villes. Le plus simple : contourner les centres.</span></li>
+          <li><span class="ic i">i</span><span>Ferry : réserver en ligne, le prix au port est presque doublé.</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Si tu prends l'avion</h3>
+        <ul>
+          <li><span class="ic w">!</span><span>Tarif de base Transavia et Norwegian : <b>un petit sac sous le siège seulement</b> (40 × 30 × 20 cm chez Transavia).</span></li>
+          <li><span class="ic i">i</span><span>Avec une valise, Transavia (~345 à 375 €) rejoint Air France (384 €, cabine incluse).</span></li>
+          <li><span class="ic i">i</span><span>Aéroport → centre : métro M2 ou train, 13 min, billet 3 zones ~36 DKK.</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Pour tout le monde</h3>
+        <ul>
+          <li><span class="ic w">!</span><span>Si tu réserves toi-même, prends un <b>tarif annulable</b> : le groupe peut encore bouger.</span></li>
+          <li><span class="ic w">!</span><span>La <b>nuit du 31</b> est souvent plus chère : vérifie-la à part.</span></li>
+          <li><span class="ic i">i</span><span>Monnaie : couronne danoise, environ <b>7,46 DKK = 1 €</b>. La carte passe partout.</span></li>
+          <li><span class="ic i">i</span><span>En Airbnb, Copenhague est stricte sur le bruit en immeuble.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subhead"><h3>Sur place</h3><p class="muted">Il fait nuit dès 15 h 45 et le froid est humide : la ville vit à la lumière et au chaud.</p></div>
+    <div class="acts-grid">
+      <div class="opt"><span class="eyebrow">31 déc. · 23 h</span><h3>Tivoli</h3><p class="muted">Illuminations de Noël et manèges anciens. Le feu d'artifice du 31 à 23 h est inclus dans le billet d'entrée. Saison annoncée jusqu'au 3 janvier.</p></div>
+      <div class="opt"><span class="eyebrow">Hygge</span><h3>Gløgg et street food</h3><p class="muted">Vin chaud aux amandes et raisins, halles de Torvehallerne, microbrasseries de Kødbyen.</p></div>
+      <div class="opt"><span class="eyebrow">Pour les courageux</span><h3>Sauna et bain glacé</h3><p class="muted">Sauna au bord du port, bains chauds en plein air, plongeon dans l'eau froide.</p></div>
+      <div class="opt"><span class="eyebrow">À pied ou à vélo</span><h3>Balade urbaine</h3><p class="muted">Canaux de Christianshavn, Cirkelbroen, l'Opéra, la Bibliothèque royale.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Prix relevés le 12 octobre 2026 (Google Flights, Google Hotels, sites officiels). Carburant compté à ~2,15 €/L. Tout est à revérifier avant de réserver.</p>
+    <p>Sources : <a href="https://www.tivoli.dk/en/the-gardens/fireworks" target="_blank" rel="noopener">Tivoli</a> · <a href="https://puttgardenrodby.com/prices/" target="_blank" rel="noopener">Ferry Puttgarden–Rødby</a> · <a href="https://miljoezoner.dk/en/regulations-and-vehicles" target="_blank" rel="noopener">Zones à faibles émissions (DK)</a> · <a href="https://www.copenhagentourism.org/?p=607" target="_blank" rel="noopener">Aéroport → centre</a></p>
+  </div>
+</footer>
+
+<script>
+/* Hors claude.ai (GitHub Pages), les réponses passent par un Google Sheet :
+   colle ici l'URL du script Apps Script déployé (voir apps-script/Code.gs). */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyGVYqW_psdHw1TazwbvfHxZ1txfbJnefC5XQK1jsiOmCpNlsWEZ3q9RMYBeAllbw4MEw/exec";
+
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const eur = n => Math.round(n).toLocaleString("fr-FR") + " €";
+const range = (a,b) => Math.round(a)===Math.round(b) ? eur(a) : Math.round(a).toLocaleString("fr-FR") + " – " + eur(b);
+
+/* ---------- dates ---------- */
+const D0 = Date.UTC(2026, 11, 26);
+const ARR = ["2026-12-26","2026-12-27","2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01"];
+const DEP = ["2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03","2027-01-04","2027-01-05"];
+const NYE = 5; // index of the night of 31 Dec
+const parseISO = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? Date.UTC(+m[1], +m[2]-1, +m[3]) : null; };
+const dIdx = s => { const t = parseISO(s); return t == null ? null : Math.round((t - D0) / 864e5); };
+const isoOf = i => new Date(D0 + i*864e5).toISOString().slice(0,10);
+const fmt = (s, o) => new Date(parseISO(s)).toLocaleDateString("fr-FR", {timeZone:"UTC", ...o});
+const dLong = s => fmt(s, {weekday:"short", day:"numeric", month:"short"});
+const dShort = s => fmt(s, {weekday:"short", day:"numeric"});
+const nbNights = r => { const a = dIdx(r.arrivee), d = dIdx(r.depart); return (a != null && d != null && d > a) ? d - a : 0; };
+const flightKey = r => (/^2026-12/.test(r.arrivee||"") && /^2027-01/.test(r.depart||"")) ? (+r.arrivee.slice(8)) + "-" + (+r.depart.slice(8)) : null;
+function legacy(r){
+  const o = {...r};
+  if (/^\d{1,2}$/.test(o.arrivee || "")) o.arrivee = "2026-12-" + o.arrivee;
+  if (/^\d$/.test(o.depart || "")) o.depart = "2027-01-0" + o.depart;
+  return o;
+}
+
+/* ---------- deadline ---------- */
+const DEADLINE = new Date(2026, 9, 31, 23, 59, 59);
+const daysLeft = () => Math.ceil((DEADLINE - new Date()) / 864e5);
+const deadlinePassed = () => new Date() > DEADLINE;
+
+/* ---------- data ---------- */
+const LOGE = {
+  airbnb2:    {n:"2 Airbnb de 2 chambres", grp:true, pp:[60,65], solo:null, d:"Deux appartements voisins, 4-5 pers. chacun.",
+               cap:"Deux appartements voisins comme celui-ci, de 60 à 90 m², chacun pour 4 ou 5 personnes. Chaque appartement a sa cuisine et son salon.",
+               m:{Intimité:3, Convivialité:4, Cuisine:5}, pro:"Bon compromis prix et ambiance", con:"Trouver deux annonces proches"},
+  grand:      {n:"1 grand Airbnb", grp:true, pp:[75,90], solo:null, d:"Tout le monde sous le même toit.",
+               cap:"Une maison ou un grand duplex pour 8 à 10 personnes : 4 chambres, un grand séjour, une cuisine commune.",
+               m:{Intimité:2, Convivialité:5, Cuisine:5}, pro:"Ambiance maximale, tout le monde ensemble", con:"Coût fixe, offre rare, 4-5 nuits minimum, ménage en plus"},
+  apparthotel:{n:"Appart-hôtel", grp:true, pp:[100,120], solo:[200,240], d:"Lofts pour 2 dans le même immeuble (Zoku…).",
+               cap:"Des lofts de 28 m² pour 2 (ici Zoku) avec kitchenette et lit en mezzanine, dans le même immeuble, avec un rooftop commun ouvert 24 h/24.",
+               m:{Intimité:4, Convivialité:3, Cuisine:3}, pro:"Confort hôtelier, parking sur place", con:"Le plus cher"},
+  wakeup:     {n:"Wakeup", grp:false, pp:[43,47], solo:[86,98], d:"Chambre double, face à Tivoli.",
+               cap:"Une chambre double privée avec salle de bain, en plein centre. Pas de cuisine, mais un lobby pour se retrouver.",
+               m:{Intimité:4, Convivialité:1, Cuisine:0}, pro:"Pas cher, privé, dates libres", con:"Peu de vie commune"},
+  cabinn:     {n:"Cabinn", grp:false, pp:[38,41], solo:[76,81], d:"Petite cabine privée, le moins cher.",
+               cap:"Une petite chambre type cabine avec douche. Lits superposés ou lit double selon la chambre.",
+               m:{Intimité:4, Convivialité:1, Cuisine:0}, pro:"Le moins cher sans dortoir", con:"Compact, fonctionnel"}
+};
+const SHARED = ["airbnb2","grand","apparthotel"], SELFB = ["wakeup","cabinn"], LOGE_ORDER = SHARED.concat(SELFB);
+
+/* Floor plans: [kind, ...args]. viewBox 220 x 150. */
+const PLANS = {
+  airbnb2: {aria:"Appartement de 2 chambres : 2 personnes dans la chambre 1, 2 dans la chambre 2, 1 sur le canapé-lit du séjour.", p:[
+    ["room",10,10,200,130,""],
+    ["room",10,10,66,65,"","Ch. 1"], ["dbl",31,28,2],
+    ["room",10,75,66,65,"","Ch. 2"], ["sgl",22,96,1], ["sgl",48,96,1],
+    ["room",76,10,134,80,"liv","Séjour"], ["sofa",118,66,56,1,"canapé-lit"],
+    ["room",76,90,80,50,"kitr","Cuisine"], ["kit",82,122,68,12],
+    ["room",156,90,54,50,"wet","SdB"]]},
+  grand: {aria:"Grand logement : 4 chambres de 2 personnes et un canapé-lit pour 2 dans le séjour, 10 personnes.", p:[
+    ["room",8,8,204,134,""],
+    ["room",8,8,52,62,"","Ch. 1"], ["dbl",20,26,2],
+    ["room",8,70,52,72,"","Ch. 2"], ["dbl",20,94,2],
+    ["room",160,8,52,62,"","Ch. 3"], ["dbl",172,26,2],
+    ["room",160,70,52,72,"","Ch. 4"], ["sgl",166,94,1], ["sgl",188,94,1],
+    ["room",60,8,100,84,"liv","Séjour"], ["sofa",80,70,60,2,"canapé-lit"],
+    ["room",60,92,56,50,"kitr","Cuisine"], ["kit",64,124,48,12],
+    ["room",116,92,44,50,"wet","SdB"]]},
+  apparthotel: {aria:"Loft de 28 mètres carrés pour 2 : lit double en mezzanine, kitchenette, coin repas, salle de bain.", p:[
+    ["room",30,10,160,130,"liv","Loft 28 m²"],
+    ["kit",38,30,66,12], ["text",40,56,"kitchenette"],
+    ["furn",50,74,36,22],
+    ["room",30,100,46,40,"wet","SdB"],
+    ["mezz",116,22,68,62,"mezzanine"], ["dbl",136,38,2],
+    ["sofa",112,118,64,0,""]]},
+  wakeup: {aria:"Chambre d'hôtel double : un lit double pour 2, salle de bain privée.", p:[
+    ["room",30,10,160,130,""],
+    ["room",30,10,58,50,"wet","SdB"],
+    ["text",96,26,"Chambre double"],
+    ["dbl",140,64,2],
+    ["furn",96,122,46,10]]},
+  cabinn: {aria:"Cabine d'hôtel : lits superposés pour 2, douche.", p:[
+    ["room",50,10,120,130,""],
+    ["room",50,10,50,50,"wet","Douche"],
+    ["text",106,26,"Cabine"],
+    ["bunk",140,82],
+    ["text",56,132,"lits superposés"]]}
+};
+function planSVG(key, mini){
+  const P = PLANS[key]; let s = "";
+  const bed = (x,y,w,h,n) => {
+    let o = `<rect class="bed" x="${x}" y="${y}" width="${w}" height="${h}" rx="2"/>`;
+    const pw = n === 2 ? (w-6)/2 : w-4;
+    for (let i=0;i<(w>20?2:1);i++) o += `<rect class="pillow" x="${x+2+i*(pw+2)}" y="${y+2}" width="${pw}" height="7" rx="1.5"/>`;
+    if (n === 2){ o += `<circle class="pp" cx="${x+w*0.3}" cy="${y+h*0.55}" r="5"/><circle class="pp" cx="${x+w*0.7}" cy="${y+h*0.55}" r="5"/>`; }
+    else if (n === 1){ o += `<circle class="pp" cx="${x+w/2}" cy="${y+h*0.55}" r="5"/>`; }
+    return o;
+  };
+  for (const it of P.p){
+    const [k,x,y] = it;
+    if (k === "room"){ const [, , , w, h, c, l] = it; s += `<rect class="wall ${c||""}" x="${x}" y="${y}" width="${w}" height="${h}"/>`; if (l) s += `<text class="rl" x="${x+5}" y="${y+13}">${esc(l)}</text>`; }
+    else if (k === "dbl") s += bed(x,y,28,40,it[3]);
+    else if (k === "sgl") s += bed(x,y,16,36,it[3]);
+    else if (k === "bunk") s += `<rect class="upper" x="${x-4}" y="${y-4}" width="16" height="36" rx="2"/>` + bed(x,y,16,36,0) + `<circle class="pp" cx="${x+8}" cy="${y+16}" r="5"/><circle class="pp" cx="${x+2}" cy="${y+8}" r="4"/>`;
+    else if (k === "sofa"){ const [, , , w, n, l] = it; s += `<rect class="sofa" x="${x}" y="${y}" width="${w}" height="14" rx="4"/>`; for (let i=0;i<n;i++) s += `<circle class="pp" cx="${x + w*(n===1?0.5:(i?0.7:0.3))}" cy="${y+7}" r="5"/>`; if (l) s += `<text class="rl" x="${x}" y="${y-4}">${esc(l)}</text>`; }
+    else if (k === "kit"){ const [, , , w, h] = it; s += `<rect class="kit" x="${x}" y="${y}" width="${w}" height="${h}" rx="1"/><circle class="burner" cx="${x+8}" cy="${y+h/2}" r="3"/><circle class="burner" cx="${x+17}" cy="${y+h/2}" r="3"/>`; }
+    else if (k === "furn"){ const [, , , w, h] = it; s += `<rect class="furn" x="${x}" y="${y}" width="${w}" height="${h}" rx="2"/>`; }
+    else if (k === "mezz"){ const [, , , w, h, l] = it; s += `<rect class="mezz" x="${x}" y="${y}" width="${w}" height="${h}" rx="3"/><text class="rl mz" x="${x+4}" y="${y+h+11}">${esc(l)}</text>`; }
+    else if (k === "text") s += `<text class="rl" x="${x}" y="${y}">${esc(it[3])}</text>`;
+  }
+  return `<svg class="plan${mini?" mini":""}" viewBox="0 0 220 150" role="img" aria-label="${esc(P.aria)}" preserveAspectRatio="xMidYMid meet">${s}</svg>`;
+}
+
+const HOTELS = [
+  ["Next House Copenhagen","Auberge hybride","À côté de la gare et de Tivoli. Jardin sur le toit, bars, salle de sport, minigolf","4,3","45 €/nuit*"],
+  ["Steel House Copenhagen","Auberge hybride","5 min de la gare. Piscine intérieure (25 DKK), bar, parking. Adultes uniquement","4,3","44 €/nuit*"],
+  ["MEININGER","Auberge","Salles de bain privatives, cinéma, vélos","4,2","46 €/nuit*"],
+  ["a&o Hostel","Auberge","Cuisine, petit-déjeuner gratuit","3,8","42 €/nuit*"],
+  ["Danhostel City","Auberge","Bar, café, visites guidées","4,1","58 €/nuit*"],
+  ["Cabinn Copenhagen","Low-cost","Fonctionnel, café, Wi-Fi","3,2","76 €/chambre"],
+  ["Cabinn Metro","Low-cost","Salon à la réception","3,4","79 €/chambre"],
+  ["Cabinn Scandinavia","Low-cost","Café, Wi-Fi","3,5","81 €/chambre"],
+  ["Wakeup Carsten Niebuhrs Gade","Hôtel design","Chambres minimalistes, vélos","3,8","86 €/chambre"],
+  ["Wakeup Bernstorffsgade","Hôtel design","Face à Tivoli, très central","3,9","93 €/chambre"],
+  ["Wakeup Borgergade","Hôtel design","Salon original","4,0","98 €/chambre"],
+  ["Zoku","Appart-hôtel","Lofts de 28 m² pour 2, rooftop, garage 300 DKK/jour. Métro DR Byen","4,7","~180 à 230 €/loft"],
+  ["Adina","Appart-hôtel","Østerbro. Piscine, sauna, garage 325 DKK/jour","4,4","~320 à 460 €/appart. 2 ch."],
+  ["STAY Copenhagen","Appart-hôtel design","Nordhavn ou Islands Brygge, cuisines équipées","—","~100 à 130 €/pers."],
+  ["Charlottehaven","Résidence hôtelière","Østerbro, club avec piscine et sauna","—","~110 à 145 €/pers."]
+];
+
+const FLIGHTS = [
+  {k:"28-3",ap:"ORY",co:"Transavia",h:"16:35 – 18:45",p:306,lc:1},
+  {k:"28-3",ap:"ORY",co:"Transavia",h:"08:40 – 10:50",p:335,lc:1},
+  {k:"28-3",ap:"CDG",co:"Norwegian",h:"20:50 – 22:40",p:314,lc:1},
+  {k:"28-3",ap:"CDG",co:"Air France",h:"10:50 – 12:50",p:384},
+  {k:"28-3",ap:"CDG",co:"KLM",h:"18:40 – 22:40",p:259,esc:1},
+  {k:"28-2",ap:"CDG",co:"KLM",h:"18:40 – 22:40",p:339,esc:1},
+  {k:"28-2",ap:"CDG",co:"Air France",h:"10:50 – 12:50",p:403},
+  {k:"29-3",ap:"ORY",co:"Transavia",h:"09:20 – 11:30",p:306,lc:1},
+  {k:"29-2",ap:"CDG",co:"Air France",h:"10:15 – 12:15",p:318},
+  {k:"29-2",ap:"CDG",co:"Air France",h:"15:00 – 17:00",p:338},
+  {k:"29-2",ap:"CDG",co:"Air France",h:"07:10 – 09:10",p:350},
+  {k:"30-3",ap:"CDG",co:"Air France",h:"07:10 – 09:10",p:280},
+  {k:"30-3",ap:"CDG",co:"Air France",h:"12:45 – 14:40",p:298},
+  {k:"30-3",ap:"CDG",co:"Air France",h:"21:00 – 23:00",p:316},
+  {k:"30-3",ap:"CDG",co:"Air France",h:"15:00 – 17:00",p:335},
+  {k:"30-2",ap:"CDG",co:"Air France",h:"07:10 – 09:10",p:304},
+  {k:"30-2",ap:"CDG",co:"Air France",h:"12:45 – 14:40",p:313}
+];
+const COMBOS = ["28-3","28-2","29-3","29-2","30-3","30-2"];
+const comboLabel = k => { const [a,d] = k.split("-"); return a + " déc. → " + d + " janv."; };
+function flightRange(k, ap){
+  let fs = FLIGHTS.filter(f => f.k === k && !f.esc);
+  if (ap === "ORY" || ap === "CDG"){ const s = fs.filter(f => f.ap === ap); if (s.length) fs = s; }
+  if (!fs.length) return null;
+  const ps = fs.map(f => f.p);
+  return [Math.min(...ps), Math.max(...ps)];
+}
+
+/* ---------- build form controls ---------- */
+const chip = (name, id, val, html) => `<label class="chip"><input type="radio" name="${name}" id="${id}" value="${val}"><span>${html}</span></label>`;
+$("#arrChips").innerHTML = ARR.map(s => chip("arrivee", "ar-"+s, s, esc(dLong(s)) + (dIdx(s)===NYE ? ' <span class="star">★</span>' : ""))).join("");
+$("#depChips").innerHTML = DEP.map(s => chip("depart", "dp-"+s, s, esc(dLong(s)))).join("");
+const logeCard = k => { const L = LOGE[k]; return `
+  <label class="rcard"><input type="radio" name="logement" id="lo-${k}" value="${k}">
+    <span class="in">${planSVG(k, true)}<b>${esc(L.n)}</b><span class="p">${L.pp[0]}–${L.pp[1]} €/nuit</span><span class="d">${esc(L.d)}</span></span>
+  </label>`; };
+$("#logeShared").innerHTML = SHARED.map(logeCard).join("");
+$("#logeSelf").innerHTML = SELFB.map(logeCard).join("");
+
+/* plan cards */
+const meter = n => Array.from({length:5}, (_,i) => `<i class="${i<n?"on":""}"></i>`).join("");
+$("#planCards").innerHTML = LOGE_ORDER.map(k => { const L = LOGE[k]; return `
+  <figure class="plancard${L.grp?" shared":""}">
+    <header><h3>${esc(L.n)}</h3>${L.grp?'<span class="pill group">Réservé par le groupe</span>':'<span class="pill neutral">Tu réserves toi-même</span>'}</header>
+    ${planSVG(k, false)}
+    <figcaption>${esc(L.cap)}</figcaption>
+    <div class="pr"><b>${L.pp[0]}–${L.pp[1]} €</b><span class="muted small">/ pers. / nuit · ${L.pp[0]*6}–${L.pp[1]*6} € pour 6 nuits</span></div>
+    <dl class="meters">${Object.entries(L.m).map(([t,v]) => `<dt>${t}</dt><dd aria-label="${v} sur 5">${meter(v)}</dd>`).join("")}</dl>
+    <ul class="proscons"><li class="pro">${esc(L.pro)}</li><li class="con">${esc(L.con)}</li></ul>
+  </figure>`; }).join("");
+
+$("#hotelTable").innerHTML = HOTELS.map(h => `<tr><td><b>${esc(h[0])}</b></td><td>${esc(h[1])}</td><td class="small">${esc(h[2])}</td><td class="num">${esc(h[3])}</td><td class="num" style="white-space:nowrap">${esc(h[4])}</td></tr>`).join("");
+
+/* ---------- form state ---------- */
+const form = $("#f");
+const FIELDS = ["prenom","presence","arrivee","depart","flexible","transport","role","places","carburant","itineraire","aeroport","bagage","logement","chambre","avec","budget","commentaire"];
+
+function getForm(){
+  const o = {};
+  for (const n of FIELDS){
+    const els = form.elements[n];
+    if (!els) continue;
+    if (els instanceof RadioNodeList) o[n] = els.value || "";
+    else if (els.type === "checkbox") o[n] = els.checked ? "oui" : "";
+    else o[n] = (els.value || "").trim();
+  }
+  o.places = o.places === "" ? "" : String(Math.max(0, Math.min(8, parseInt(o.places,10) || 0)));
+  return o;
+}
+function setForm(raw){
+  const o = legacy(raw || {});
+  for (const n of FIELDS){
+    const els = form.elements[n];
+    if (!els) continue;
+    const v = o[n] != null ? String(o[n]) : "";
+    if (els instanceof RadioNodeList){ for (const r of els) r.checked = (r.value === v); }
+    else if (els.type === "checkbox") els.checked = v === "oui";
+    else els.value = v;
+  }
+  sync();
+}
+
+function sync(){
+  const a = dIdx((form.elements.arrivee.value) || "");
+  for (const inp of form.querySelectorAll('input[name="depart"]')){
+    const bad = a != null && dIdx(inp.value) <= a;
+    inp.disabled = bad; if (bad && inp.checked) inp.checked = false;
+  }
+  const r = getForm();
+  const no = r.presence === "non";
+  $("#detail").hidden = no;
+  $("#nonMsg").hidden = !no;
+  $("#carFields").hidden = r.transport !== "voiture";
+  $("#planeFields").hidden = r.transport !== "avion";
+  $("#carOwnerFields").hidden = r.role !== "conducteur";
+  $("#dieselHint").hidden = r.carburant !== "diesel";
+  const n = nbNights(r), hint = $("#nightsHint");
+  if (n){
+    const nye = dIdx(r.arrivee) <= NYE && dIdx(r.depart) > NYE;
+    hint.textContent = `${n} nuit${n>1?"s":""} sur place` + (nye ? ", réveillon compris." : ". Attention : tu ne seras pas là le soir du 31.");
+    hint.className = "hint" + (nye ? "" : " warn");
+  } else { hint.textContent = "Choisis tes deux dates pour voir ton nombre de nuits."; hint.className = "hint"; }
+  renderMyFlights(r);
+  renderEstimate(r);
+  const k = flightKey(r); if (k && COMBOS.includes(k) && flightFilter !== k){ flightFilter = k; renderFlightFilters(); renderFlights(); }
+}
+
+function estimate(r){
+  const n = nbNights(r), lines = [], notes = [];
+  if (!n) return null;
+  if (r.transport === "voiture"){
+    lines.push(["Voiture A/R (part à 4-5)", 105, 165]);
+    lines.push(["Parking à Copenhague", 0, 50]);
+  } else if (r.transport === "avion"){
+    const k = flightKey(r), fr = k && flightRange(k, r.aeroport);
+    if (fr) lines.push(["Vol direct A/R", fr[0], fr[1]]);
+    else { lines.push(["Vol A/R (pas de relevé à ces dates)", 280, 400]); notes.push("Aucun vol relevé pour ces dates, fourchette générale."); }
+    if (r.bagage === "cabine" || r.bagage === "soute") lines.push(["Valise (low-cost)", 0, 70]);
+  } else {
+    lines.push(["Transport (voiture ou avion)", 105, 385]);
+  }
+  const key = LOGE[r.logement] ? r.logement : "wakeup";
+  const L = LOGE[key];
+  const solo = r.chambre === "seul" && L.solo;
+  const per = solo ? L.solo : L.pp;
+  lines.push([`${L.n}, ${n} nuit${n>1?"s":""}${solo?" seul·e":""}`, per[0]*n, per[1]*n]);
+  if (!LOGE[r.logement]) notes.push("Logement pas encore choisi : calcul sur la base Wakeup.");
+  const lo = lines.reduce((s,l)=>s+l[1],0), hi = lines.reduce((s,l)=>s+l[2],0);
+  return {lines, lo, hi, notes, n};
+}
+function renderEstimate(r){
+  const e = r.presence === "non" ? null : estimate(r);
+  if (!e){
+    $("#estTotal").innerHTML = r.presence === "non" ? "—" : '— <small>choisis tes dates</small>';
+    $("#estLines").innerHTML = ""; $("#estBudget").innerHTML = ""; return;
+  }
+  $("#estTotal").textContent = range(e.lo, e.hi);
+  $("#estLines").innerHTML = e.lines.map(l => `<li><span>${esc(l[0])}</span><span>${range(l[1],l[2])}</span></li>`).join("")
+    + e.notes.map(t => `<li><span class="muted">${esc(t)}</span><span></span></li>`).join("");
+  const b = +r.budget; let h = "";
+  if (b){
+    const max = b === 999 ? Infinity : b;
+    if (e.hi <= max) h = '<span class="pill ok">Dans ton budget</span>';
+    else if (e.lo <= max) h = '<span class="pill warn">Limite selon les prix</span>';
+    else h = '<span class="pill bad">Au-dessus de ton budget</span>';
+  }
+  $("#estBudget").innerHTML = h;
+}
+function renderMyFlights(r){
+  const box = $("#myFlights");
+  if (r.transport !== "avion" || !nbNights(r)){ box.innerHTML = ""; return; }
+  const k = flightKey(r);
+  let fs = k ? FLIGHTS.filter(f => f.k === k).sort((a,b) => a.p - b.p) : [];
+  if (r.aeroport === "ORY" || r.aeroport === "CDG") fs = fs.filter(f => f.ap === r.aeroport);
+  if (!fs.length){ box.innerHTML = `<span class="hint">Pas de vol relevé pour ${esc(dLong(r.arrivee))} → ${esc(dLong(r.depart))}. Les relevés couvrent les arrivées du 28 au 30 déc. et les retours le 2 ou 3 janv. Regarde directement sur Google Flights.</span>`; return; }
+  box.innerHTML = `<span class="ql">Vols relevés pour tes dates</span><div class="scroll-x"><table><tbody>${fs.map(f => `<tr><td>${esc(f.ap)}</td><td>${esc(f.co)}${f.esc?' <span class="pill neutral">1 escale</span>':""}</td><td class="mono">${esc(f.h)}</td><td class="price-cell">${eur(f.p)}</td></tr>`).join("")}</tbody></table></div>`;
+}
+
+/* ---------- local draft (per-viewer convenience) ---------- */
+const DRAFT_KEY = "cph-nye-draft";
+function saveDraft(){ try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ts:Date.now(), v:getForm()})); } catch(e){} }
+function loadDraft(){ try { const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); return d && d.v ? d : null; } catch(e){ return null; } }
+
+let editingId = null;
+form.addEventListener("input", () => { sync(); if (!editingId) saveDraft(); setStatus(""); });
+form.addEventListener("change", () => { sync(); if (!editingId) saveDraft(); });
+
+/* ---------- recap text ---------- */
+function recapText(raw){
+  const r = legacy(raw);
+  const P = {oui:"Oui",peutetre:"Peut-être",non:"Non"}[r.presence] || "?";
+  const L = [`Copenhague Nouvel An : ${r.prenom || "(prénom)"}`, `Je viens : ${P}`];
+  if (r.presence !== "non"){
+    const n = nbNights(r);
+    L.push(`Dates : ${r.arrivee ? dLong(r.arrivee) : "?"} → ${r.depart ? dLong(r.depart) : "?"}${n?` (${n} nuits)`:""}${r.flexible==="oui"?", dates souples":""}`);
+    let t = {voiture:"Voiture",avion:"Avion",nsp:"Je ne sais pas encore"}[r.transport] || "?";
+    if (r.transport === "voiture"){
+      const role = {conducteur:`conducteur${r.places!==""&&r.places!=null?`, ${r.places} place(s) libre(s)`:""}${r.carburant?`, ${r.carburant}`:""}`, relais:"peut faire des relais", passager:"passager"}[r.role];
+      if (role) t += ` (${role})`;
+      if (r.itineraire) t += `, itinéraire : ${({ferry:"ferry",pont:"pont",egal:"peu importe"})[r.itineraire]}`;
+    }
+    if (r.transport === "avion"){
+      const bits = [];
+      if (r.aeroport) bits.push(r.aeroport === "egal" ? "aéroport indifférent" : r.aeroport);
+      if (r.bagage) bits.push(({sac:"petit sac",cabine:"valise cabine",soute:"valise soute"})[r.bagage]);
+      if (bits.length) t += ` (${bits.join(", ")})`;
+    }
+    L.push(`Transport : ${t}`);
+    const lo = LOGE[r.logement];
+    L.push(`Logement : ${lo ? lo.n + (lo.grp ? " (partagé)" : " (je réserve)") : "?"}${r.chambre==="seul"?", chambre seul·e":r.chambre==="partage"?", chambre à 2":""}${r.avec?` avec ${r.avec}`:""}`);
+    const bud = {"400":"moins de 400 €","550":"400 à 550 €","700":"550 à 700 €","999":"plus de 700 €"}[r.budget];
+    if (bud) L.push(`Budget max : ${bud}`);
+    const e = estimate(r); if (e) L.push(`Estimation : ${range(e.lo,e.hi)}`);
+  }
+  if (r.commentaire) L.push(`Mot : ${r.commentaire}`);
+  return L.join("\n");
+}
+async function copyText(text, fallbackMsg){
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch(e){ showFallback(fallbackMsg || "Copie automatique impossible ici. Sélectionne le texte ci-dessous et copie-le.", text); return false; }
+}
+function showFallback(msg, text){
+  $("#fallback").hidden = false; $("#fallbackMsg").textContent = msg; const ta = $("#fallbackText"); ta.value = text; ta.focus(); ta.select();
+}
+$("#copyMine").addEventListener("click", async () => {
+  const ok = await copyText(recapText(getForm()));
+  if (ok) setStatus("Récap copié. Colle-le dans la conversation du groupe.", "ok");
+});
+function setStatus(t, cls){ const s = $("#saveStatus"); s.textContent = t; s.className = "status" + (cls ? " "+cls : ""); }
+
+/* ---------- flights table ---------- */
+let flightFilter = "all";
+function renderFlightFilters(){
+  const opts = [["all","Toutes les dates"], ...COMBOS.map(k => [k, comboLabel(k)])];
+  $("#flightFilters").innerHTML = opts.map(([k,l]) => `<button type="button" data-k="${k}" aria-pressed="${k===flightFilter}">${esc(l)}</button>`).join("");
+}
+function renderFlights(){
+  const rows = FLIGHTS.filter(f => flightFilter === "all" || f.k === flightFilter).slice().sort((a,b) => COMBOS.indexOf(a.k) - COMBOS.indexOf(b.k) || a.p - b.p);
+  const best = {}; FLIGHTS.filter(f => !f.esc).forEach(f => { if (!best[f.k] || f.p < best[f.k]) best[f.k] = f.p; });
+  $("#flightTable tbody").innerHTML = rows.map(f => `<tr class="${!f.esc && f.p===best[f.k] ? "best":""}">
+    <td>${esc(comboLabel(f.k))}</td><td>${esc(f.ap)}</td>
+    <td>${esc(f.co)} ${f.esc?'<span class="pill neutral">1 escale</span>':f.lc?'<span class="pill neutral">petit sac seul</span>':""}</td>
+    <td class="mono">${esc(f.h)}</td><td class="price-cell">${eur(f.p)}</td></tr>`).join("");
+}
+$("#flightFilters").addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]"); if (!b) return;
+  flightFilter = b.dataset.k; renderFlightFilters(); renderFlights();
+});
+renderFlightFilters(); renderFlights();
+
+/* ---------- deadline display ---------- */
+(function(){
+  const d = daysLeft(), box = $("#deadlineDays");
+  if (d > 1) box.innerHTML = `J-${d}<small>jours restants</small>`;
+  else if (d === 1) box.innerHTML = `J-1<small>dernier jour</small>`;
+  else if (!deadlinePassed()) box.innerHTML = `Auj.<small>dernier jour</small>`;
+  else { box.innerHTML = `OK<small>clos</small>`; $("#deadlineBox p").innerHTML = `<b>Les réponses pour la voiture et le logement partagé sont closes depuis le 31 octobre.</b> Un changement ? Préviens l'organisateur directement. Vols et hôtels perso : chacun réserve de son côté.`; }
+})();
+
+/* ---------- restore draft before the store answers ---------- */
+const draft = loadDraft();
+if (draft) setForm(draft.v); else sync();
+
+/* ================= shared store: claude.ai db, Google Sheet, or none ================= */
+const Store = { mode:"none", myId:null, isOwner:false, db:null };
+let docs = new Map();
+let firstData = true;
+
+const MINE_KEY = "cph-nye-mine", ID_KEY = "cph-nye-id";
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try { localStorage.setItem(k, v); } catch(e){} }
+function created(){ try { return new Set(JSON.parse(lsGet(MINE_KEY) || "[]")); } catch(e){ return new Set(); } }
+function addCreated(id){ const s = created(); s.add(id); lsSet(MINE_KEY, JSON.stringify(Array.from(s))); }
+const canManage = id => Store.mode === "db" ? Store.isOwner : (Store.mode === "sheet" && (id === Store.myId || created().has(id)));
+const canAddOthers = () => Store.mode === "db" ? Store.isOwner : Store.mode === "sheet";
+const newId = () => "m-" + Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+
+async function storeSave(id, body){
+  if (Store.mode === "db") return Store.db.collection("responses").doc(id).set(body);
+  if (Store.mode === "sheet"){ await postSheet({id, data: body}); await refreshSheet(); return; }
+  throw {code:"no_store"};
+}
+async function storeDelete(id){
+  if (Store.mode === "db") return Store.db.collection("responses").doc(id).delete();
+  if (Store.mode === "sheet"){ await postSheet({id, delete:true}); await refreshSheet(); return; }
+}
+async function postSheet(payload){
+  const res = await fetch(SHEET_URL, {method:"POST", body: JSON.stringify(payload)});
+  const j = await res.json();
+  if (!j || !j.ok) throw {code:"sheet", message: j && j.error};
+}
+async function refreshSheet(){
+  const res = await fetch(SHEET_URL + (SHEET_URL.includes("?") ? "&" : "?") + "t=" + Date.now());
+  const j = await res.json();
+  if (!j || !j.ok || !Array.isArray(j.rows)) throw {code:"sheet"};
+  const m = new Map();
+  for (const row of j.rows){ if (row && typeof row.id === "string"){ const {id, ...rest} = row; m.set(id, rest); } }
+  onData(m);
+}
+function onData(m){
+  docs = m;
+  if (firstData){
+    firstData = false;
+    const mine = Store.myId && docs.get(Store.myId);
+    const dr = loadDraft();
+    if (mine && !editingId && (!dr || (mine.updatedAt || 0) >= dr.ts)) setForm(mine);
+  }
+  renderGroup();
+}
+
+/* ---------- group rendering ---------- */
+const STATUS_P = {oui:["ok","Vient"], peutetre:["warn","Peut-être"], non:["neutral","Ne vient pas"]};
+function groupEmpty(html){ $("#groupBody").innerHTML = `<div class="empty">${html}</div>`; }
+const present = (r, i) => { const a = dIdx(r.arrivee), d = dIdx(r.depart); return a != null && d != null && a <= i && i < d; };
+
+function renderGroup(){
+  const all = Array.from(docs.entries()).map(([id,v]) => ({id, ...legacy(v)}));
+  const addBtn = canAddOthers() ? `<button type="button" class="btn btn-line" data-act="add">Répondre pour quelqu'un d'autre</button>` : "";
+  if (!all.length){
+    groupEmpty(`<b>Personne n'a encore répondu.</b><span class="muted">Remplis « Mes choix » ci-dessus pour ouvrir le bal.</span>${addBtn}`);
+    return;
+  }
+  const order = {oui:0, peutetre:1, non:2};
+  all.sort((a,b) => (order[a.presence]??3) - (order[b.presence]??3) || (dIdx(a.arrivee)??99) - (dIdx(b.arrivee)??99) || String(a.prenom).localeCompare(String(b.prenom), "fr"));
+  const yes = all.filter(r => r.presence === "oui"), maybe = all.filter(r => r.presence === "peutetre"), no = all.filter(r => r.presence === "non");
+  const active = yes.concat(maybe);
+  const name = r => esc(r.prenom || "Sans prénom");
+
+  // nights grid, widened to everyone's dates
+  let lo = 2, hi = 7;
+  active.forEach(r => { const a = dIdx(r.arrivee), d = dIdx(r.depart); if (a != null && d != null && d > a){ lo = Math.min(lo, a); hi = Math.max(hi, d-1); } });
+  const cols = []; for (let i = lo; i <= hi; i++) cols.push(i);
+  const nightRows = active.map(r => {
+    const ok = nbNights(r) > 0;
+    const cells = cols.map(i => { const on = present(r, i); return `<td><span class="cell ${on ? (r.presence==="oui"?"on":"maybe") : ""}"></span></td>`; }).join("");
+    return `<tr><td>${name(r)}${!ok?' <span class="pill neutral">dates ?</span>':""}${r.flexible==="oui"?' <span class="pill neutral" title="dates souples">souple</span>':""}${SHARED.includes(r.logement)?' <span class="pill group" title="logement partagé">partagé</span>':""}</td>${cells}</tr>`;
+  }).join("");
+  const tot = (list, i) => list.filter(r => present(r, i)).length;
+  const sharedList = l => l.filter(r => SHARED.includes(r.logement));
+  const totals = cols.map(i => { const y = tot(yes,i), m = tot(maybe,i); return `<td>${y}${m?`<span class="muted small"> +${m}</span>`:""}</td>`; }).join("");
+  const sharedTotals = cols.map(i => { const y = tot(sharedList(yes),i), m = tot(sharedList(maybe),i); return `<td>${y}${m?`<span class="small"> +${m}</span>`:""}</td>`; }).join("");
+
+  // transport
+  const car = active.filter(r => r.transport === "voiture"), plane = active.filter(r => r.transport === "avion"), tnsp = active.filter(r => !r.transport || r.transport === "nsp");
+  const drivers = car.filter(r => r.role === "conducteur");
+  const seats = drivers.reduce((s,r) => s + (parseInt(r.places,10) || 0), 0);
+  const riders = car.length - drivers.length;
+  const relais = car.filter(r => r.role === "relais").length;
+  const diesel = drivers.filter(r => r.carburant === "diesel");
+  const iti = {ferry:0, pont:0, egal:0}; car.forEach(r => { if (iti[r.itineraire] != null) iti[r.itineraire]++; });
+  let seatPill = "";
+  if (car.length){
+    if (!drivers.length) seatPill = `<span class="pill bad">Aucun conducteur avec voiture pour l'instant</span>`;
+    else if (seats >= riders) seatPill = `<span class="pill ok">${seats} place${seats>1?"s":""} libre${seats>1?"s":""} pour ${riders} passager${riders>1?"s":""}</span>`;
+    else seatPill = `<span class="pill bad">Il manque ${riders-seats} place${riders-seats>1?"s":""}</span>`;
+  }
+  const comboCount = {}; plane.forEach(r => { const k = nbNights(r) ? `${dShort(r.arrivee)} → ${dShort(r.depart)}` : "dates ?"; comboCount[k] = (comboCount[k] || 0) + 1; });
+  const bagCount = plane.filter(r => r.bagage === "cabine" || r.bagage === "soute").length;
+  const bar = (label, v, max, cls="") => `<div class="bar"><div class="t"><span>${label}</span><b>${v}</b></div><div class="track"><div class="fill ${cls}" style="width:${max ? Math.round(v/max*100) : 0}%"></div></div></div>`;
+  const tMax = Math.max(car.length, plane.length, tnsp.length, 1);
+
+  // logement
+  const lv = {}; LOGE_ORDER.forEach(k => lv[k] = 0); let lnone = 0;
+  active.forEach(r => { if (lv[r.logement] != null) lv[r.logement]++; else lnone++; });
+  const lMax = Math.max(1, ...Object.values(lv));
+  const sharedN = SHARED.reduce((s,k) => s + lv[k], 0), selfN = SELFB.reduce((s,k) => s + lv[k], 0);
+  const leader = SHARED.slice().sort((a,b) => lv[b] - lv[a])[0];
+  const solo = active.filter(r => r.chambre === "seul").length;
+
+  // budget
+  const bl = [["400","Moins de 400 €"],["550","400 à 550 €"],["700","550 à 700 €"],["999","Plus de 700 €"]];
+  const bc = {}; bl.forEach(([k]) => bc[k] = 0); active.forEach(r => { if (bc[r.budget] != null) bc[r.budget]++; });
+  const bMax = Math.max(1, ...Object.values(bc));
+
+  // people table
+  const tr = r => ({voiture:'<span class="pill car">Voiture</span>', avion:'<span class="pill plane">Avion</span>'}[r.transport] || '<span class="pill neutral">?</span>');
+  const peopleRows = all.map(r => {
+    const st = STATUS_P[r.presence] || ["neutral","?"];
+    const isMine = r.id === Store.myId;
+    const n = nbNights(r);
+    let info = "";
+    if (r.transport === "voiture") info = ({conducteur:`conduit${r.places!==""&&r.places!=null?`, ${esc(r.places)} pl.`:""}`, relais:"relais", passager:"passager"})[r.role] || "";
+    if (r.transport === "avion") info = [r.aeroport && r.aeroport !== "egal" ? esc(r.aeroport) : "", r.bagage && r.bagage !== "sac" ? "valise" : ""].filter(Boolean).join(", ");
+    const acts = canManage(r.id) && !isMine ? `<div class="acts"><button type="button" class="linkbtn" data-act="edit" data-id="${esc(r.id)}">Modifier</button><button type="button" class="linkbtn" data-act="del" data-id="${esc(r.id)}">Supprimer</button></div>` : "";
+    const lo = LOGE[r.logement];
+    return `<tr>
+      <td><b>${name(r)}</b>${isMine?' <span class="muted small">(toi)</span>':""}${acts}</td>
+      <td><span class="pill ${st[0]}">${st[1]}</span></td>
+      <td class="num" style="white-space:nowrap">${r.presence==="non"?"—":(n? `${esc(dShort(r.arrivee))} → ${esc(dShort(r.depart))}<br><span class="muted small">${n} nuits${r.flexible==="oui"?", souple":""}</span>`:"?")}</td>
+      <td>${r.presence==="non"?"—":tr(r)}${info?`<br><span class="muted small">${info}</span>`:""}</td>
+      <td>${r.presence==="non"?"—":(lo ? `${esc(lo.n)}<br><span class="muted small">${lo.grp?"partagé":"réserve seul"}</span>` : "?")}${r.chambre==="seul"?'<br><span class="muted small">chambre seul·e</span>':""}${r.avec?`<br><span class="muted small">avec ${esc(r.avec)}</span>`:""}</td>
+      <td class="small">${esc(r.commentaire || "")}</td>
+    </tr>`;
+  }).join("");
+
+  const d = daysLeft();
+  const closing = deadlinePassed()
+    ? `<span class="pill neutral">Clos</span><span>Voiture et logement partagé : réponses closes depuis le 31 octobre.</span>`
+    : `<span class="pill group">J-${Math.max(d,0)}</span><span>Voiture et logement partagé : réponses jusqu'au <b>samedi 31 octobre</b>.</span>`;
+
+  $("#groupBody").innerHTML = `
+    <div class="closing">${closing}</div>
+    <div class="kpis">
+      <div class="kpi"><span class="v">${yes.length}</span><span class="l">viennent</span></div>
+      <div class="kpi"><span class="v">${maybe.length}</span><span class="l">peut-être</span></div>
+      <div class="kpi"><span class="v">${car.length}</span><span class="l">en voiture</span></div>
+      <div class="kpi"><span class="v">${sharedN}</span><span class="l">pour le logement partagé</span></div>
+    </div>
+
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline"><h3>Qui dort à Copenhague, nuit par nuit</h3><span class="muted small">sûrs <span class="muted">+ peut-être</span></span></div>
+      ${active.length ? `<div class="scroll-x"><table class="nights">
+        <thead><tr><th>Nuit du</th>${cols.map(i => `<th>${esc(dShort(isoOf(i)))}${i===NYE?' <span class="star">★</span>':""}</th>`).join("")}</tr></thead>
+        <tbody>${nightRows}</tbody>
+        <tfoot><tr><td>Total</td>${totals}</tr><tr><td>dont logement partagé</td>${sharedTotals}</tr></tfoot>
+      </table></div>` : `<p class="muted">Personne n'a encore dit oui ou peut-être.</p>`}
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Transport</h3>
+        <div class="bars">
+          ${bar("Voiture", car.length, tMax, "car")}
+          ${bar("Avion", plane.length, tMax, "plane")}
+          ${bar("Pas encore décidé", tnsp.length, tMax, "dim")}
+        </div>
+        ${car.length ? `<div style="display:grid;gap:8px">
+          <span class="small"><b>En voiture</b> : ${drivers.length} conducteur${drivers.length>1?"s":""} avec voiture${relais?`, ${relais} pour les relais`:""}</span>
+          <div>${seatPill}</div>
+          ${diesel.length ? `<span class="pill warn" style="white-space:normal">Diesel : ${diesel.map(name).join(", ")}, vérifier la zone à faibles émissions</span>` : ""}
+          ${(iti.ferry+iti.pont+iti.egal) ? `<span class="small muted">Itinéraire : ferry ${iti.ferry} · pont ${iti.pont} · peu importe ${iti.egal}</span>` : ""}
+        </div>` : ""}
+        ${plane.length ? `<div style="display:grid;gap:6px">
+          <span class="small"><b>En avion</b>${bagCount?` : ${bagCount} avec valise`:""}</span>
+          <span class="small muted">${Object.entries(comboCount).map(([k,v]) => `${esc(k)} : ${v}`).join(" · ")}</span>
+        </div>` : ""}
+      </div>
+
+      <div class="panel">
+        <h3>Logement</h3>
+        <span class="small"><b>Partagé (le groupe réserve)</b> : ${sharedN} personne${sharedN>1?"s":""}</span>
+        <div class="bars">${SHARED.map(k => bar(esc(LOGE[k].n), lv[k], lMax, k===leader && lv[k] ? "" : "dim")).join("")}</div>
+        <span class="small"><b>Hôtel réservé soi-même</b> : ${selfN} personne${selfN>1?"s":""}</span>
+        <div class="bars">${SELFB.map(k => bar(esc(LOGE[k].n), lv[k], lMax, "dim")).join("")}</div>
+        <span class="small muted">${lnone?`${lnone} sans avis. `:""}${solo?`${solo} veut une chambre seul·e.`:""}</span>
+      </div>
+
+      <div class="panel">
+        <h3>Budgets</h3>
+        <div class="bars">${bl.map(([k,l]) => bar(l, bc[k], bMax)).join("")}</div>
+        <span class="small muted">Transport + logement, par personne. ${no.length} ne vien${no.length>1?"nent":"t"} pas.</span>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center">
+        <h3>Toutes les réponses</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${addBtn}<button type="button" class="btn btn-line" data-act="copyAll">Copier le récap du groupe</button></div>
+      </div>
+      <div class="notice err" id="delConfirm" hidden></div>
+      <div class="scroll-x"><table class="people">
+        <thead><tr><th>Qui</th><th>Statut</th><th>Dates</th><th>Transport</th><th>Logement</th><th>Mot</th></tr></thead>
+        <tbody>${peopleRows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function groupRecap(){
+  const all = Array.from(docs.values()).map(legacy);
+  const yes = all.filter(r => r.presence === "oui"), maybe = all.filter(r => r.presence === "peutetre");
+  const active = yes.concat(maybe);
+  const L = [`Copenhague Nouvel An : point du groupe`, `Viennent : ${yes.length} · Peut-être : ${maybe.length} · Non : ${all.length - active.length}`, "Présents par nuit (sûrs + peut-être) :"];
+  let lo = 2, hi = 7; active.forEach(r => { const a = dIdx(r.arrivee), d = dIdx(r.depart); if (a != null && d != null && d > a){ lo = Math.min(lo,a); hi = Math.max(hi,d-1); } });
+  for (let i = lo; i <= hi; i++){
+    const y = yes.filter(r => present(r,i)).length, m = maybe.filter(r => present(r,i)).length;
+    L.push(`  ${dShort(isoOf(i))} : ${y}${m?` + ${m}`:""}`);
+  }
+  L.push(`Voiture : ${active.filter(r => r.transport === "voiture").length} · Avion : ${active.filter(r => r.transport === "avion").length}`);
+  const lv = {}; active.forEach(r => { if (LOGE[r.logement]) lv[r.logement] = (lv[r.logement] || 0) + 1; });
+  L.push("Logement : " + (Object.keys(lv).length ? Object.entries(lv).sort((a,b) => b[1]-a[1]).map(([k,v]) => `${LOGE[k].n} ${v}`).join(" · ") : "pas encore d'avis"));
+  L.push("");
+  all.forEach(r => L.push("— " + (r.prenom || "?") + " : " + recapText(r).split("\n").slice(1).join(" | ")));
+  return L.join("\n");
+}
+
+let pendingDel = null;
+$("#groupBody").addEventListener("click", async e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act, id = b.dataset.id;
+  if (act === "copyAll"){
+    const ok = await copyText(groupRecap(), "Copie automatique impossible ici. Sélectionne le récap du groupe ci-dessous et copie-le.");
+    b.textContent = ok ? "Récap copié" : "Voir sous le formulaire";
+    setTimeout(() => { b.textContent = "Copier le récap du groupe"; }, 2500);
+  }
+  if (act === "add") startEditing(newId(), {});
+  if (act === "edit") startEditing(id, docs.get(id) || {});
+  if (act === "del"){
+    const r = docs.get(id), box = $("#delConfirm");
+    pendingDel = id; box.hidden = false;
+    box.innerHTML = `<span>Supprimer la réponse de <b>${esc(r?.prenom || "Sans prénom")}</b> ?</span><span class="row"><button type="button" class="linkbtn" data-act="delYes">Oui, supprimer</button><button type="button" class="linkbtn" data-act="delNo">Annuler</button></span>`;
+  }
+  if (act === "delNo"){ pendingDel = null; $("#delConfirm").hidden = true; }
+  if (act === "delYes" && pendingDel){
+    try { await storeDelete(pendingDel); pendingDel = null; }
+    catch(err){ $("#delConfirm").textContent = "Suppression impossible pour le moment, réessaie."; }
+  }
+});
+
+function startEditing(id, data){
+  editingId = id;
+  setForm(data);
+  $("#editingBanner").hidden = false;
+  $("#editingName").textContent = data.prenom || "une nouvelle personne";
+  $("#saveBtn").textContent = "Enregistrer cette réponse";
+  setStatus(""); $("#sameName").hidden = true;
+  $("#moi").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  $("#prenom").focus({preventScroll:true});
+}
+function backToMine(){
+  editingId = null;
+  $("#editingBanner").hidden = true;
+  $("#saveBtn").textContent = "Enregistrer mes réponses";
+  const d = loadDraft();
+  setForm(d ? d.v : (Store.myId && docs.get(Store.myId)) || {});
+  setStatus("");
+}
+$("#backToMine").addEventListener("click", backToMine);
+
+/* ---------- save ---------- */
+let readOnly = false;
+const norm = s => String(s || "").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+const RO_MSG = "Ta réponse ne peut pas être enregistrée : ton accès à cette page est en lecture seule. Copie ce récap et colle-le dans la conversation du groupe.";
+const NOSTORE_MSG = "L'enregistrement n'est pas disponible ici. Copie ce récap et colle-le dans la conversation du groupe.";
+
+form.addEventListener("submit", e => { e.preventDefault(); trySave(false); });
+
+async function trySave(confirmedNew){
+  const r = getForm();
+  if (!r.prenom){ setStatus("Indique ton prénom pour que le groupe sache qui répond.", "err"); $("#prenom").focus(); return; }
+  if (!r.presence){ setStatus("Dis-nous si tu viens (oui, peut-être ou non).", "err"); return; }
+  if (Store.mode === "none" || !Store.myId || readOnly){ showFallback(readOnly ? RO_MSG : NOSTORE_MSG, recapText(r)); setStatus(""); return; }
+  let target = editingId || Store.myId;
+  // Same first name already answered from another device? Offer to take it over (sheet mode only).
+  if (Store.mode === "sheet" && !editingId && !docs.has(Store.myId) && !confirmedNew){
+    const twin = Array.from(docs.entries()).find(([id,v]) => norm(v.prenom) === norm(r.prenom) && !created().has(id));
+    if (twin){
+      const box = $("#sameName"); box.hidden = false;
+      box.innerHTML = `<span>Une réponse au nom de <b>${esc(twin[1].prenom)}</b> existe déjà. C'est la tienne, envoyée depuis un autre appareil ?</span><span class="row"><button type="button" class="linkbtn" id="twinYes">Oui, la remplacer</button><button type="button" class="linkbtn" id="twinNo">Non, c'est quelqu'un d'autre</button></span>`;
+      $("#twinYes").onclick = () => { Store.myId = twin[0]; lsSet(ID_KEY, twin[0]); box.hidden = true; trySave(true); };
+      $("#twinNo").onclick = () => { box.hidden = true; trySave(true); };
+      return;
+    }
+  }
+  const body = {...r, updatedAt: Date.now()};
+  if (target !== Store.myId) body.saisiePour = true;
+  const btn = $("#saveBtn"); btn.disabled = true; setStatus("Enregistrement…");
+  try {
+    try { await storeSave(target, body); }
+    catch(err){ if (err && err.code === "unavailable"){ await new Promise(res => setTimeout(res, 600 + Math.random()*600)); await storeSave(target, body); } else throw err; }
+    const t = new Date().toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
+    if (target !== Store.myId){ addCreated(target); $("#editingName").textContent = r.prenom; setStatus(`Réponse de ${r.prenom} enregistrée à ${t}.`, "ok"); }
+    else { setStatus(`Enregistré à ${t}. Merci !`, "ok"); saveDraft(); }
+    $("#fallback").hidden = true;
+  } catch(err){
+    const code = err && err.code;
+    if (code === "invalid_argument"){ readOnly = true; showFallback(RO_MSG, recapText(r)); setStatus(""); }
+    else if (code === "quota_exceeded"){ setStatus("La base de la page est pleine. Préviens l'organisateur.", "err"); }
+    else setStatus("Enregistrement impossible pour le moment. Réessaie dans un instant, ou utilise « Copier mon récap ».", "err");
+  } finally { btn.disabled = false; }
+}
+
+/* ---------- connect ---------- */
+function noStoreMsg(){
+  return `<b>Les réponses du groupe ne sont pas disponibles sur cette version de la page.</b><span class="muted">Remplis « Mes choix », puis « Copier mon récap » et colle-le dans la conversation du groupe.</span>`;
+}
+async function connectSheet(){
+  if (!SHEET_URL) return false;
+  let id = lsGet(ID_KEY);
+  if (!id){ id = "w-" + Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4); lsSet(ID_KEY, id); }
+  Store.mode = "sheet"; Store.myId = id;
+  try { await refreshSheet(); }
+  catch(e){ Store.mode = "none"; return false; }
+  $("#groupEyebrow").textContent = "Mis à jour toutes les minutes";
+  setInterval(() => { if (document.visibilityState === "visible") refreshSheet().catch(() => {}); }, 60000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refreshSheet().catch(() => {}); });
+  return true;
+}
+(async function connect(){
+  const cl = window.claude;
+  if (cl && typeof cl.use === "function"){
+    const [d, u] = await Promise.all([cl.use("db").catch(() => null), cl.use("user").catch(() => null)]);
+    let me = null;
+    if (u){ try { me = await u.me(); } catch(e){} }
+    if (d && me && me.id){
+      Store.mode = "db"; Store.db = d; Store.myId = me.id; Store.isOwner = !!me.isOwner;
+      if (me.name && !$("#prenom").value){ $("#prenom").value = me.name.split(" ")[0]; sync(); }
+      $("#groupEyebrow").textContent = "Mis à jour en direct";
+      d.collection("responses").onSnapshot(snap => onData(new Map(snap.docs.map(s => [s.id, s.data()]))),
+        err => groupEmpty(err && err.code === "revoked" ? "<b>Les réponses ne sont plus accessibles sur cette page.</b>" : "<b>Les réponses n'ont pas pu être chargées.</b><span class=\"muted\">Recharge la page dans un moment.</span>"));
+      return;
+    }
+  }
+  if (await connectSheet()) return;
+  groupEmpty(noStoreMsg());
+})();
+})();
+</script>
+</body>
+</html>
