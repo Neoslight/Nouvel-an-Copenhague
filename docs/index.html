@@ -11,666 +11,885 @@
 <meta name="description" content="Nouvel An 2026-27 à Copenhague : dates, voiture ou avion, logement, budget. Donne tes réponses avant le 31 octobre.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
 <style>
-/* Layout: winter-sky hero whose Nyhavn row of houses is the data (one house per night, one lit window per person);
-   below it a single quiet column, details folded away. Deliberately light-only. */
+/* L'Épure architecturale. Une colonne de 960 px, rythmée par des filets et du blanc ; le ciel d'hiver en tête,
+   une rangée de façades de Nyhavn dessinées au trait qui EST la donnée (une maison par nuit, une fenêtre par personne).
+   Seule chaleur de la page : l'ambre des fenêtres allumées. Clair uniquement. */
 :root{
   color-scheme:light;
-  --sky:#E8EEF2; --bg:#F7F8F9; --surface:#FFFFFF; --soft:#EEF2F5; --line:#DCE3E8;
-  --ink:#1C2B3A; --ink-2:#4F5E6C; --ink-3:#8593A0;
-  --lamp:#F4C34F; --red:#B3261E; --red-soft:#F8E5E3;
-  --ochre:#D6A04A; --brick:#A9503E; --dusk:#7393A8; --teal:#5F8B8D; --plum:#8C7A92; --sage:#93A88C; --rose:#CF9C93;
-  --car:#2F6B5E; --car-soft:#E1EEEA; --plane:#55508F; --plane-soft:#E9E8F4;
-  --ok:#2B7449; --ok-soft:#E3F2E8; --warn:#8F5A0B; --warn-soft:#FBF0DC; --bad:#A3392D; --bad-soft:#F8E3E0;
-  --f:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
-  --r:12px;
+  /* lumière & matière */
+  --sky-hi:#D7E0E6; --sky:#E6EBED; --linen:#F5F4F0; --paper:#FBFAF7; --kalk:#E3E1DA;
+  --hair:#D5D3CC; --hair-2:#B9B8B1;
+  /* encre feutrée */
+  --ink:#1F252B; --ink-2:#4F575F; --ink-3:#858B90;
+  /* bougie : réservé à la présence (fenêtres, nuits, personnes sur les plans) */
+  --amber:#E4A23F; --amber-hi:#F7D58C; --amber-soft:#F2E4C6;
+  /* façades de Nyhavn, passées par l'hiver */
+  --f-brick:#B57D6B; --f-sage:#A3B09D; --f-ochre:#D3AF6C; --f-zinc:#AAB2B6; --f-petrol:#55747A; --f-lin:#DDD3C1;
+  --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-deep:#AFC0C9; --water-line:#EEF2F3;
+  --late:#97452F; --dk-red:#C8102E; --fw:#D49A12; --fw-2:#C2462F; --fw-3:#2F7FA0; --fw-4:#5E9A57;
+  --ok:#3D6B4C; --warn:#8A5A12;
+  /* type */
+  --f:"Schibsted Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --t-xs:.75rem; --t-s:.875rem; --t-m:1rem; --t-l:1.25rem; --t-xl:clamp(1.6rem,3.2vw,2.1rem); --t-xxl:clamp(2.7rem,7.6vw,5.2rem);
+  --track-cap:.09em;
+  /* rythme */
+  --gut:clamp(16px,4vw,32px); --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:104px;
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
+@supports (interpolate-size:allow-keywords){:root{interpolate-size:allow-keywords}}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 0}
-h1,h2,h3{line-height:1.12;text-wrap:balance;margin:0}
-h2{font-size:clamp(1.55rem,3vw,2rem);font-weight:700;letter-spacing:-.015em}
-h3{font-size:1.05rem;font-weight:600}
-p{margin:0}
-a{color:var(--ink);text-decoration-color:var(--ink-3);text-underline-offset:3px}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--linen);color:var(--ink);font:400 var(--t-m)/1.6 var(--f);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-kerning:normal}
+h1,h2,h3,h4{margin:0;line-height:1.08;text-wrap:balance;font-weight:700}
+p,dl,dd,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:var(--hair-2);text-underline-offset:.22em}
 a:hover{text-decoration-color:var(--ink)}
-.wrap{max-width:960px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.wrap{max-width:960px;margin-inline:auto;padding-inline:var(--gut)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.cap{font-size:var(--t-xs);font-weight:600;letter-spacing:var(--track-cap);text-transform:uppercase;color:var(--ink-3)}
 .muted{color:var(--ink-2)}
-.small{font-size:.875rem}
-.num,.price-cell,.est-total{font-variant-numeric:tabular-nums}
-:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.faint{color:var(--ink-3)}
+.small{font-size:var(--t-s)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* tips: small (i) button, bubble opens right below */
-.tip{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:700 .7rem/1 var(--f);font-style:italic;cursor:pointer;vertical-align:middle;margin-left:6px;padding:0;flex:none}
+/* ———————————————————— NAV ———————————————————— */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+  background:color-mix(in srgb,var(--linen) 78%,transparent);
+  backdrop-filter:saturate(1.1) blur(14px);-webkit-backdrop-filter:saturate(1.1) blur(14px);
+  border-bottom:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
+.nav .wrap{display:flex;align-items:center;gap:var(--s4);height:52px}
+.brand{font-weight:700;font-size:var(--t-s);letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.brand span{font-weight:400;color:var(--ink-3)}
+.nav ul{display:flex;gap:var(--s4);overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav ul::-webkit-scrollbar{display:none}
+.nav ul a{font-size:var(--t-s);color:var(--ink-2);text-decoration:none;white-space:nowrap;padding-block:16px;border-bottom:1px solid transparent}
+.nav ul a:hover,.nav ul a[aria-current=true]{color:var(--ink);border-bottom-color:var(--ink)}
+.countdown{font-size:var(--t-s);font-weight:600;color:var(--late);white-space:nowrap}
+@media (max-width:640px){.brand span{display:none}.countdown{display:none}.nav .wrap{gap:var(--s3)}.nav ul{gap:var(--s3)}}
+
+/* ———————————————————— HERO ———————————————————— */
+.hero{background:linear-gradient(180deg,var(--sky-hi) 0%,var(--sky) 46%,var(--linen) 100%);padding-top:clamp(40px,8vw,88px)}
+.hero-head{display:grid;gap:var(--s3);position:relative;z-index:1;pointer-events:none}
+.eyebrow{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t-s);color:var(--ink-2)}
+.eyebrow b{font-weight:600;color:var(--ink)}
+.hero h1{font-size:var(--t-xxl);font-weight:800;letter-spacing:-.045em;line-height:.94}
+.hero h1 em{font-style:normal;font-weight:400;letter-spacing:-.04em;color:var(--ink-2)}
+.lead{max-width:54ch;font-size:var(--t-l);line-height:1.45;color:var(--ink-2)}
+.lead b{font-weight:600;color:var(--ink)}
+
+.quay{margin-top:clamp(28px,5vw,48px)}
+.sky-scroll{position:relative;z-index:0;margin-top:-13.5%;overflow-x:auto;scrollbar-width:thin;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut)}
+#skyline{display:block;width:100%;min-width:620px;height:auto}
+.sky-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s4);padding-block:var(--s3) var(--s5);font-size:var(--t-s);color:var(--ink-2)}
+.sky-legend p{max-width:58ch}
+.sky-legend b{color:var(--ink);font-weight:600}
+.key{display:inline-block;width:9px;height:12px;margin-inline:2px 4px;vertical-align:-1px;background:var(--amber);box-shadow:inset 0 0 0 .75px var(--ink)}
+.key.half{background:color-mix(in srgb,var(--amber) 42%,var(--glass))}
+
+/* fenêtres et façades */
+.house .facade{stroke:var(--ink);stroke-width:.8;vector-effect:non-scaling-stroke}
+.house .roof{fill:var(--roof);stroke:var(--ink);stroke-width:.8}
+.house .tile{stroke:var(--ink);stroke-width:.5;opacity:.35}
+.house .dormer{fill:var(--roof);stroke:var(--ink);stroke-width:.8}
+.house .edge{fill:none;stroke:var(--ink);stroke-width:.6;opacity:.4}
+.house .hoist{stroke:var(--ink);stroke-width:1.6;opacity:.7}
+.house .cornice{fill:var(--ink);opacity:.14}
+.house .pilaster{stroke:var(--ink);stroke-width:.5;opacity:.22}
+.house .socle{fill:var(--ink);opacity:.09}
+.house .transom,.house .step{stroke:var(--ink);stroke-width:.7;opacity:.55}
+.house .cellar{fill:var(--ink);opacity:.32}
+.house .course{stroke:var(--ink);stroke-width:.6;opacity:.45}
+.house .door{fill:var(--ink);opacity:.62}
+.house .detail .course{opacity:.4}
+.house.sel .facade{stroke-width:1.6}
+.win .lintel{fill:var(--ink);opacity:.2}
+.win .sill{stroke:var(--ink);stroke-width:.9;opacity:.55}
+.win .glass{fill:var(--glass);stroke:var(--ink);stroke-width:.7}
+.win .mull{stroke:var(--ink);stroke-width:.55;opacity:.55}
+.win .lamp{fill:url(#lamp);opacity:0;transition:opacity .9s var(--ease);transition-delay:var(--d,0ms)}
+.win .halo{fill:var(--amber);opacity:0;filter:url(#soft);transition:opacity 1.2s var(--ease);transition-delay:var(--d,0ms)}
+.win.on .lamp{opacity:1}.win.on .halo{opacity:.38}
+.win.half .lamp{opacity:.42}.win.half .halo{opacity:.1}
+.win.me .glass{stroke-width:1.6}
+.win.me .ring{opacity:1}
+.win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
+.sk-over{font:600 11px var(--f);fill:var(--ink-2);text-anchor:middle;font-variant-numeric:tabular-nums}
+.sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
+.sk-day.nye{font-weight:700;fill:var(--ink)}
+.rwin{fill:var(--amber);opacity:0;transition:opacity 1.6s var(--ease);transition-delay:calc(var(--d,0ms) + 250ms)}
+.rwin.on{opacity:.5}.rwin.half{opacity:.2}
+@media (prefers-reduced-motion:no-preference){
+  .rip.a{animation:drift 8s ease-in-out infinite alternate}
+  .rip.b{animation:drift 11s ease-in-out -4s infinite alternate-reverse}
+}
+@keyframes drift{0%{transform:translate(-10px,0)}50%{transform:translate(0,.6px)}100%{transform:translate(10px,0)}}
+/* le dundee */
+.boat-move{pointer-events:none;transform:translateX(330px)}
+.b-hull{fill:var(--ink)}
+.b-rail{fill:none;stroke:var(--f-ochre);stroke-width:1.3}
+.b-house{fill:var(--f-ochre);stroke:var(--ink);stroke-width:.7}
+.b-port{fill:var(--glass);stroke:var(--ink);stroke-width:.5}
+.b-sail{fill:var(--paper);fill-opacity:.9;stroke:var(--ink);stroke-width:.8;stroke-linejoin:round}
+.b-seam{stroke:var(--ink);stroke-width:.5;opacity:.18}
+.b-mast{stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.b-spar{stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
+.b-rig{stroke:var(--ink);stroke-width:.5;opacity:.45}
+.b-flag{fill:var(--late)}
+.boat-refl{opacity:.22}
+.boat-refl .b-sail{fill:var(--paper);fill-opacity:1;stroke:none}
+@media (prefers-reduced-motion:no-preference){
+  .boat-move{animation:sail 96s linear -38s infinite}
+  .boat-bob{transform-box:fill-box;transform-origin:50% 100%;animation:bob 4.6s ease-in-out infinite alternate}
+}
+@keyframes sail{from{transform:translateX(-140px)}to{transform:translateX(1100px)}}
+@keyframes bob{from{transform:rotate(-.7deg) translateY(-.4px)}to{transform:rotate(.7deg) translateY(.6px)}}
+.chim-hit,.a-hit,.fw-hit{fill:transparent;pointer-events:all;cursor:pointer}
+.fw-hit{cursor:default}
+/* Andersen */
+.andersen{opacity:0;transition:opacity 1.2s var(--ease)}
+.win.story .andersen{opacity:1}
+.a-candle{fill:url(#lamp)}
+.a-man{fill:var(--ink)}
+.a-quill{stroke:var(--ink);stroke-width:.7;stroke-linecap:round}
+/* hygge */
+.hygge .win .lamp{opacity:1;transition-delay:0ms}
+.hygge .win .halo{opacity:.32;transition-delay:0ms}
+.hygge .rwin{opacity:.42;transition-delay:0ms}
+.puff{fill:none;stroke:var(--ink-3);stroke-width:3.4;stroke-linecap:round;opacity:0;filter:url(#fw-soft)}
+@media (prefers-reduced-motion:no-preference){
+  .hygge .win .lamp{animation:flicker 1.9s ease-in-out var(--fl,0s) infinite alternate}
+  .puff{transform-box:fill-box;transform-origin:50% 100%;animation:puff 3.3s ease-out var(--sd) 2 both}
+}
+@media (prefers-reduced-motion:reduce){.puff{opacity:.35}}
+@keyframes flicker{0%{opacity:1}35%{opacity:.78}55%{opacity:.95}80%{opacity:.7}100%{opacity:.92}}
+@keyframes puff{0%{opacity:0;transform:translateY(4px) scale(.6)}25%{opacity:.75}100%{opacity:0;transform:translateY(-20px) scale(1.25)}}
+/* feu d'artifice et grand final */
+.fw-burst.once,.fw-burst.once .fw-halo{animation-iteration-count:1}
+g.once .fw-trail{animation-iteration-count:1}
+.dannebrog{opacity:0;transition:opacity .4s}
+.b-flag{transition:opacity .4s}
+.finale .b-flag{opacity:0}
+.finale .dannebrog{opacity:1}
+@media (prefers-reduced-motion:no-preference){.finale .dannebrog{animation:hoist 1.6s var(--ease) both}}
+@keyframes hoist{from{transform:translateY(120px)}to{transform:translateY(0)}}
+.fw{mix-blend-mode:multiply}
+.fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
+.fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
+.fw-spark{fill:var(--c)}
+.fw-core{fill:var(--c);opacity:.5}
+.fw-trail{fill:none;stroke:var(--c);stroke-width:1.2;stroke-linecap:round;stroke-dasharray:.16 2;stroke-dashoffset:.16;opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .fw-burst{transform-box:fill-box;transform-origin:center;animation:bloom var(--dur) cubic-bezier(.16,.8,.3,1) var(--fd) infinite both}
+  .fw-halo{animation:flash var(--dur) ease-out var(--fd) infinite both}
+  .fw-trail{animation:rise var(--dur) cubic-bezier(.3,.6,.4,1) var(--fd) infinite both}
+  .fw-spark.tw{animation:twinkle 1.8s ease-in-out var(--tw) infinite alternate}
+}
+/* la fusée (0–6 %), l'éclosion (6–22 %), la lente retombée qui s'éteint (22–88 %), puis le ciel se repose */
+@keyframes rise{0%{stroke-dashoffset:.16;opacity:0}1%{opacity:.8}6%{stroke-dashoffset:-1;opacity:.8}7%,100%{stroke-dashoffset:-1;opacity:0}}
+@keyframes bloom{0%,6%{transform:scale(.1);opacity:0}8%{opacity:1}22%{transform:scale(1) translateY(0);opacity:1}62%{opacity:.85}88%,100%{transform:scale(1.06) translateY(6%);opacity:0}}
+@keyframes flash{0%,6%{opacity:0}10%{opacity:.55}30%{opacity:.18}80%{opacity:.08}88%,100%{opacity:0}}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
+.house{cursor:pointer;outline:none}
+.house:focus-visible .facade{stroke-width:1.8}
+@media (prefers-reduced-motion:reduce){.win .lamp,.win .halo,.rwin{transition:none}html{scroll-behavior:auto}}
+
+/* commutateur sobre */
+.toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:var(--t-s);color:var(--ink-2);user-select:none}
+.toggle input{appearance:none;-webkit-appearance:none;flex:none;margin:0;width:30px;height:16px;border:1px solid var(--ink-3);border-radius:8px;position:relative;background:var(--paper);cursor:pointer;transition:border-color .2s}
+.toggle input::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--ink-3);transition:transform .3s var(--ease),background .3s}
+.toggle input:checked{border-color:var(--ink)}
+.toggle input:checked::after{transform:translateX(14px);background:var(--ink)}
+
+/* ———————————————————— FAITS CLÉS ———————————————————— */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.fact{display:grid;align-content:start;gap:var(--s2);padding:var(--s4) var(--s4) var(--s5) 0;min-width:0}
+.fact + .fact{padding-left:var(--s4);border-left:1px solid var(--hair)}
+.fact .big{font-size:var(--t-xl);font-feature-settings:"lnum";font-weight:700;letter-spacing:-.025em;line-height:1.05}
+.fact .big small{font-size:.5em;font-weight:500;letter-spacing:0;color:var(--ink-3)}
+.fact p{font-size:var(--t-s);color:var(--ink-2);max-width:34ch}
+.fact p b{color:var(--ink);font-weight:600}
+.fact.late .big{color:var(--late)}
+.fact .go{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);align-items:center;margin-top:var(--s2)}
+.ledger{display:grid;font-size:var(--t-s);margin-top:var(--s1)}
+.ledger > div{display:grid;grid-template-columns:1fr auto;gap:0 var(--s3);padding-block:6px;border-top:1px solid var(--hair)}
+.ledger dt{color:var(--ink-2)}
+.ledger dd{font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ledger dd i{font-style:normal;font-weight:400;color:var(--ink-3)}
+.ledger .tipbox{grid-column:1/-1}
+.ledger dt .tip{margin-left:5px}
+@media (max-width:760px){
+  .facts{grid-template-columns:minmax(0,1fr)}
+  .fact,.fact + .fact{padding:var(--s4) 0;border-left:0}
+  .fact + .fact{border-top:1px solid var(--hair)}
+}
+
+/* infobulles : petit (i), la note s'ouvre juste dessous */
+.tip{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1px solid var(--hair-2);background:transparent;color:var(--ink-2);font:italic 400 .7rem/1 var(--f);cursor:pointer;vertical-align:1px;margin-left:6px;padding:0;flex:none}
 .tip:hover,.tip[aria-expanded=true]{border-color:var(--ink);color:var(--ink)}
-.tipbox{display:block;margin-top:8px;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font:400 .9rem/1.5 var(--f);max-width:60ch}
+.tipbox{display:block;margin-top:6px;padding:2px 0 2px 12px;border-left:1px solid var(--ink);color:var(--ink-2);font:400 var(--t-s)/1.5 var(--f);max-width:60ch;text-align:left;white-space:normal}
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;font:600 1rem/1 var(--f);padding:13px 20px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none}
-.btn-main{background:var(--ink);color:#fff}
-.btn-main:hover{background:#2C4054}
-.btn-main[disabled]{opacity:.5;cursor:wait}
-.btn-line{background:var(--surface);color:var(--ink);border-color:var(--line)}
-.btn-line:hover{border-color:var(--ink-3)}
-.btn-text{font:600 1rem/1 var(--f);padding:13px 4px}
-.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--ink);text-decoration:underline;text-decoration-color:var(--ink-3);text-underline-offset:3px;cursor:pointer}
+/* ———————————————————— SECTIONS ———————————————————— */
+main{display:grid;gap:0}
+.sec{padding-block:var(--s6) 0;display:grid;gap:var(--s4);min-width:0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:var(--s2) var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--ink)}
+.sec-head h2{font-size:var(--t-xl);letter-spacing:-.025em}
+.sec-head p{grid-column:1/-1;color:var(--ink-2);max-width:60ch}
+.sec-head .cap{align-self:end;padding-bottom:6px}
 
-/* HERO */
-.hero{background:var(--sky);padding-top:clamp(36px,7vw,72px);overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px 48px;align-items:end}
-@media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
-.hero-text{display:grid;gap:18px}
-.hero h1{font-size:clamp(2.6rem,7.4vw,4.6rem);font-weight:800;letter-spacing:-.035em;line-height:.98}
-.hero .lead{font-size:1.12rem;color:var(--ink-2);max-width:44ch}
-.hero .lead strong{color:var(--ink);font-weight:600}
-.deadline{display:grid;gap:6px;color:var(--red);font-size:1rem;max-width:48ch}
-.deadline strong{font-weight:700}
-.deadline .tip{border-color:#E2B3AE;color:var(--red);background:transparent}
-.deadline .tipbox{flex-basis:100%;color:var(--ink);margin-top:2px}
-.cta{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
-.prices{margin:0;display:grid;gap:0;align-self:end}
-.prices > div{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:12px 0;border-top:1px solid #CDD8DF}
-.prices dt{font-weight:600}
-.prices dd{margin:0}
-.prices .v{font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums;text-align:right}
-.prices .l{grid-column:1/-1;color:var(--ink-2);font-size:.9rem}
-.prices .tipbox{grid-column:1/-1}
-.quay{margin:clamp(28px,5vw,44px) 0 0;display:grid;gap:10px}
-.skyline{width:100%;max-width:600px;height:auto;display:block;overflow:visible}
-.quay figcaption{font-size:.92rem;color:var(--ink-2);max-width:62ch;padding-bottom:22px}
-.quay figcaption strong{color:var(--ink);font-weight:600}
-.water{height:14px;background:repeating-linear-gradient(90deg,#D3DEE6 0 26px,transparent 26px 34px);opacity:.8;margin-inline:calc(-1 * clamp(16px,4vw,32px));border-top:2px solid var(--ink)}
-.sk .w{fill:#26394B;opacity:.32}
-.sk .w.on{fill:var(--lamp);opacity:1}
-.sk .w.half{fill:var(--lamp);opacity:.5}
-.sk .door{fill:#26394B;opacity:.55}
-.sk .lbl{fill:var(--ink);font:500 11px var(--f)}
-.sk .lbl.nye{font-weight:700}
-.sk .cnt{fill:var(--ink-2);font:400 10px var(--f)}
-.sk .fw{stroke:var(--lamp);stroke-width:1.6;stroke-linecap:round}
-.sk .fwc{fill:var(--lamp)}
-.sk.anim .w.on,.sk.anim .w.half{animation:lightup .6s ease-out both;animation-delay:var(--d,0ms)}
-@keyframes lightup{from{opacity:.32;fill:#26394B}}
-@media (prefers-reduced-motion:reduce){.sk.anim .w.on,.sk.anim .w.half{animation:none}}
+/* ———————————————————— BOUTONS ———————————————————— */
+.btn{appearance:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font:600 var(--t-m)/1 var(--f);padding:15px 26px;border-radius:2px;cursor:pointer;text-decoration:none;transition:background .2s}
+.btn:hover{background:#38414A}
+.btn[disabled]{opacity:.5;cursor:wait}
+.btn.sm{font-size:var(--t-s);padding:11px 18px}
+.btn-line{appearance:none;display:inline-flex;align-items:center;border:1px solid var(--hair-2);background:var(--paper);color:var(--ink);font:500 var(--t-s)/1 var(--f);padding:11px 16px;border-radius:2px;cursor:pointer;transition:border-color .2s}
+.btn-line:hover{border-color:var(--ink)}
+.btn-text,.linkbtn{appearance:none;border:0;background:none;padding:0;font:500 var(--t-m)/1.3 var(--f);color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:var(--hair-2);text-underline-offset:.25em;cursor:pointer}
+.linkbtn{font-size:inherit}
+.btn-text:hover,.linkbtn:hover{text-decoration-color:var(--ink)}
 
-/* NAV */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(247,248,249,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;gap:2px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
-.nav a{flex:none;text-decoration:none;color:var(--ink-2);font:500 .93rem/1 var(--f);padding:9px 12px;border-radius:999px}
-.nav a:hover{color:var(--ink);background:var(--soft)}
+/* ———————————————————— FORMULAIRE ———————————————————— */
+.form{display:grid;min-width:0}
+.row{display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:var(--s2) var(--s5);padding-block:var(--s4);border-bottom:1px solid var(--hair)}
+.row > .label{display:grid;align-content:start;gap:2px}
+.row > .label b{font-weight:600}
+.row > .label .step{font-size:var(--t-xs);color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.row > .label small{font-size:var(--t-s);color:var(--ink-3);line-height:1.4}
+.field{display:grid;gap:var(--s3);min-width:0}
+.q{display:grid;gap:var(--s2);min-width:0}
+.ql{font-size:var(--t-s);color:var(--ink-2)}
+@media (max-width:640px){.row{grid-template-columns:minmax(0,1fr);gap:var(--s3)}}
 
-section.block{padding-block:clamp(44px,7vw,76px)}
-section.block + section.block{border-top:1px solid var(--line)}
-.sec-head{display:grid;gap:6px;margin-bottom:26px;max-width:60ch}
-.sec-head p{color:var(--ink-2)}
+.text{width:100%;font:500 var(--t-l)/1.3 var(--f);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--hair-2);padding:6px 0;border-radius:0}
+.text::placeholder{color:var(--ink-3);font-weight:400}
+.text:focus{outline:none;border-bottom-color:var(--ink)}
+.text.m{font-size:var(--t-m)}
+input.text[type=number]{width:90px;font-variant-numeric:tabular-nums}
+textarea.text{font-size:var(--t-m);resize:vertical;min-height:2.6em}
 
-/* FORM */
-.form-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:44px;align-items:start}
-@media (max-width:860px){.form-grid{grid-template-columns:minmax(0,1fr);gap:24px}}
-form{display:grid;min-width:0}
-fieldset{border:0;border-top:1px solid var(--line);padding:22px 0;margin:0;display:grid;gap:16px;min-width:0}
-form > fieldset:first-of-type{border-top:0;padding-top:0}
-legend{float:left;width:100%;padding:0;margin-bottom:2px;font:700 1.08rem/1.2 var(--f);display:flex;gap:10px;align-items:baseline}
-legend .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font:600 .75rem/1 var(--f)}
-legend + *{clear:both}
-.q{display:grid;gap:8px;min-width:0}
-.ql{font-weight:600;font-size:.96rem}
-.hint{font-size:.88rem;color:var(--ink-2)}
-.hint.warn{color:var(--warn)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{position:relative;display:inline-flex}
-.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.chip > span{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:.94rem;line-height:1.2;transition:background .12s,border-color .12s,color .12s}
-.chip:hover > span{border-color:var(--ink-3)}
-.chip input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
-.chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
-.chip input:disabled{cursor:not-allowed}
-.chip input:disabled + span{opacity:.35}
-.chip .star{color:var(--ochre)}
-.chip input:checked + span .star{color:var(--lamp)}
-.check{display:flex;gap:10px;align-items:center;font-size:.94rem;cursor:pointer;color:var(--ink-2)}
-.check input{width:18px;height:18px;accent-color:var(--ink);margin:0}
-input[type=text],input[type=number],textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
-input[type=number]{width:100px}
-textarea{min-height:76px;resize:vertical}
-input[type=text]:focus,textarea:focus,input[type=number]:focus{outline:2px solid var(--ink);outline-offset:0;border-color:transparent}
-.sub{display:grid;gap:16px;padding:16px;border-radius:var(--r);background:var(--soft)}
-.tag{display:inline-flex;align-items:center;font:600 .76rem/1 var(--f);padding:5px 9px;border-radius:999px;white-space:nowrap;background:var(--soft);color:var(--ink-2)}
-.tag.group{background:var(--red-soft);color:var(--red)}
-.tag.car{background:var(--car-soft);color:var(--car)} .tag.plane{background:var(--plane-soft);color:var(--plane)}
-.tag.ok{background:var(--ok-soft);color:var(--ok)} .tag.warn{background:var(--warn-soft);color:var(--warn)} .tag.bad{background:var(--bad-soft);color:var(--bad)}
-.sub .tag{justify-self:start}
-.sub .tag:not(.group){background:var(--surface)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,168px),1fr));gap:8px}
+/* choix segmentés : texte, filets, encre pleine quand choisi (de vrais boutons radio dessous) */
+.seg{display:flex;flex-wrap:wrap;width:100%;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);overflow:hidden}
+.seg label{flex:1 1 0;min-width:max-content;position:relative;display:flex;margin:-1px 0 0 -1px;border-left:1px solid var(--hair);border-top:1px solid var(--hair)}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg label > span{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;padding:11px 16px;font-size:var(--t-s);font-weight:500;color:var(--ink-2);transition:background .25s var(--ease),color .25s}
+.seg label:hover > span{color:var(--ink);background:var(--linen)}
+.seg input:checked + span{background:var(--ink);color:var(--paper)}
+.seg input:focus-visible + span{outline:1.5px solid var(--ink);outline-offset:-5px}
+.seg input:checked:focus-visible + span{outline-color:var(--paper)}
+.seg .p{font-weight:400;opacity:.7;font-variant-numeric:tabular-nums}
+.seg .star{color:var(--amber)}
+
+/* bande des nuits : une case par nuit, comme les maisons */
+.nights{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));border:1px solid var(--hair-2);border-radius:2px;background:var(--paper)}
+.nights button{appearance:none;border:0;background:transparent;cursor:pointer;display:grid;gap:2px;justify-items:center;padding:8px 0 10px;font-variant-numeric:tabular-nums;transition:background .3s var(--ease);min-width:0}
+.nights button + button{border-left:1px solid var(--hair)}
+.nights .wd{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.nights .d{font-size:var(--t-m);font-weight:600;color:var(--ink-2)}
+.nights .mk{height:12px;font-size:11px;line-height:12px;color:var(--ink)}
+.nights button.out .d{color:var(--ink-3);font-weight:400}
+.nights button.in{background:var(--amber-soft)}
+.nights button.in .d{color:var(--ink)}
+.nights button.edge{background:var(--amber)}
+.nights button.edge .d,.nights button.edge .wd{color:var(--ink)}
+.nights button:hover:not(.in){background:var(--linen)}
+.nights button:focus-visible{outline-offset:-3px}
+@media (max-width:420px){.nights .wd{font-size:9px;letter-spacing:0}.nights .d{font-size:var(--t-s)}}
+.nights-read{font-size:var(--t-s);color:var(--ink-2)}
+.nights-read b{color:var(--ink);font-weight:600}
+.nights-read.warn{color:var(--warn)}
+.nights-read.warn b{color:var(--warn)}
+
+.cond{display:grid;gap:var(--s3);padding-left:var(--s3);border-left:1px solid var(--hair)}
+.note{font-size:var(--t-s);color:var(--ink-2);max-width:56ch}
+.note b{color:var(--ink);font-weight:600}
+.note.warn{color:var(--warn)}
+.note .cap{margin-right:6px}
+
+/* cartes de logement, avec leur mini plan */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,168px),1fr));gap:var(--s2)}
 .rcard{position:relative;display:block;cursor:pointer}
 .rcard input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.rcard .in{display:grid;gap:2px;height:100%;padding:10px 12px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
-.rcard .in b{font-weight:600;font-size:.96rem;line-height:1.25}
-.rcard .in .p{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.rcard .in{display:grid;gap:2px;height:100%;padding:10px 12px 12px;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
+.rcard .in b{font-weight:600;font-size:var(--t-s);line-height:1.3}
+.rcard .in .p{font-size:var(--t-xs);color:var(--ink-2);font-variant-numeric:tabular-nums}
 .rcard .plan{height:62px;width:100%;margin-bottom:6px}
 .rcard:hover .in{border-color:var(--ink-3)}
 .rcard input:checked + .in{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.rcard input:focus-visible + .in{outline:2px solid var(--ink);outline-offset:2px}
-.editing{background:var(--warn-soft);border-radius:10px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
-.savebar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding-top:20px;border-top:1px solid var(--line)}
-.status{font-size:.92rem}
-.status.ok{color:var(--ok)} .status.err{color:var(--bad)}
-.notice{border-radius:10px;padding:12px 14px;font-size:.92rem;background:var(--soft);display:grid;gap:8px;margin-top:12px}
-.notice.err{background:var(--bad-soft)}
-.notice .row{display:flex;flex-wrap:wrap;gap:14px}
-.copybox{width:100%;min-height:150px;font:400 .84rem/1.5 var(--f)}
+.rcard input:focus-visible + .in{outline:1.5px solid var(--ink);outline-offset:3px}
 
-/* ESTIMATE */
-.est{position:sticky;top:calc(env(safe-area-inset-top,0px) + 68px);display:grid;gap:12px;padding:20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
-@media (max-width:860px){.est{position:static}}
-.est h3{display:flex;align-items:center}
-.est-total{font-weight:800;font-size:1.9rem;line-height:1;letter-spacing:-.02em}
-.est-total small{font-weight:400;font-size:.92rem;color:var(--ink-3);letter-spacing:0}
-.est-lines{display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.est-lines li{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--ink-2)}
-.est-lines li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.editing{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);align-items:center;justify-content:space-between;padding:12px 14px;margin-top:var(--s4);background:var(--amber-soft);border-left:2px solid var(--ink);font-size:var(--t-s)}
 
-/* DETAILS (accordions) */
-details.fold{border-top:1px solid var(--line)}
-details.fold:last-of-type{border-bottom:1px solid var(--line)}
-details.fold > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:16px 2px;font:600 1.02rem/1.3 var(--f)}
-details.fold > summary::-webkit-details-marker{display:none}
-details.fold > summary::after{content:"";flex:none;width:8px;height:8px;border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);transform:rotate(45deg);transition:transform .18s;margin:0 4px 4px 4px}
-details.fold[open] > summary::after{transform:rotate(-135deg);margin-bottom:-4px}
-details.fold > summary:hover::after{border-color:var(--ink)}
-details.fold > .body{padding:2px 2px 24px;display:grid;gap:14px}
-summary .sum-main{display:grid;gap:2px;min-width:0;flex:1}
-summary .sum-sub{font-weight:400;font-size:.88rem;line-height:1.4;color:var(--ink-2)}
-summary .sum-price{font-weight:600;font-size:.98rem;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+/* estimation : la règle est la donnée */
+.estimate{display:grid;gap:var(--s3);padding-block:var(--s5) var(--s4)}
+.estimate-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s2) var(--s4)}
+.estimate .total{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.estimate .total small{font-size:var(--t-s);font-weight:400;letter-spacing:0;color:var(--ink-3)}
+.estimate .ledger{max-width:560px}
+.rule{width:100%;height:auto;display:block;overflow:visible}
+.rule .ax{stroke:var(--hair-2);stroke-width:1}
+.rule .tk{stroke:var(--hair-2);stroke-width:1}
+.rule .tl{font:400 10px var(--f);fill:var(--ink-3);text-anchor:middle;font-variant-numeric:tabular-nums}
+.rule .band{fill:var(--ink)}
+.rule .cap-line{stroke:var(--late);stroke-width:1.5}
+.rule .cap-lbl{font:600 10px var(--f);fill:var(--late)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s4)}
+.status{font-size:var(--t-s);color:var(--ink-2)}
+.status.ok{color:var(--ok)} .status.err{color:var(--late)}
+.notice{display:grid;gap:var(--s2);margin-top:var(--s3);padding:12px 14px;font-size:var(--t-s);background:var(--paper);border:1px solid var(--hair)}
+.notice.err{border-color:var(--late);color:var(--ink)}
+.notice .acts{display:flex;flex-wrap:wrap;gap:var(--s3)}
+.copybox{width:100%;min-height:150px;font:400 var(--t-s)/1.5 var(--f);color:var(--ink);background:var(--paper);border:1px solid var(--hair-2);border-radius:2px;padding:10px 12px}
 
-/* GROUP */
-.summary{font-size:clamp(1.15rem,2.4vw,1.4rem);line-height:1.4;max-width:46ch;margin-bottom:8px}
-.summary strong{font-weight:700}
-.closing{font-size:.92rem;color:var(--red);margin-bottom:22px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px;min-width:0}
-.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:26px}
-.panels > div{display:grid;gap:10px;align-content:start;min-width:0}
-.scroll-x{overflow-x:auto;min-width:0}
-table{border-collapse:collapse;width:100%;font-size:.9rem}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-weight:600;font-size:.82rem;color:var(--ink-2)}
-.nights th,.nights td{text-align:center;padding:6px 4px}
-.nights th{font-weight:500;font-size:.78rem;white-space:nowrap}
-.nights th:first-child,.nights td:first-child{text-align:left;white-space:nowrap;padding-right:10px}
-.nights .star{color:var(--ochre)}
-.cell{display:block;height:16px;min-width:20px;border-radius:4px;background:var(--soft)}
-.cell.on{background:var(--ochre)}
-.cell.maybe{background:repeating-linear-gradient(135deg,var(--ochre) 0 3px,transparent 3px 7px);box-shadow:inset 0 0 0 1px var(--ochre)}
-.nights tfoot td{font-weight:700;font-variant-numeric:tabular-nums;border-bottom:0}
-.nights tfoot tr + tr td{font-weight:400;color:var(--ink-2)}
-.bars{display:grid;gap:9px}
-.bar{display:grid;gap:3px}
-.bar .t{display:flex;justify-content:space-between;gap:10px;font-size:.88rem}
-.bar .t b{font-variant-numeric:tabular-nums}
-.bar .track{height:6px;border-radius:3px;background:var(--soft);overflow:hidden}
-.bar .fill{height:100%;border-radius:3px;background:var(--ochre)}
-.bar .fill.car{background:var(--car)} .bar .fill.plane{background:var(--plane)} .bar .fill.dim{background:var(--ink-3)}
-.people td .acts{display:flex;gap:10px;flex-wrap:wrap}
-.empty{border:1px dashed var(--line);border-radius:var(--r);padding:26px;text-align:center;display:grid;gap:8px;justify-items:center;background:var(--surface)}
+/* étiquettes : du texte, un filet, une couleur de sens */
+.tag{display:inline-flex;align-items:center;font:600 var(--t-xs)/1 var(--f);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--hair-2);border-radius:2px;color:var(--ink-2);white-space:nowrap;vertical-align:1px}
+.tag.ok{color:var(--ok);border-color:currentColor}
+.tag.warn{color:var(--warn);border-color:currentColor}
+.tag.bad,.tag.group{color:var(--late);border-color:currentColor}
+.tag.multi{white-space:normal;line-height:1.3}
 
-/* LOGEMENT rows */
-.lrow-body{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:22px;align-items:start;margin:0}
-@media (max-width:640px){.lrow-body{grid-template-columns:minmax(0,1fr)}}
-.lrow-body .plan{width:100%;height:auto;max-width:100%;background:var(--soft);border-radius:10px}
-.meters{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:.88rem;align-items:center;margin:0}
-.meters dt{color:var(--ink-2)} .meters dd{margin:0;display:flex;gap:4px}
-.meters i{width:10px;height:10px;border-radius:50%;background:var(--soft);box-shadow:inset 0 0 0 1px var(--line)}
-.meters i.on{background:var(--ink);box-shadow:none}
-.proscons{display:grid;gap:4px;font-size:.92rem;margin:0;padding:0;list-style:none}
-.proscons li{padding-left:18px;position:relative}
-.proscons li::before{position:absolute;left:0;font-weight:700}
-.proscons .pro::before{content:"+";color:var(--ok)}
-.proscons .con::before{content:"–";color:var(--bad)}
-.plan .wall{fill:var(--surface);stroke:var(--ink);stroke-width:2}
-.plan .wall.liv{fill:#F5EAD4}
-.plan .wall.wet{fill:#E2EAF1}
-.plan .wall.kitr{fill:var(--car-soft)}
-.plan .bed{fill:var(--soft);stroke:var(--ink-2);stroke-width:1}
-.plan .pillow{fill:var(--surface);stroke:var(--ink-2);stroke-width:.6}
-.plan .upper{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:3 2}
-.plan .pp{fill:var(--ochre);stroke:var(--surface);stroke-width:1}
-.plan .sofa{fill:var(--soft);stroke:var(--ink-2);stroke-width:1}
-.plan .kit{fill:var(--surface);stroke:var(--car);stroke-width:1.2}
-.plan .burner{fill:none;stroke:var(--car);stroke-width:1}
-.plan .furn{fill:var(--surface);stroke:var(--ink-2);stroke-width:1}
-.plan .mezz{fill:none;stroke:var(--plane);stroke-width:1.5;stroke-dasharray:5 3}
-.plan .rl{fill:var(--ink-2);font:600 9px var(--f)}
-.plan .rl.mz{fill:var(--plane)}
-.plan.mini .rl{display:none}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.84rem;color:var(--ink-2);margin-bottom:6px}
-.legend span{display:inline-flex;gap:6px;align-items:center}
-.legend i{width:11px;height:11px;border-radius:3px;box-shadow:inset 0 0 0 1px var(--ink-3)}
+/* ———————————————————— LE GROUPE ———————————————————— */
+.summary{font-size:var(--t-l);line-height:1.4;max-width:52ch;color:var(--ink-2)}
+.summary b{color:var(--ink);font-weight:600}
+.closing{font-size:var(--t-s);font-weight:600;color:var(--late)}
+.tbl-scroll{overflow-x:auto;min-width:0}
+.grp{width:100%;min-width:640px;border-collapse:collapse;font-size:var(--t-s);font-variant-numeric:tabular-nums}
+.grp th,.grp td{padding:9px 6px 9px 0;border-bottom:1px solid var(--hair);text-align:left;font-weight:400;vertical-align:middle}
+.grp thead th{font-size:var(--t-xs);color:var(--ink-3);border-bottom:1px solid var(--ink);padding-bottom:8px;line-height:1.3}
+.grp .n{font-weight:600;color:var(--ink)}
+.grp .st,.grp .tr{color:var(--ink-2);white-space:nowrap}
+.grp .c{text-align:center;padding-inline:2px;width:30px}
+.grp .tot{text-align:right;font-weight:600;padding-right:0}
+.grp thead .c{color:var(--ink-2)}
+.grp thead .c.nye{color:var(--ink);font-weight:700}
+.grp thead .c.out{color:var(--ink-3)}
+.cell{display:inline-block;width:12px;height:15px;background:var(--glass);box-shadow:inset 0 0 0 .75px color-mix(in srgb,var(--ink) 40%,transparent);vertical-align:middle;transition:background .5s var(--ease)}
+.cell.on{background:var(--amber);box-shadow:inset 0 0 0 .75px var(--ink)}
+.cell.half{background:color-mix(in srgb,var(--amber) 42%,var(--glass))}
+.cell.out{background:transparent;box-shadow:inset 0 0 0 .75px var(--hair)}
+.grp tr.me td{background:color-mix(in srgb,var(--amber-soft) 45%,transparent)}
+.grp tr.no td{color:var(--ink-3)}
+.grp tr.no .n{color:var(--ink-3);font-weight:400;text-decoration:line-through;text-decoration-color:var(--hair-2)}
+.grp tfoot td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600;padding-top:10px}
+.grp tfoot tr + tr td{border-top:0;font-weight:400;color:var(--ink-2);padding-top:4px}
+@media (max-width:640px){.grp{min-width:0}.grp .st,.grp .tr{display:none}.grp .c{width:auto}.cell{width:10px}}
+.grp tfoot .c i{font-style:normal;font-weight:400;color:var(--ink-3);font-size:var(--t-xs)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--s5)}
+.panels > div{display:grid;gap:var(--s2);align-content:start;min-width:0}
+.panels h4{font-size:var(--t-m);font-weight:600;padding-bottom:var(--s2);border-bottom:1px solid var(--ink)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;gap:4px}
+.bar .t{display:flex;justify-content:space-between;gap:10px;font-size:var(--t-s);color:var(--ink-2)}
+.bar .t b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.bar .track{height:3px;background:var(--hair)}
+.bar .fill{height:100%;background:var(--ink);transition:width .5s var(--ease)}
+.bar .fill.dim{background:var(--ink-3)}
+.people .acts{display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:4px;font-size:var(--t-xs)}
+.empty{border:1px dashed var(--hair-2);padding:var(--s5) var(--s4);text-align:center;display:grid;gap:var(--s2);justify-items:center;background:var(--paper);font-size:var(--t-s)}
+.empty b{font-size:var(--t-m)}
 
-/* misc content */
-.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0;font-size:.93rem}
-.kv dt{color:var(--ink-2)} .kv dd{margin:0}
-.list{margin:0;padding-left:18px;display:grid;gap:8px;font-size:.95rem}
+/* ———————————————————— REPLIS ———————————————————— */
+.folds{display:grid}
+.fold{border-bottom:1px solid var(--hair)}
+.fold summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto 22px;align-items:baseline;gap:var(--s1) var(--s4);padding-block:var(--s4)}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary h3{font-size:var(--t-l);font-weight:600;letter-spacing:-.012em}
+.fold summary .lede{grid-column:1;font-size:var(--t-s);color:var(--ink-2)}
+.fold summary .fig{grid-row:1;grid-column:2;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.fold summary .fig i{font-style:normal;font-weight:400;color:var(--ink-3);font-size:var(--t-s)}
+.pm{grid-row:1;grid-column:3;align-self:center;position:relative;width:13px;height:13px;justify-self:end}
+.pm::before,.pm::after{content:"";position:absolute;background:var(--ink);transition:transform .45s var(--ease)}
+.pm::before{left:0;right:0;top:6px;height:1px}
+.pm::after{top:0;bottom:0;left:6px;width:1px}
+.fold[open] > summary .pm::after{transform:scaleY(0)}
+.fold summary:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:var(--hair-2)}
+@supports selector(::details-content){
+  .fold::details-content{block-size:0;overflow:hidden;transition:block-size .5s var(--ease),content-visibility .5s allow-discrete}
+  .fold[open]::details-content{block-size:auto}
+}
+@media (prefers-reduced-motion:reduce){.fold::details-content{transition:none}}
+.fold-body{display:grid;gap:var(--s4);padding-bottom:var(--s5);min-width:0}
+@media (max-width:560px){.fold summary{grid-template-columns:minmax(0,1fr) 22px}.fold summary .fig{grid-row:auto;grid-column:1;text-align:left}.pm{grid-column:2}}
+
+.spec{width:100%;border-collapse:collapse;font-size:var(--t-s);font-variant-numeric:tabular-nums}
+.spec th,.spec td{text-align:left;padding:10px var(--s3) 10px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-weight:400}
+.spec thead th{font-size:var(--t-xs);color:var(--ink-3);border-bottom-color:var(--ink-3)}
+.spec th[scope=row]{font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.spec .r{text-align:right;white-space:nowrap;padding-right:0}
+.spec td b{font-weight:600}
+.spec.wide{min-width:560px}
+.spec tr.best td{background:color-mix(in srgb,var(--kalk) 55%,transparent)}
+.spec tr.best .r b::before{content:"✦ ";color:var(--ink-3);font-weight:400}
+
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5)}
+.duo > div{display:grid;gap:var(--s2);align-content:start}
+.duo h4{font-size:var(--t-m);font-weight:600;display:flex;justify-content:space-between;gap:var(--s3);padding-bottom:var(--s2);border-bottom:1px solid var(--ink)}
+.duo h4 span{font-variant-numeric:tabular-nums}
+@media (max-width:640px){.duo{grid-template-columns:minmax(0,1fr)}}
+.facts-list{display:grid;font-size:var(--t-s)}
+.facts-list li{padding-block:8px;border-bottom:1px solid var(--hair);color:var(--ink-2);max-width:66ch}
+.facts-list li b{color:var(--ink);font-weight:600}
+.facts-list li.pro::before{content:"+ ";color:var(--ok);font-weight:700}
+.facts-list li.con::before{content:"– ";color:var(--late);font-weight:700}
+.kv{display:grid;grid-template-columns:auto 1fr;font-size:var(--t-s)}
+.kv dt,.kv dd{padding-block:8px;border-bottom:1px solid var(--hair)}
+.kv dt{font-weight:600;padding-right:var(--s4)}
+.kv dd{color:var(--ink-2)}
+.cap-text{font-size:var(--t-s);color:var(--ink-2);max-width:62ch}
 .filters{display:flex;flex-wrap:wrap;gap:6px}
-.filters button{font:500 .86rem/1 var(--f);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
-.filters button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.price-cell{font-weight:600;white-space:nowrap}
-tr.best td{background:#FBF3DE}
-.daylight{display:grid;gap:6px;max-width:520px}
-.dl-bar{position:relative;height:16px;border-radius:4px;background:var(--ink);overflow:hidden}
-.dl-sun{position:absolute;top:0;bottom:0;left:calc(8.62/24*100%);width:calc(7.15/24*100%);background:var(--sky)}
-.dl-fw{position:absolute;top:2px;bottom:2px;left:calc(23/24*100%);width:3px;border-radius:2px;background:var(--lamp)}
-.dl-scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
-footer{padding-block:28px 48px;color:var(--ink-3);font-size:.86rem;border-top:1px solid var(--line)}
-footer .wrap{display:grid;gap:8px}
+.filters button{appearance:none;font:500 var(--t-xs)/1 var(--f);padding:8px 11px;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);color:var(--ink-2);cursor:pointer}
+.filters button:hover{color:var(--ink);border-color:var(--ink-3)}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* plans de logement */
+.lrow-body{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:var(--s4) var(--s5);align-items:start}
+@media (max-width:640px){.lrow-body{grid-template-columns:minmax(0,1fr)}}
+.lrow-body > div{display:grid;gap:var(--s3);min-width:0}
+.lrow-body .plan{width:100%;height:auto;max-width:100%;background:var(--paper);border:1px solid var(--hair)}
+.meters{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:var(--t-s);align-items:center}
+.meters dt{color:var(--ink-2)} .meters dd{display:flex;gap:4px}
+.meters i{width:9px;height:9px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--hair-2)}
+.meters i.on{background:var(--ink);box-shadow:none}
+.plan .wall{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.plan .wall.liv{fill:color-mix(in srgb,var(--f-lin) 60%,var(--paper))}
+.plan .wall.wet{fill:color-mix(in srgb,var(--glass) 70%,var(--paper))}
+.plan .wall.kitr{fill:color-mix(in srgb,var(--f-sage) 38%,var(--paper))}
+.plan .bed{fill:var(--kalk);stroke:var(--ink-2);stroke-width:.9}
+.plan .pillow{fill:var(--paper);stroke:var(--ink-2);stroke-width:.6}
+.plan .upper{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:3 2}
+.plan .pp{fill:var(--amber);stroke:var(--ink);stroke-width:.7}
+.plan .sofa{fill:var(--kalk);stroke:var(--ink-2);stroke-width:.9}
+.plan .kit{fill:var(--paper);stroke:var(--f-petrol);stroke-width:1.1}
+.plan .burner{fill:none;stroke:var(--f-petrol);stroke-width:.9}
+.plan .furn{fill:var(--paper);stroke:var(--ink-2);stroke-width:.9}
+.plan .mezz{fill:none;stroke:var(--f-petrol);stroke-width:1.3;stroke-dasharray:5 3}
+.plan .rl{fill:var(--ink-2);font:600 9px var(--f)}
+.plan .rl.mz{fill:var(--f-petrol)}
+.plan.mini .rl{display:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--t-xs);color:var(--ink-2)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:11px;height:11px;box-shadow:inset 0 0 0 .75px var(--ink-3)}
+
+.day{width:100%;height:auto;display:block;max-width:720px}
+.day .night{fill:var(--water)}
+.day .light{fill:var(--paper);stroke:var(--hair-2);stroke-width:.8}
+.day .fw{stroke:var(--amber);stroke-width:3;stroke-linecap:butt}
+.day .ax{font:400 10px var(--f);fill:var(--ink-3);text-anchor:middle;font-variant-numeric:tabular-nums}
+.day .lb{font:500 10.5px var(--f);fill:var(--ink-2)}
+.day .lb.fwl{fill:var(--ink);font-weight:600}
+
+/* ———————————————————— PIED ———————————————————— */
+footer{margin-top:var(--s7);padding-block:var(--s4) var(--s6);border-top:1px solid var(--hair);font-size:var(--t-xs);color:var(--ink-3)}
+footer .wrap{display:grid;gap:var(--s2)}
 footer a{color:var(--ink-2)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.seg span,.rcard .in,.bar .fill,.cell,.nights button{transition:none}}
 </style>
 
 </head>
 <body>
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <h1>Nouvel An à&nbsp;Copenhague</h1>
-      <p class="lead"><strong>Du lundi 28 décembre au dimanche 3 janvier.</strong> Chacun arrive et repart quand il veut, la soirée du 31 est déjà prévue.</p>
-      <p class="deadline" id="deadlineBox">
-        <span id="deadlineTxt"><strong>Avant le samedi 31 octobre</strong> <span id="deadlineDays"></span> : dis si tu viens en voiture et si tu veux le logement partagé.<button type="button" class="tip" aria-expanded="false" aria-controls="tip-who" aria-label="Pourquoi cette date ?">i</button></span>
-        <span class="tipbox" id="tip-who" hidden>Le groupe réserve la voiture et le logement partagé, d'où la date limite. Chacun réserve son vol et son hôtel perso de son côté, quand il veut.</span>
-      </p>
-      <div class="cta">
-        <a class="btn btn-main" href="#moi">Donner mes réponses</a>
-        <a class="btn-text" href="#groupe">Voir qui vient</a>
-      </div>
-    </div>
-    <dl class="prices">
-      <div>
-        <dt>En voiture <button type="button" class="tip" aria-expanded="false" aria-controls="tip-f1" aria-label="Détail voiture">i</button></dt>
-        <dd class="v">105 à 165 €</dd>
-        <dd class="l">Aller-retour par personne, à 4 ou 5, environ 13 h de route</dd>
-        <dd class="tipbox" id="tip-f1" hidden>Essence, péages et ferry : 520 à 660 € par voiture, partagés. Parking à Copenhague en plus, environ 50 € par personne.</dd>
-      </div>
-      <div>
-        <dt>En avion <button type="button" class="tip" aria-expanded="false" aria-controls="tip-f2" aria-label="Détail avion">i</button></dt>
-        <dd class="v">280 à 385 €</dd>
-        <dd class="l">Aller-retour direct, 2 h de vol, chacun réserve le sien</dd>
-        <dd class="tipbox" id="tip-f2" hidden>Prix relevés le 12 octobre sur Google Flights. Une valise chez les low-cost ajoute 40 à 70 €.</dd>
-      </div>
-      <div>
-        <dt>Pour dormir <button type="button" class="tip" aria-expanded="false" aria-controls="tip-f3" aria-label="Détail logement">i</button></dt>
-        <dd class="v">38 à 120 €</dd>
-        <dd class="l">Par personne et par nuit, en chambre privée</dd>
-        <dd class="tipbox" id="tip-f3" hidden>Du petit hôtel à 2 par chambre (38 à 47 €) au logement partagé (60 à 120 €). Pas de dortoir.</dd>
-      </div>
-    </dl>
-  </div>
+<nav class="nav" aria-label="Sections">
   <div class="wrap">
+    <a class="brand" href="#top">København <span>Nouvel An 26–27</span></a>
+    <ul>
+      <li><a href="#moi">Mes choix</a></li>
+      <li><a href="#groupe">Le groupe</a></li>
+      <li><a href="#logement">Logements</a></li>
+      <li><a href="#transport">Transport</a></li>
+      <li><a href="#infos">À savoir</a></li>
+    </ul>
+    <span class="countdown num" id="countdown"></span>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-head">
+      <p class="eyebrow"><span><b>28.12.2026 → 03.01.2027</b></span><span>6 nuits</span><span>Réveillon le jeudi 31</span></p>
+      <h1>Nouvel An<br><em>à</em> Copenhague</h1>
+      <p class="lead">Du <b>lundi 28 décembre</b> au <b>dimanche 3 janvier</b>. Chacun arrive et repart quand il veut, la soirée du 31 est déjà prévue.</p>
+    </div>
+
     <figure class="quay">
-      <div id="skyline"></div>
-      <div class="water" aria-hidden="true"></div>
-      <figcaption id="skyCap">Une maison par nuit, une fenêtre allumée par personne qui dort sur place. Elles s'allument au fil des réponses.</figcaption>
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 -130 960 514" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <figcaption class="sky-legend">
+        <p id="skyCap"></p>
+        <label class="toggle"><input type="checkbox" id="showMaybe" checked> Allumer les peut-être</label>
+      </figcaption>
     </figure>
   </div>
 </header>
 
-<nav class="nav" aria-label="Sections">
-  <div class="wrap">
-    <a href="#moi">Mes choix</a>
-    <a href="#groupe">Le groupe</a>
-    <a href="#logement">Logements</a>
-    <a href="#transport">Transport</a>
-    <a href="#infos">À savoir</a>
-  </div>
-</nav>
-
-<main>
-<section class="block" id="moi">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Mes choix</h2>
-      <p>Deux minutes. Réponds avec ce que tu sais aujourd'hui, tu pourras modifier plus tard.</p>
+<div class="wrap">
+  <section aria-label="L'essentiel">
+    <div class="facts">
+      <div class="fact">
+        <span class="cap">Quand</span>
+        <span class="big num">28.12 → 03.01</span>
+        <p>Six nuits, le réveillon au milieu. Tu choisis tes propres dates plus bas.</p>
+      </div>
+      <div class="fact">
+        <span class="cap">Combien, par personne</span>
+        <span class="big num">383 à 1&#8239;105&nbsp;€ <small>pour 6 nuits</small></span>
+        <dl class="ledger">
+          <div><dt>En voiture, aller-retour<button type="button" class="tip" aria-expanded="false" aria-controls="tip-f1" aria-label="Détail voiture">i</button></dt><dd>105 – 165&nbsp;€</dd>
+            <dd class="tipbox" id="tip-f1" hidden>À 4 ou 5 par voiture, environ 13&nbsp;h de route. Essence, péages et ferry&#8239;: 520 à 660&nbsp;€ par voiture, partagés. Parking à Copenhague en plus, environ 50&nbsp;€ par personne.</dd></div>
+          <div><dt>En avion, aller-retour<button type="button" class="tip" aria-expanded="false" aria-controls="tip-f2" aria-label="Détail avion">i</button></dt><dd>280 – 385&nbsp;€</dd>
+            <dd class="tipbox" id="tip-f2" hidden>Direct, 2&nbsp;h de vol, chacun réserve le sien. Prix relevés le 12 octobre sur Google Flights. Une valise chez les low-cost ajoute 40 à 70&nbsp;€.</dd></div>
+          <div><dt>Une nuit, chambre privée<button type="button" class="tip" aria-expanded="false" aria-controls="tip-f3" aria-label="Détail logement">i</button></dt><dd>38 – 120&nbsp;€</dd>
+            <dd class="tipbox" id="tip-f3" hidden>Du petit hôtel à 2 par chambre (38 à 47&nbsp;€) au logement partagé (60 à 120&nbsp;€). Pas de dortoir.</dd></div>
+        </dl>
+      </div>
+      <div class="fact late">
+        <span class="cap">Avant le</span>
+        <span class="big">samedi 31 oct.</span>
+        <p id="deadlineTxt"><b>Dis si tu viens en voiture</b> et si tu veux le logement partagé&#8239;: le groupe réserve les deux. Vol et hôtel perso, chacun réserve quand il veut. <span id="daysLeft"></span></p>
+        <div class="go"><a class="btn sm" href="#moi">Donner mes réponses</a><a href="#groupe" class="small">Voir qui vient</a></div>
+      </div>
     </div>
-    <div class="form-grid">
-      <form id="f" novalidate>
+  </section>
+
+  <main>
+    <!-- ——— MES CHOIX ——— -->
+    <section class="sec" id="moi" aria-labelledby="h-moi">
+      <div class="sec-head">
+        <h2 id="h-moi">Mes choix</h2>
+        <span class="cap">2 minutes</span>
+        <p>Réponds avec ce que tu sais aujourd'hui, tu pourras modifier plus tard. Ta fenêtre s'allume là-haut au fur et à mesure.</p>
+      </div>
+
+      <form class="form" id="f" novalidate>
         <div class="editing" id="editingBanner" hidden>
           <span>Tu remplis la réponse de <b id="editingName">quelqu'un</b>.</span>
           <button type="button" class="linkbtn" id="backToMine">Revenir à ma réponse</button>
         </div>
 
-        <fieldset>
-          <legend><span class="n">1</span>Toi</legend>
-          <div class="q">
-            <label class="ql" for="prenom">Prénom</label>
-            <input type="text" id="prenom" name="prenom" autocomplete="given-name" maxlength="40" placeholder="Camille">
-          </div>
-          <div class="q">
-            <span class="ql" id="q-presence">Tu viens ?</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-presence">
-              <label class="chip"><input type="radio" name="presence" id="pr-oui" value="oui"><span>Oui</span></label>
-              <label class="chip"><input type="radio" name="presence" id="pr-pe" value="peutetre"><span>Peut-être</span></label>
-              <label class="chip"><input type="radio" name="presence" id="pr-non" value="non"><span>Non, pas cette fois</span></label>
+        <div class="row" role="group" aria-labelledby="l-toi">
+          <div class="label"><span class="step">1 / 5</span><b id="l-toi">Toi</b></div>
+          <div class="field">
+            <label class="sr" for="prenom">Prénom</label>
+            <input class="text" type="text" id="prenom" name="prenom" autocomplete="given-name" maxlength="40" placeholder="Ton prénom">
+            <div class="seg" role="radiogroup" aria-label="Tu viens ?">
+              <label><input type="radio" name="presence" value="oui"><span>Oui</span></label><label><input type="radio" name="presence" value="peutetre"><span>Peut-être</span></label><label><input type="radio" name="presence" value="non"><span>Non, pas cette fois</span></label>
             </div>
+            <p class="note" id="nonMsg" hidden>Dommage&#8239;! Tu peux changer d'avis à tout moment.</p>
           </div>
-          <p class="hint" id="nonMsg" hidden>Dommage ! Tu peux changer d'avis à tout moment.</p>
-        </fieldset>
-
-        <div id="detail">
-        <fieldset>
-          <legend><span class="n">2</span>Dates</legend>
-          <div class="q">
-            <span class="ql" id="q-arr">J'arrive le</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-arr" id="arrChips"></div>
-          </div>
-          <div class="q">
-            <span class="ql" id="q-dep">Je repars le</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-dep" id="depChips"></div>
-            <span class="hint" id="nightsHint"></span>
-          </div>
-          <label class="check"><input type="checkbox" id="flexible" name="flexible" value="oui"> Mes dates peuvent encore bouger</label>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="n">3</span>Transport</legend>
-          <div class="q">
-            <span class="ql"><span id="q-tr">Je viens en</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-tr" aria-label="Voiture ou avion ?">i</button></span>
-            <span class="tipbox" id="tip-tr" hidden>Voiture : 105 à 165 € aller-retour, environ 13 h de route, le groupe s'organise. Avion : 280 à 385 €, 2 h, chacun réserve son vol. Comparatif dans <a href="#transport">Transport</a>.</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-tr">
-              <label class="chip"><input type="radio" name="transport" id="tr-car" value="voiture"><span>Voiture</span></label>
-              <label class="chip"><input type="radio" name="transport" id="tr-plane" value="avion"><span>Avion</span></label>
-              <label class="chip"><input type="radio" name="transport" id="tr-nsp" value="nsp"><span>Je ne sais pas encore</span></label>
-            </div>
-          </div>
-
-          <div class="sub" id="carFields" hidden>
-            <span class="tag group">Le groupe organise, réponse avant le 31/10</span>
-            <div class="q">
-              <span class="ql" id="q-role">En voiture, je suis</span>
-              <div class="chips" role="radiogroup" aria-labelledby="q-role">
-                <label class="chip"><input type="radio" name="role" id="ro-cond" value="conducteur"><span>Conducteur avec ma voiture</span></label>
-                <label class="chip"><input type="radio" name="role" id="ro-peut" value="relais"><span>Je peux faire des relais</span></label>
-                <label class="chip"><input type="radio" name="role" id="ro-pass" value="passager"><span>Passager</span></label>
-              </div>
-            </div>
-            <div id="carOwnerFields" hidden style="display:grid;gap:16px">
-              <div class="q">
-                <label class="ql" for="places">Places libres en plus de toi</label>
-                <input type="number" id="places" name="places" min="0" max="8" step="1" inputmode="numeric" placeholder="3">
-              </div>
-              <div class="q">
-                <span class="ql" id="q-fuel">Carburant</span>
-                <div class="chips" role="radiogroup" aria-labelledby="q-fuel">
-                  <label class="chip"><input type="radio" name="carburant" id="fu-ess" value="essence"><span>Essence</span></label>
-                  <label class="chip"><input type="radio" name="carburant" id="fu-dsl" value="diesel"><span>Diesel</span></label>
-                  <label class="chip"><input type="radio" name="carburant" id="fu-oth" value="autre"><span>Hybride ou électrique</span></label>
-                </div>
-                <span class="hint warn" id="dieselHint" hidden>Diesel : Euro 5 ou filtre à particules obligatoire à Copenhague, et plaque à enregistrer avant d'arriver (amende 1 500 DKK).</span>
-              </div>
-            </div>
-            <div class="q">
-              <span class="ql"><span id="q-iti">Itinéraire préféré</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-iti" aria-label="Ferry ou pont ?">i</button></span>
-              <span class="tipbox" id="tip-iti" hidden>Même prix. Le ferry coupe la route (45 min de traversée, horaire réservé). Le pont évite l'horaire fixe mais ajoute environ 150 km.</span>
-              <div class="chips" role="radiogroup" aria-labelledby="q-iti">
-                <label class="chip"><input type="radio" name="itineraire" id="it-ferry" value="ferry"><span>Ferry</span></label>
-                <label class="chip"><input type="radio" name="itineraire" id="it-pont" value="pont"><span>Pont</span></label>
-                <label class="chip"><input type="radio" name="itineraire" id="it-egal" value="egal"><span>Peu importe</span></label>
-              </div>
-            </div>
-          </div>
-
-          <div class="sub" id="planeFields" hidden>
-            <span class="tag">Tu réserves ton vol toi-même</span>
-            <div class="q">
-              <span class="ql" id="q-ap">Aéroport</span>
-              <div class="chips" role="radiogroup" aria-labelledby="q-ap">
-                <label class="chip"><input type="radio" name="aeroport" id="ap-ory" value="ORY"><span>Orly</span></label>
-                <label class="chip"><input type="radio" name="aeroport" id="ap-cdg" value="CDG"><span>Roissy-CDG</span></label>
-                <label class="chip"><input type="radio" name="aeroport" id="ap-eg" value="egal"><span>Peu importe</span></label>
-              </div>
-            </div>
-            <div class="q">
-              <span class="ql"><span id="q-bag">Bagage</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-bag" aria-label="Bagages">i</button></span>
-              <span class="tipbox" id="tip-bag" hidden>Transavia et Norwegian en tarif de base : petit sac sous le siège uniquement. Une valise ajoute 40 à 70 € aller-retour. Air France inclut la cabine 12 kg.</span>
-              <div class="chips" role="radiogroup" aria-labelledby="q-bag">
-                <label class="chip"><input type="radio" name="bagage" id="bg-sac" value="sac"><span>Petit sac</span></label>
-                <label class="chip"><input type="radio" name="bagage" id="bg-cab" value="cabine"><span>Valise cabine</span></label>
-                <label class="chip"><input type="radio" name="bagage" id="bg-sou" value="soute"><span>Valise en soute</span></label>
-              </div>
-            </div>
-            <div class="q" id="myFlights"></div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="n">4</span>Logement</legend>
-          <div class="q">
-            <span class="ql"><span id="q-lo1">Logement partagé, réservé par le groupe</span> <span class="tag group">avant le 31/10</span></span>
-            <div class="cards" role="radiogroup" aria-labelledby="q-lo1" id="logeShared"></div>
-          </div>
-          <div class="q">
-            <span class="ql" id="q-lo2">Ou je réserve mon hôtel moi-même</span>
-            <div class="cards" role="radiogroup" aria-labelledby="q-lo2" id="logeSelf"></div>
-          </div>
-          <span class="hint">Plans et détails de chaque formule dans <a href="#logement">Logements</a>.</span>
-          <div class="q">
-            <span class="ql"><span id="q-ch">Chambre</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-ch" aria-label="Chambre seul">i</button></span>
-            <span class="tipbox" id="tip-ch" hidden>Seul·e à l'hôtel, tu paies la chambre entière : 76 à 98 € la nuit au lieu de 38 à 47 €.</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-ch">
-              <label class="chip"><input type="radio" name="chambre" id="ch-2" value="partage"><span>Je partage à 2</span></label>
-              <label class="chip"><input type="radio" name="chambre" id="ch-1" value="seul"><span>Seul·e</span></label>
-            </div>
-          </div>
-          <div class="q">
-            <label class="ql" for="avec">Avec qui partager ? <span class="muted small">(facultatif)</span></label>
-            <input type="text" id="avec" name="avec" maxlength="60" placeholder="Léa">
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="n">5</span>Budget</legend>
-          <div class="q">
-            <span class="ql" id="q-bu">Mon maximum, transport et logement compris</span>
-            <div class="chips" role="radiogroup" aria-labelledby="q-bu">
-              <label class="chip"><input type="radio" name="budget" id="bu-1" value="400"><span>Moins de 400 €</span></label>
-              <label class="chip"><input type="radio" name="budget" id="bu-2" value="550"><span>400 à 550 €</span></label>
-              <label class="chip"><input type="radio" name="budget" id="bu-3" value="700"><span>550 à 700 €</span></label>
-              <label class="chip"><input type="radio" name="budget" id="bu-4" value="999"><span>Plus de 700 €</span></label>
-            </div>
-          </div>
-          <div class="q">
-            <label class="ql" for="commentaire">Un mot pour le groupe <span class="muted small">(facultatif)</span></label>
-            <textarea id="commentaire" name="commentaire" maxlength="600" placeholder="Contraintes, envies, questions…"></textarea>
-          </div>
-        </fieldset>
         </div>
 
-        <div class="savebar">
-          <button type="submit" class="btn btn-main" id="saveBtn">Enregistrer</button>
-          <button type="button" class="btn btn-line" id="copyMine">Copier mon récap</button>
+        <div id="detail">
+        <div class="row" role="group" aria-labelledby="l-nuits">
+          <div class="label"><span class="step">2 / 5</span><b id="l-nuits">Mes nuits</b><small>Touche ta première nuit, puis ta dernière.</small></div>
+          <div class="field">
+            <input type="hidden" id="arrivee" name="arrivee"><input type="hidden" id="depart" name="depart">
+            <div class="nights" id="nights" role="group" aria-label="Nuits sur place"></div>
+            <p class="nights-read" id="nightsRead" aria-live="polite"></p>
+            <label class="toggle"><input type="checkbox" id="flexible" name="flexible" value="oui"> Mes dates peuvent encore bouger</label>
+          </div>
+        </div>
+
+        <div class="row" role="group" aria-labelledby="l-tr">
+          <div class="label"><span class="step">3 / 5</span><b id="l-tr">Je viens en</b><small>Le groupe organise la voiture, réponse avant le 31/10.</small></div>
+          <div class="field">
+            <div class="seg" role="radiogroup" aria-labelledby="l-tr">
+              <label><input type="radio" name="transport" value="voiture"><span>Voiture<span class="p">105–165&nbsp;€</span></span></label><label><input type="radio" name="transport" value="avion"><span>Avion<span class="p">280–385&nbsp;€</span></span></label><label><input type="radio" name="transport" value="nsp"><span>Je ne sais pas encore</span></label>
+            </div>
+            <p class="note">Voiture ou avion&#8239;? Comparatif complet dans <a href="#transport">Transport</a>.</p>
+
+            <div class="cond" id="carFields" hidden>
+              <div class="q">
+                <span class="ql" id="q-role">En voiture, je suis</span>
+                <div class="seg" role="radiogroup" aria-labelledby="q-role">
+                  <label><input type="radio" name="role" value="conducteur"><span>Conducteur avec ma voiture</span></label><label><input type="radio" name="role" value="relais"><span>Je peux faire des relais</span></label><label><input type="radio" name="role" value="passager"><span>Passager</span></label>
+                </div>
+              </div>
+              <div id="carOwnerFields" hidden style="display:grid;gap:var(--s3)">
+                <div class="q">
+                  <label class="ql" for="places">Places libres en plus de toi</label>
+                  <input class="text m" type="number" id="places" name="places" min="0" max="8" step="1" inputmode="numeric" placeholder="3">
+                </div>
+                <div class="q">
+                  <span class="ql" id="q-fuel">Carburant</span>
+                  <div class="seg" role="radiogroup" aria-labelledby="q-fuel">
+                    <label><input type="radio" name="carburant" value="essence"><span>Essence</span></label><label><input type="radio" name="carburant" value="diesel"><span>Diesel</span></label><label><input type="radio" name="carburant" value="autre"><span>Hybride ou électrique</span></label>
+                  </div>
+                  <span class="note warn" id="dieselHint" hidden>Diesel&#8239;: Euro&nbsp;5 ou filtre à particules obligatoire à Copenhague, et plaque à enregistrer avant d'arriver (amende 1&#8239;500&nbsp;DKK).</span>
+                </div>
+              </div>
+              <div class="q">
+                <span class="ql"><span id="q-iti">Itinéraire préféré</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-iti" aria-label="Ferry ou pont ?">i</button></span>
+                <span class="tipbox" id="tip-iti" hidden>Même prix. Le ferry coupe la route (45&nbsp;min de traversée, horaire réservé). Le pont évite l'horaire fixe mais ajoute environ 150&nbsp;km.</span>
+                <div class="seg" role="radiogroup" aria-labelledby="q-iti">
+                  <label><input type="radio" name="itineraire" value="ferry"><span>Ferry</span></label><label><input type="radio" name="itineraire" value="pont"><span>Pont</span></label><label><input type="radio" name="itineraire" value="egal"><span>Peu importe</span></label>
+                </div>
+              </div>
+              <p class="note">Environ 13&nbsp;h de route. Parking à Copenhague&#8239;: environ <b>50&nbsp;€</b> par personne en plus.</p>
+            </div>
+
+            <div class="cond" id="planeFields" hidden>
+              <p class="note"><b>Tu réserves ton vol toi-même.</b> Direct en 2&nbsp;h depuis Orly ou Roissy.</p>
+              <div class="q">
+                <span class="ql" id="q-ap">Aéroport</span>
+                <div class="seg" role="radiogroup" aria-labelledby="q-ap">
+                  <label><input type="radio" name="aeroport" value="ORY"><span>Orly</span></label><label><input type="radio" name="aeroport" value="CDG"><span>Roissy-CDG</span></label><label><input type="radio" name="aeroport" value="egal"><span>Peu importe</span></label>
+                </div>
+              </div>
+              <div class="q">
+                <span class="ql"><span id="q-bag">Bagage</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-bag" aria-label="Bagages">i</button></span>
+                <span class="tipbox" id="tip-bag" hidden>Transavia et Norwegian en tarif de base&#8239;: petit sac sous le siège uniquement. Une valise ajoute 40 à 70&nbsp;€ aller-retour. Air France inclut la cabine 12&nbsp;kg.</span>
+                <div class="seg" role="radiogroup" aria-labelledby="q-bag">
+                  <label><input type="radio" name="bagage" value="sac"><span>Petit sac</span></label><label><input type="radio" name="bagage" value="cabine"><span>Valise cabine</span></label><label><input type="radio" name="bagage" value="soute"><span>Valise en soute</span></label>
+                </div>
+              </div>
+              <div class="q" id="myFlights"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" role="group" aria-labelledby="l-lo">
+          <div class="label"><span class="step">4 / 5</span><b id="l-lo">Pour dormir</b><small>Toujours en chambre privée. Prix par personne et par nuit.</small></div>
+          <div class="field">
+            <div class="q">
+              <span class="ql"><span id="q-lo1">Logement partagé, réservé par le groupe</span> <span class="tag group">avant le 31/10</span></span>
+              <div class="cards" role="radiogroup" aria-labelledby="q-lo1" id="logeShared"></div>
+            </div>
+            <div class="q">
+              <span class="ql" id="q-lo2">Ou je réserve mon hôtel moi-même, quand je veux</span>
+              <div class="cards" role="radiogroup" aria-labelledby="q-lo2" id="logeSelf"></div>
+            </div>
+            <p class="note">Plans et détails de chaque formule dans <a href="#logement">Logements</a>.</p>
+            <div class="q">
+              <span class="ql"><span id="q-ch">Chambre</span><button type="button" class="tip" aria-expanded="false" aria-controls="tip-ch" aria-label="Chambre seul">i</button></span>
+              <span class="tipbox" id="tip-ch" hidden>Seul·e à l'hôtel, tu paies la chambre entière&#8239;: 76 à 98&nbsp;€ la nuit au lieu de 38 à 47&nbsp;€.</span>
+              <div class="seg" role="radiogroup" aria-labelledby="q-ch">
+                <label><input type="radio" name="chambre" value="partage"><span>Je partage à 2</span></label><label><input type="radio" name="chambre" value="seul"><span>Seul·e</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <label class="ql" for="avec">Avec qui partager&#8239;? <span class="faint">(facultatif)</span></label>
+              <input class="text m" type="text" id="avec" name="avec" maxlength="60" placeholder="Léa">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" role="group" aria-labelledby="l-bu">
+          <div class="label"><span class="step">5 / 5</span><b id="l-bu">Mon maximum</b><small>Transport et logement compris.</small></div>
+          <div class="field">
+            <div class="seg num" role="radiogroup" aria-labelledby="l-bu">
+              <label><input type="radio" name="budget" value="400"><span>Moins de 400&nbsp;€</span></label><label><input type="radio" name="budget" value="550"><span>400 à 550&nbsp;€</span></label><label><input type="radio" name="budget" value="700"><span>550 à 700&nbsp;€</span></label><label><input type="radio" name="budget" value="999"><span>Plus de 700&nbsp;€</span></label>
+            </div>
+            <div class="q">
+              <label class="ql" for="commentaire">Un mot pour le groupe <span class="faint">(facultatif)</span></label>
+              <textarea class="text" id="commentaire" name="commentaire" rows="2" maxlength="600" placeholder="Contraintes, envies, questions… ou je ramène le gløgg."></textarea>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="estimate" aria-live="polite">
+          <div class="estimate-top">
+            <span class="cap">Ton budget estimé<button type="button" class="tip" aria-expanded="false" aria-controls="tip-est" aria-label="Comment c'est calculé">i</button></span>
+            <span class="total" id="estTotal">—</span>
+          </div>
+          <span class="tipbox" id="tip-est" hidden>Transport aller-retour et logement, d'après les prix relevés le 12 octobre. Hors repas, sorties et Tivoli.</span>
+          <svg class="rule" id="estRule" viewBox="0 0 900 46" aria-hidden="true"></svg>
+          <dl class="ledger" id="estLines"></dl>
+          <div id="estBudget"></div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn" id="saveBtn">Enregistrer</button>
+          <button type="button" class="btn-text" id="copyMine">Copier mon récap</button>
           <span class="status" id="saveStatus" role="status" aria-live="polite"></span>
         </div>
         <div class="notice" id="sameName" hidden></div>
-        <div id="fallback" hidden style="display:grid;gap:10px;margin-top:12px">
+        <div id="fallback" hidden style="display:grid;gap:10px;margin-top:var(--s3)">
           <p class="notice err" id="fallbackMsg" style="margin:0"></p>
           <textarea class="copybox" id="fallbackText" readonly aria-label="Récapitulatif à copier"></textarea>
         </div>
       </form>
+    </section>
 
-      <aside class="est" aria-labelledby="estTitle">
-        <h3 id="estTitle">Ton budget estimé <button type="button" class="tip" aria-expanded="false" aria-controls="tip-est" aria-label="Comment c'est calculé">i</button></h3>
-        <span class="tipbox" id="tip-est" hidden>Transport aller-retour et logement, d'après les prix relevés le 12 octobre. Hors repas, sorties et Tivoli.</span>
-        <div class="est-total" id="estTotal">—</div>
-        <ul class="est-lines" id="estLines"></ul>
-        <div id="estBudget"></div>
-      </aside>
-    </div>
-  </div>
-</section>
+    <!-- ——— LE GROUPE ——— -->
+    <section class="sec" id="groupe" aria-labelledby="h-groupe">
+      <div class="sec-head">
+        <h2 id="h-groupe">Le groupe</h2>
+        <span class="cap num" id="grpCount"></span>
+        <p id="groupEyebrow">Les mêmes nuits que les maisons, une ligne par personne.</p>
+      </div>
+      <div id="groupBody" style="display:grid;gap:var(--s4);min-width:0">
+        <div class="empty"><b>Chargement des réponses…</b></div>
+      </div>
+    </section>
 
-<section class="block" id="groupe">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Le groupe</h2>
-      <p id="groupEyebrow">Les réponses de tout le monde.</p>
-    </div>
-    <div id="groupBody">
-      <div class="empty"><b>Chargement des réponses…</b></div>
-    </div>
-  </div>
-</section>
+    <!-- ——— LOGEMENTS ——— -->
+    <section class="sec" id="logement" aria-labelledby="h-logement">
+      <div class="sec-head">
+        <h2 id="h-logement">Logements</h2>
+        <span class="cap num">38 – 120&nbsp;€ / nuit</span>
+        <p>Cinq formules, toutes en chambres privées, pas de dortoir. Ouvre-en une pour voir son plan et qui dort où.</p>
+      </div>
+      <div class="folds" id="planCards"></div>
+      <div class="folds">
+        <details class="fold">
+          <summary><h3>Quartiers</h3><span class="pm" aria-hidden="true"></span><span class="lede">Où chercher</span></summary>
+          <div class="fold-body">
+            <dl class="kv">
+              <dt>Vesterbro</dt><dd>Central, à côté de la gare et de Tivoli. Pratique pour l'avion comme pour la voiture.</dd>
+              <dt>Nørrebro</dt><dd>Bars et restos, ambiance jeune.</dd>
+              <dt>Christianshavn</dt><dd>Les canaux, très joli à pied.</dd>
+              <dt>Østerbro, Nordhavn</dt><dd>Plus calme, front de mer, parking plus facile.</dd>
+            </dl>
+          </div>
+        </details>
+        <details class="fold">
+          <summary><h3>Les 15 adresses repérées</h3><span class="pm" aria-hidden="true"></span><span class="lede">Prix relevés et notes</span></summary>
+          <div class="fold-body">
+            <div class="tbl-scroll">
+              <table class="spec wide">
+                <thead><tr><th>Nom</th><th>Type</th><th>Points clés</th><th>Note</th><th class="r">Prix relevé</th></tr></thead>
+                <tbody id="hotelTable"></tbody>
+              </table>
+            </div>
+            <p class="cap-text">* Auberges&#8239;: probablement le prix d'un lit en dortoir. Appart-hôtels&#8239;: estimations, aucun tarif de décembre relevé.</p>
+          </div>
+        </details>
+      </div>
+    </section>
 
-<section class="block" id="logement">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Logements</h2>
-      <p>Cinq formules, toutes en chambres privées. Ouvre-en une pour voir son plan et qui dort où.</p>
-    </div>
-    <div id="planCards"></div>
-    <details class="fold">
-      <summary><span class="sum-main">Quartiers<span class="sum-sub">Où chercher</span></span></summary>
-      <div class="body">
-        <dl class="kv">
-          <dt>Vesterbro</dt><dd>Central, à côté de la gare et de Tivoli. Pratique pour l'avion comme pour la voiture.</dd>
-          <dt>Nørrebro</dt><dd>Bars et restos, ambiance jeune.</dd>
-          <dt>Christianshavn</dt><dd>Les canaux, très joli à pied.</dd>
-          <dt>Østerbro, Nordhavn</dt><dd>Plus calme, front de mer, parking plus facile.</dd>
-        </dl>
+    <!-- ——— TRANSPORT ——— -->
+    <section class="sec" id="transport" aria-labelledby="h-transport">
+      <div class="sec-head">
+        <h2 id="h-transport">Transport</h2>
+        <span class="cap num">105 – 385&nbsp;€ A/R</span>
+        <p>Paris → Copenhague. Au moins une voiture part, les autres prennent l'avion.</p>
       </div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Les 15 adresses repérées<span class="sum-sub">Prix relevés et notes</span></span></summary>
-      <div class="body">
-        <div class="scroll-x">
-          <table>
-            <thead><tr><th>Nom</th><th>Type</th><th>Points clés</th><th>Note</th><th>Prix relevé</th></tr></thead>
-            <tbody id="hotelTable"></tbody>
-          </table>
-        </div>
-        <p class="small muted">* Auberges : probablement le prix d'un lit en dortoir. Appart-hôtels : estimations, aucun tarif de décembre relevé.</p>
+      <div class="folds">
+        <details class="fold">
+          <summary><h3>Voiture ou avion</h3><span class="fig num">105 – 385&nbsp;€ <i>A/R</i></span><span class="pm" aria-hidden="true"></span><span class="lede">La voiture est organisée par le groupe, l'avion chacun le réserve.</span></summary>
+          <div class="fold-body">
+            <div class="duo">
+              <div>
+                <h4>En voiture <span>105 – 165&nbsp;€</span></h4>
+                <ul class="facts-list">
+                  <li>Environ <b>1&#8239;220&nbsp;km</b> par trajet, 13&nbsp;h de route, bagages libres</li>
+                  <li><b>520 à 660&nbsp;€</b> par voiture aller-retour (essence, péages, ferry), partagés à 4 ou 5</li>
+                  <li>Parking environ 40&nbsp;€ par jour en garage d'hôtel, soit <b>50&nbsp;€</b> par personne sur 6 nuits</li>
+                  <li class="pro">Le moins cher, pas d'avion</li>
+                  <li class="con">Longue route&#8239;; pneus hiver 3PMSF exigés en Allemagne par neige</li>
+                </ul>
+              </div>
+              <div>
+                <h4>En avion <span>280 – 385&nbsp;€</span></h4>
+                <ul class="facts-list">
+                  <li>Direct en <b>2&nbsp;h</b>, Orly (Transavia) ou Roissy (Air France, Norwegian), dates libres</li>
+                  <li>Aéroport → gare centrale en <b>13&nbsp;min</b>, environ 36&nbsp;DKK (5&nbsp;€)</li>
+                  <li>Une valise chez les low-cost&#8239;: <b>40 à 70&nbsp;€</b> de plus</li>
+                  <li class="pro">Rapide, idéal pour un séjour court</li>
+                  <li class="con">2 à 3 fois plus cher, les prix montent à l'approche des fêtes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="fold">
+          <summary><h3>Ferry ou pont&#8239;?</h3><span class="fig num">même prix</span><span class="pm" aria-hidden="true"></span><span class="lede">Pour ceux qui conduisent.</span></summary>
+          <div class="fold-body">
+            <div class="tbl-scroll">
+              <table class="spec wide">
+                <thead><tr><th></th><th>Ferry Puttgarden → Rødby</th><th>Pont du Storebælt</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Voiture A/R</th><td><b>520 – 660&nbsp;€</b></td><td><b>530 – 590&nbsp;€</b></td></tr>
+                  <tr><th scope="row">Passage</th><td>48 à 118&nbsp;€ l'aller, jusqu'à 9 passagers</td><td>235&nbsp;DKK, environ 32&nbsp;€</td></tr>
+                  <tr><th scope="row">Pour</th><td>Pause de 45&nbsp;min, 150&nbsp;km de moins</td><td>Pas d'horaire fixe</td></tr>
+                  <tr><th scope="row">Contre</th><td>À réserver en ligne, prix au port presque doublé</td><td>Environ 3&nbsp;h de route en plus sur l'aller-retour</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <details class="fold">
+          <summary><h3>Les vols relevés</h3><span class="fig num">280 – 403&nbsp;€</span><span class="pm" aria-hidden="true"></span><span class="lede">17 vols sur Google Flights, le 12 octobre.</span></summary>
+          <div class="fold-body">
+            <div class="filters" id="flightFilters" role="group" aria-label="Filtrer par dates"></div>
+            <div class="tbl-scroll">
+              <table class="spec wide" id="flightTable">
+                <thead><tr><th>Dates</th><th>Aéroport</th><th>Compagnie</th><th>Aller</th><th class="r">Prix aller-retour</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <p class="cap-text">✦ Le moins cher de chaque combinaison. Avec escales&#8239;: 391 à 1&#8239;212&nbsp;€ et 7 à 15&nbsp;h, à éviter. Pour d'autres dates, cherche directement sur Google Flights.</p>
+          </div>
+        </details>
       </div>
-    </details>
-  </div>
-</section>
+    </section>
 
-<section class="block" id="transport">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Transport</h2>
-      <p>Paris → Copenhague. Au moins une voiture part, les autres prennent l'avion.</p>
-    </div>
-    <details class="fold">
-      <summary><span class="tag car">Voiture</span><span class="sum-main">Organisée par le groupe<span class="sum-sub">Environ 13 h de route, bagages libres</span></span><span class="sum-price">105 à 165 €</span></summary>
-      <div class="body">
-        <dl class="kv">
-          <dt>Distance</dt><dd>Environ 1 220 km par trajet</dd>
-          <dt>Par voiture</dt><dd>520 à 660 € aller-retour (essence, péages, ferry), partagés à 4 ou 5</dd>
-          <dt>Parking</dt><dd>Environ 40 € par jour en garage d'hôtel, soit 50 € par personne sur 6 nuits</dd>
-        </dl>
-        <ul class="proscons">
-          <li class="pro">Le moins cher, pas d'avion</li>
-          <li class="con">Longue route ; pneus hiver 3PMSF exigés en Allemagne par neige</li>
-        </ul>
+    <!-- ——— À SAVOIR ——— -->
+    <section class="sec" id="infos" aria-labelledby="h-infos">
+      <div class="sec-head">
+        <h2 id="h-infos">À savoir</h2>
+        <span class="cap num">7&nbsp;h de jour le 31</span>
       </div>
-    </details>
-    <details class="fold">
-      <summary><span class="tag plane">Avion</span><span class="sum-main">Chacun réserve<span class="sum-sub">2 h de vol direct, dates libres</span></span><span class="sum-price">280 à 385 €</span></summary>
-      <div class="body">
-        <dl class="kv">
-          <dt>Aéroports</dt><dd>Orly (Transavia) ou Roissy (Air France, Norwegian)</dd>
-          <dt>À l'arrivée</dt><dd>Aéroport → gare centrale en 13 min, environ 36 DKK (5 €)</dd>
-          <dt>Bagages</dt><dd>40 à 70 € de plus chez les low-cost</dd>
-        </dl>
-        <ul class="proscons">
-          <li class="pro">Rapide, idéal pour un séjour court</li>
-          <li class="con">2 à 3 fois plus cher, les prix montent à l'approche des fêtes</li>
-        </ul>
+      <div class="folds">
+        <details class="fold">
+          <summary><h3>Si tu conduis</h3><span class="pm" aria-hidden="true"></span><span class="lede">Pneus hiver, diesel, zones à faibles émissions.</span></summary>
+          <div class="fold-body"><ul class="facts-list">
+            <li><b>Pneus hiver 3PMSF</b> obligatoires en Allemagne par neige ou verglas, sur les 4 roues. Le marquage M+S seul ne suffit plus. Amende de 60 à 120&nbsp;€.</li>
+            <li><b>Diesel.</b> Euro&nbsp;5 minimum ou filtre à particules pour Copenhague, plaque à enregistrer sur miljoezoner.dk avant d'arriver (amende 1&#8239;500&nbsp;DKK).</li>
+            <li><b>Zones à faibles émissions.</b> Bruxelles, Anvers, Gand et la plupart des grandes villes allemandes en ont&#8239;: contourner les centres.</li>
+            <li><b>Ferry.</b> Réserver en ligne, le prix au port est presque doublé.</li>
+          </ul></div>
+        </details>
+        <details class="fold">
+          <summary><h3>Si tu prends l'avion</h3><span class="pm" aria-hidden="true"></span><span class="lede">Bagages, trajet jusqu'au centre.</span></summary>
+          <div class="fold-body"><ul class="facts-list">
+            <li>Tarif de base Transavia et Norwegian&#8239;: <b>petit sac sous le siège seulement</b> (40 × 30 × 20&nbsp;cm chez Transavia).</li>
+            <li>Avec une valise, Transavia (345 à 375&nbsp;€) rejoint Air France (384&nbsp;€, cabine incluse).</li>
+            <li>Aéroport → centre&#8239;: métro M2 ou train, 13&nbsp;min, billet 3 zones à 36&nbsp;DKK.</li>
+          </ul></div>
+        </details>
+        <details class="fold">
+          <summary><h3>Pour tout le monde</h3><span class="pm" aria-hidden="true"></span><span class="lede">Annulation, nuit du 31, monnaie, bruit.</span></summary>
+          <div class="fold-body"><ul class="facts-list">
+            <li><b>Annulation.</b> Si tu réserves toi-même, prends un tarif annulable&#8239;: le groupe peut encore bouger.</li>
+            <li><b>Nuit du 31.</b> Souvent plus chère, vérifie-la à part.</li>
+            <li><b>Monnaie.</b> Environ 7,46&nbsp;DKK pour 1&nbsp;€. La carte passe partout.</li>
+            <li><b>Bruit.</b> En Airbnb, Copenhague est stricte en immeuble.</li>
+          </ul></div>
+        </details>
+        <details class="fold">
+          <summary><h3>Sur place</h3><span class="fig num">7&nbsp;h <i>de jour le 31</i></span><span class="pm" aria-hidden="true"></span><span class="lede">La lumière, Tivoli, hygge, sauna, balades.</span></summary>
+          <div class="fold-body">
+            <figure style="display:grid;gap:var(--s2)">
+              <svg class="day" viewBox="0 0 720 74" role="img" aria-label="Le 31 décembre : jour de 8 h 37 à 15 h 46, feu d'artifice de Tivoli à 23 h">
+                <rect class="night" x="0" y="22" width="720" height="22"/>
+                <rect class="light" x="258.5" y="22" width="214.5" height="22"/>
+                <line class="fw" x1="690" y1="16" x2="690" y2="50"/>
+                <text class="lb" x="258.5" y="13">8&#160;h&#160;37</text>
+                <text class="lb" x="473" y="13" text-anchor="end">15&#160;h&#160;46</text>
+                <text class="lb fwl" x="684" y="13" text-anchor="end">23&#160;h, Tivoli</text>
+                <text class="ax" x="4" y="62" style="text-anchor:start">0&#160;h</text><text class="ax" x="180" y="62">6&#160;h</text><text class="ax" x="360" y="62">12&#160;h</text><text class="ax" x="540" y="62">18&#160;h</text><text class="ax" x="716" y="62" style="text-anchor:end">24&#160;h</text>
+              </svg>
+              <figcaption class="cap-text">Le 31 décembre&#8239;: environ 7&nbsp;h de jour. Le trait ambre&#8239;: le feu d'artifice de Tivoli à 23&nbsp;h, inclus dans le billet d'entrée.</figcaption>
+            </figure>
+            <ul class="facts-list">
+              <li><b>Tivoli.</b> Illuminations de Noël et manèges anciens. Feu d'artifice le 31 à 23&nbsp;h.</li>
+              <li><b>Hygge.</b> Gløgg (vin chaud), halles de Torvehallerne, microbrasseries de Kødbyen.</li>
+              <li><b>Sauna et bain glacé</b> au bord du port, pour les courageux.</li>
+              <li><b>Balade.</b> Canaux de Christianshavn, Cirkelbroen, l'Opéra, la Bibliothèque royale.</li>
+            </ul>
+          </div>
+        </details>
       </div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Ferry ou pont ?<span class="sum-sub">Pour ceux qui conduisent : même prix</span></span></summary>
-      <div class="body">
-        <div class="scroll-x">
-          <table>
-            <thead><tr><th></th><th>Ferry Puttgarden → Rødby</th><th>Pont du Storebælt</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Coût voiture aller-retour</th><td class="num">520 à 660 €</td><td class="num">530 à 590 €</td></tr>
-              <tr><th scope="row">Passage</th><td>48 à 118 € l'aller, jusqu'à 9 passagers</td><td class="num">235 DKK (environ 32 €)</td></tr>
-              <tr><th scope="row">Pour</th><td>Pause de 45 min, 150 km de moins</td><td>Pas d'horaire fixe</td></tr>
-              <tr><th scope="row">Contre</th><td>Réserver en ligne (prix au port presque doublé)</td><td>Environ 3 h de route en plus sur l'aller-retour</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Les vols relevés<span class="sum-sub">17 vols sur Google Flights, le 12 octobre</span></span></summary>
-      <div class="body">
-        <div class="filters" id="flightFilters" role="group" aria-label="Filtrer par dates"></div>
-        <div class="scroll-x">
-          <table id="flightTable">
-            <thead><tr><th>Dates</th><th>Aéroport</th><th>Compagnie</th><th>Aller</th><th>Prix aller-retour</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <p class="small muted">Le moins cher de chaque combinaison est surligné. Avec escales : 391 à 1 212 € et 7 à 15 h, à éviter. Pour d'autres dates, cherche directement sur Google Flights.</p>
-      </div>
-    </details>
-  </div>
-</section>
-
-<section class="block" id="infos">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>À savoir</h2>
-    </div>
-    <details class="fold">
-      <summary><span class="sum-main">Si tu conduis<span class="sum-sub">Pneus hiver, diesel, zones à faibles émissions</span></span></summary>
-      <div class="body"><ul class="list">
-        <li><b>Pneus hiver 3PMSF</b> obligatoires en Allemagne par neige ou verglas, sur les 4 roues. Le marquage M+S seul ne suffit plus. Amende de 60 à 120 €.</li>
-        <li><b>Diesel</b> : Euro 5 minimum ou filtre à particules pour Copenhague, plaque à enregistrer sur miljoezoner.dk avant d'arriver.</li>
-        <li>Bruxelles, Anvers, Gand et la plupart des grandes villes allemandes ont des zones à faibles émissions : contourner les centres.</li>
-        <li>Ferry : réserver en ligne, le prix au port est presque doublé.</li>
-      </ul></div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Si tu prends l'avion<span class="sum-sub">Bagages, trajet jusqu'au centre</span></span></summary>
-      <div class="body"><ul class="list">
-        <li>Tarif de base Transavia et Norwegian : <b>petit sac sous le siège seulement</b> (40 × 30 × 20 cm chez Transavia).</li>
-        <li>Avec une valise, Transavia (345 à 375 €) rejoint Air France (384 €, cabine incluse).</li>
-        <li>Aéroport → centre : métro M2 ou train, 13 min, billet 3 zones à 36 DKK.</li>
-      </ul></div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Pour tout le monde<span class="sum-sub">Annulation, nuit du 31, monnaie</span></span></summary>
-      <div class="body"><ul class="list">
-        <li>Si tu réserves toi-même, prends un <b>tarif annulable</b> : le groupe peut encore bouger.</li>
-        <li>La <b>nuit du 31</b> est souvent plus chère : vérifie-la à part.</li>
-        <li>Couronne danoise : environ <b>7,46 DKK pour 1 €</b>. La carte passe partout.</li>
-        <li>En Airbnb, Copenhague est stricte sur le bruit en immeuble.</li>
-      </ul></div>
-    </details>
-    <details class="fold">
-      <summary><span class="sum-main">Sur place<span class="sum-sub">Tivoli, hygge, sauna, balades</span></span></summary>
-      <div class="body">
-        <div class="daylight" aria-label="Durée du jour le 31 décembre">
-          <div class="dl-bar"><div class="dl-sun"></div><div class="dl-fw"></div></div>
-          <div class="dl-scale"><span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span><span>24 h</span></div>
-          <p class="small muted">Le 31 décembre : environ 7 h de jour, de 8 h 37 à 15 h 46. Le trait jaune : le feu d'artifice de Tivoli à 23 h.</p>
-        </div>
-        <ul class="list">
-          <li><b>Tivoli</b> : illuminations de Noël et manèges anciens. Feu d'artifice le 31 à 23 h, inclus dans le billet d'entrée.</li>
-          <li><b>Hygge</b> : gløgg (vin chaud), halles de Torvehallerne, microbrasseries de Kødbyen.</li>
-          <li><b>Sauna et bain glacé</b> au bord du port, pour les courageux.</li>
-          <li><b>Balade</b> : canaux de Christianshavn, Cirkelbroen, l'Opéra, la Bibliothèque royale.</li>
-        </ul>
-      </div>
-    </details>
-  </div>
-</section>
-</main>
+    </section>
+  </main>
+</div>
 
 <footer>
   <div class="wrap">
     <p>Prix relevés le 12 octobre 2026 (Google Flights, Google Hotels, sites officiels), à revérifier avant de réserver.</p>
-    <p>Sources : <a href="https://www.tivoli.dk/en/the-gardens/fireworks" target="_blank" rel="noopener">Tivoli</a>, <a href="https://puttgardenrodby.com/prices/" target="_blank" rel="noopener">ferry</a>, <a href="https://miljoezoner.dk/en/regulations-and-vehicles" target="_blank" rel="noopener">zones à faibles émissions</a>, <a href="https://www.copenhagentourism.org/?p=607" target="_blank" rel="noopener">aéroport → centre</a>.</p>
+    <p>Sources&#8239;: <a href="https://www.tivoli.dk/en/the-gardens/fireworks" target="_blank" rel="noopener">Tivoli</a>, <a href="https://puttgardenrodby.com/prices/" target="_blank" rel="noopener">ferry</a>, <a href="https://miljoezoner.dk/en/regulations-and-vehicles" target="_blank" rel="noopener">zones à faibles émissions</a>, <a href="https://www.copenhagentourism.org/?p=607" target="_blank" rel="noopener">aéroport → centre</a>.</p>
   </div>
 </footer>
 
@@ -682,9 +901,19 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycbyGVYqW_psdHw1Tazwbvf
 (function(){
 "use strict";
 const $ = (s, r=document) => r.querySelector(s);
+const SVGNS = "http://www.w3.org/2000/svg";
+const NB = "\u00a0", NNB = "\u202f";
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const eur = n => Math.round(n).toLocaleString("fr-FR") + " €";
-const range = (a,b) => Math.round(a)===Math.round(b) ? eur(a) : Math.round(a).toLocaleString("fr-FR") + " à " + eur(b);
+const eur = n => Math.round(n).toLocaleString("fr-FR") + NB + "€";
+const range = (a,b) => Math.round(a)===Math.round(b) ? eur(a) : Math.round(a).toLocaleString("fr-FR") + " – " + eur(b);
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- état partagé ---------- */
+const Store = { mode:"none", myId:null, isOwner:false, db:null };
+let docs = new Map();
+let firstData = true;
+let editingId = null;
+let showMaybe = true;
 
 /* ---------- tips ---------- */
 document.addEventListener("click", e => {
@@ -699,17 +928,19 @@ document.addEventListener("keydown", e => {
   document.querySelectorAll('.tip[aria-expanded="true"]').forEach(t => { t.setAttribute("aria-expanded","false"); const b = document.getElementById(t.getAttribute("aria-controls")); if (b) b.hidden = true; });
 });
 
-/* ---------- dates ---------- */
+/* ---------- dates : index 0 = nuit du 26 déc. ---------- */
 const D0 = Date.UTC(2026, 11, 26);
-const ARR = ["2026-12-26","2026-12-27","2026-12-28","2026-12-29","2026-12-30","2026-12-31","2027-01-01"];
-const DEP = ["2026-12-29","2026-12-30","2026-12-31","2027-01-01","2027-01-02","2027-01-03","2027-01-04","2027-01-05"];
-const NYE = 5;
+const N = 10, STAY = [2, 7], NYE = 5;   // 10 nuits proposées (26 déc. → 4 janv.), le séjour du 28 au 3
 const parseISO = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? Date.UTC(+m[1], +m[2]-1, +m[3]) : null; };
 const dIdx = s => { const t = parseISO(s); return t == null ? null : Math.round((t - D0) / 864e5); };
 const isoOf = i => new Date(D0 + i*864e5).toISOString().slice(0,10);
 const fmt = (s, o) => new Date(parseISO(s)).toLocaleDateString("fr-FR", {timeZone:"UTC", ...o});
 const dLong = s => fmt(s, {weekday:"short", day:"numeric", month:"short"});
 const dShort = s => fmt(s, {weekday:"short", day:"numeric"});
+const wd = i => fmt(isoOf(i), {weekday:"short"}).replace(".", "");
+const dd = i => new Date(D0 + i*864e5).getUTCDate();
+const dayLong = i => fmt(isoOf(i), {weekday:"long", day:"numeric", month:"long"});
+const inStay = i => i >= STAY[0] && i <= STAY[1];
 const nbNights = r => { const a = dIdx(r.arrivee), d = dIdx(r.depart); return (a != null && d != null && d > a) ? d - a : 0; };
 const flightKey = r => (/^2026-12/.test(r.arrivee||"") && /^2027-01/.test(r.depart||"")) ? (+r.arrivee.slice(8)) + "-" + (+r.depart.slice(8)) : null;
 function legacy(r){
@@ -724,54 +955,354 @@ function nightCols(active){
   active.forEach(r => { const a = dIdx(r.arrivee), d = dIdx(r.depart); if (a != null && d != null && d > a){ lo = Math.min(lo, a); hi = Math.max(hi, d-1); } });
   const c = []; for (let i = lo; i <= hi; i++) c.push(i); return c;
 }
+const plural = (n, one, many) => `${n} ${n > 1 ? many : one}`;
 
 /* ---------- deadline ---------- */
 const DEADLINE = new Date(2026, 9, 31, 23, 59, 59);
 const daysLeft = () => Math.ceil((DEADLINE - new Date()) / 864e5);
 const deadlinePassed = () => new Date() > DEADLINE;
 
-/* ---------- Nyhavn skyline: one house per night, one lit window per person ---------- */
-const FACADES = ["var(--dusk)","var(--rose)","var(--sage)","var(--brick)","var(--teal)","var(--plum)"];
-const ROOFS = [24,16,30,20,28,18,26,32,22,27,19];
-let skyAnimated = false;
-function renderSkyline(cols, yesN, maybeN){
-  const W = 60, G = 6, BODY = 122, TOP = 50, base = TOP + BODY, n = cols.length;
-  const width = n*(W+G) - G, height = base + 34;
-  let s = "", aria = [];
-  let delay = 0;
-  cols.forEach((i, k) => {
-    const x = k*(W+G), r = ROOFS[i % ROOFS.length], yb = base - BODY, col = FACADES[i % FACADES.length];
-    const type = i % 4;
-    s += `<rect x="${x}" y="${yb}" width="${W}" height="${BODY}" fill="${col}"/>`;
-    if (type === 0) s += `<path d="M${x} ${yb} L${x+W/2} ${yb-r} L${x+W} ${yb} Z" fill="${col}"/>`;
-    else if (type === 1){ const st = r/3; s += `<path d="M${x} ${yb} V${yb-st} H${x+9} V${yb-2*st} H${x+18} V${yb-r} H${x+W-18} V${yb-2*st} H${x+W-9} V${yb-st} H${x+W} V${yb} Z" fill="${col}"/>`; }
-    else if (type === 2) s += `<rect x="${x-2}" y="${yb-7}" width="${W+4}" height="7" fill="${col}"/><rect x="${x+20}" y="${yb-7-r*0.5}" width="20" height="${r*0.5}" fill="${col}"/>`;
-    else s += `<path d="M${x} ${yb} C${x+6} ${yb-r*0.6} ${x+18} ${yb-r} ${x+W/2} ${yb-r} C${x+W-18} ${yb-r} ${x+W-6} ${yb-r*0.6} ${x+W} ${yb} Z" fill="${col}"/>`;
-    // windows: 2 columns x 5 floors, lit from the ground floor up
-    const y = yesN[k] || 0, m = maybeN[k] || 0;
-    const slots = [];
-    for (let row = 4; row >= 0; row--) for (let c = 0; c < 2; c++) slots.push([x + 12 + c*24, yb + 8 + row*19]);
-    slots.forEach(([wx, wy], j) => {
-      const cls = j < y ? "w on" : (j < y + m ? "w half" : "w");
-      const d = (j < y + m) ? ` style="--d:${(delay += 55)}ms"` : "";
-      s += `<rect class="${cls}" x="${wx}" y="${wy}" width="12" height="13" rx="1.5"${d}/>`;
-    });
-    s += `<rect class="door" x="${x+W/2-7}" y="${base-17}" width="14" height="17" rx="1"/>`;
-    if (i === NYE){
-      const cx = x + W/2, cy = yb - r - 20;
-      for (let a = 0; a < 8; a++){ const t = a*Math.PI/4; s += `<line class="fw" x1="${(cx+Math.cos(t)*4).toFixed(1)}" y1="${(cy+Math.sin(t)*4).toFixed(1)}" x2="${(cx+Math.cos(t)*11).toFixed(1)}" y2="${(cy+Math.sin(t)*11).toFixed(1)}"/>`; }
-      s += `<circle class="fwc" cx="${cx}" cy="${cy}" r="1.8"/>`;
-    }
-    const lab = dShort(isoOf(i));
-    s += `<text class="lbl${i===NYE?" nye":""}" x="${x+W/2}" y="${base+16}" text-anchor="middle">${esc(lab)}</text>`;
-    s += `<text class="cnt" x="${x+W/2}" y="${base+29}" text-anchor="middle">${y||m ? `${y}${m?` + ${m}`:""}` : "personne"}</text>`;
-    aria.push(`nuit du ${lab} : ${y} sur place${m?`, ${m} peut-être`:""}`);
-  });
-  const anim = !skyAnimated && yesN.some(Boolean) ? " anim" : "";
-  if (anim) skyAnimated = true;
-  $("#skyline").innerHTML = `<svg class="skyline sk${anim}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc("Présences par nuit. " + aria.join(" ; "))}">${s}</svg>`;
+/* ================= Nyhavn : une maison par nuit, une fenêtre par personne ================= */
+const HOUSES = [
+  {w:90,  h:168, g:"pitch",   c:"--f-lin"},
+  {w:96,  h:186, g:"cornice", c:"--f-zinc"},
+  {w:98,  h:180, g:"step",    c:"--f-ochre"},
+  {w:92,  h:196, g:"bell",    c:"--f-brick"},
+  {w:100, h:174, g:"cornice", c:"--f-zinc"},
+  {w:94,  h:170, g:"step",    c:"--f-petrol"},
+  {w:90,  h:190, g:"pitch",   c:"--f-sage"},
+  {w:98,  h:182, g:"bell",    c:"--f-ochre"},
+  {w:92,  h:176, g:"cornice", c:"--f-brick"},
+  {w:90,  h:172, g:"pitch",   c:"--f-lin"}
+];
+const BASE = 274, QUAY = 22, X0 = (960 - HOUSES.reduce((s,h)=>s+h.w,0)) / 2;
+const COLS = 4, ROWS = 4, SLOTS = COLS * ROWS + 1; // + la fenêtre du pignon
+const el = (tag, attrs, parent) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs){ const v = String(attrs[k]); if (v.startsWith("var(")) e.style.setProperty(k, v); else e.setAttribute(k, v); } if (parent) parent.appendChild(e); return e; };
+
+function facadePath(g, x, y, w){
+  const start = `M${x} ${BASE} V${y}`, end = `V${BASE} Z`;
+  switch (g){
+    case "pitch": return `${start} L${x+w/2} ${y-40} L${x+w} ${y} ${end}`;
+    case "step": { const s = w/8, t = 11;
+      return `${start} V${y-t} H${x+s} V${y-2*t} H${x+2*s} V${y-3*t} H${x+3*s} V${y-4*t} H${x+w-3*s} V${y-3*t} H${x+w-2*s} V${y-2*t} H${x+w-s} V${y-t} H${x+w} ${end}`; }
+    case "bell": return `${start} Q${x+w*.16} ${y-2} ${x+w*.22} ${y-18} L${x+w*.3} ${y-30} Q${x+w*.5} ${y-56} ${x+w*.7} ${y-30} L${x+w*.78} ${y-18} Q${x+w*.84} ${y-2} ${x+w} ${y} ${end}`;
+    default: return `${start} H${x+w} ${end}`;
+  }
 }
-renderSkyline([2,3,4,5,6,7], [], []);
+
+const svg = $("#skyline");
+const winEls = []; // [nuit][fenêtre] -> g
+const overEls = [];
+const rwinEls = []; // reflets des fenêtres dans le canal, même ordre que winEls
+const houseCx = [];
+let rwinLayer;
+function buildSkyline(){
+  const defs = el("defs", {}, svg);
+  const rg = el("radialGradient", {id:"lamp", cx:"50%", cy:"55%", r:"70%"}, defs);
+  el("stop", {offset:"0%", "stop-color":"var(--amber-hi)"}, rg);
+  el("stop", {offset:"100%", "stop-color":"var(--amber)"}, rg);
+  const f = el("filter", {id:"soft", x:"-80%", y:"-80%", width:"260%", height:"260%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"4.5"}, f);
+
+  // eau et quai
+  const WY = BASE + QUAY, WH = 384 - WY;
+  const wg = el("linearGradient", {id:"canal", x1:0, y1:0, x2:0, y2:1}, defs);
+  el("stop", {offset:"0%", "stop-color":"var(--water-deep)"}, wg);
+  el("stop", {offset:"100%", "stop-color":"var(--water)"}, wg);
+  const cp = el("clipPath", {id:"canal-clip"}, defs);
+  el("rect", {x:0, y:WY, width:960, height:WH}, cp);
+  el("rect", {x:0, y:WY, width:960, height:WH, fill:"url(#canal)"}, svg);
+  // l'eau ondule : un bruit lent déplace tout le reflet, façades et fenêtres ensemble
+  const wave = el("filter", {id:"wave", filterUnits:"userSpaceOnUse", x:0, y:WY, width:960, height:WH}, defs);
+  const turb = el("feTurbulence", {type:"fractalNoise", baseFrequency:"0.011 0.16", numOctaves:1, seed:4, result:"n"}, wave);
+  if (!still) el("animate", {attributeName:"baseFrequency", dur:"14s", values:"0.011 0.16;0.014 0.2;0.011 0.16", repeatCount:"indefinite"}, turb);
+  el("feDisplacementMap", {in:"SourceGraphic", in2:"n", scale:7, xChannelSelector:"R", yChannelSelector:"G", result:"d"}, wave);
+  el("feGaussianBlur", {in:"d", stdDeviation:"1.7 1.3"}, wave);
+  const mirror = el("g", {"clip-path":"url(#canal-clip)"}, svg);
+  const water = el("g", {filter:"url(#wave)"}, mirror);
+  const flip = `translate(0 ${WY}) scale(1 -.5) translate(0 ${-BASE})`;
+  const refl = el("g", {transform:flip, opacity:.32}, water);
+  rwinLayer = el("g", {transform:flip}, water);
+  let rx0 = X0;
+  HOUSES.forEach(H => { el("path", {d:facadePath(H.g, rx0, BASE - H.h, H.w), fill:`var(${H.c})`}, refl); rx0 += H.w; });
+  // rides : traits courts, plus serrés et plus longs vers le large ; un second bruit, plus fin, les courbe
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const wv = el("filter", {id:"wavelets", filterUnits:"userSpaceOnUse", x:-20, y:WY - 6, width:1000, height:WH + 12}, defs);
+  const t2 = el("feTurbulence", {type:"fractalNoise", baseFrequency:"0.009 0.06", numOctaves:1, seed:9, result:"n"}, wv);
+  if (!still) el("animate", {attributeName:"baseFrequency", dur:"11s", values:"0.009 0.06;0.011 0.075;0.009 0.06", repeatCount:"indefinite"}, t2);
+  el("feDisplacementMap", {in:"SourceGraphic", in2:"n", scale:3, xChannelSelector:"R", yChannelSelector:"G"}, wv);
+  const ripples = el("g", {filter:"url(#wavelets)"}, mirror);
+  const ripA = el("g", {class:"rip a"}, ripples), ripB = el("g", {class:"rip b"}, ripples);
+  for (let row = 0; row < 11; row++){
+    const y = WY + 5 + row * 7 + row * row * .12;
+    let x = rnd() * 40 - 20;
+    while (x < 960){
+      const len = 10 + rnd() * (18 + row * 5);
+      el("line", {x1:x, x2:x + len, y1:y, y2:y, stroke:"var(--water-line)", "stroke-width":1, "stroke-linecap":"round", opacity:(.45 + rnd() * .45).toFixed(2)}, row % 2 ? ripB : ripA);
+      x += len + 14 + rnd() * 46;
+    }
+  }
+  el("rect", {x:0, y:BASE, width:960, height:QUAY, fill:"var(--kalk)"}, svg);
+  el("line", {x1:0, x2:960, y1:BASE, y2:BASE, stroke:"var(--ink)", "stroke-width":1.2}, svg);
+  el("line", {x1:0, x2:960, y1:BASE + QUAY, y2:BASE + QUAY, stroke:"var(--ink)", "stroke-width":.6, opacity:.5}, svg);
+
+  let x = X0;
+  HOUSES.forEach((H, i) => {
+    const yb = BASE - H.h, cx = x + H.w/2, w = H.w;
+    houseCx[i] = cx;
+    const g = el("g", {class:"house", "data-i":i, tabindex:0, role:"button", "aria-label":`Lire la nuit du ${dayLong(i)}`}, svg);
+    const d = el("g", {class:"detail"});
+    // toit à la Mansart, cheminée et lucarne pour les maisons à corniche
+    let attic;
+    if (H.g === "cornice"){
+      el("rect", {class:"roof chimney", x:x + w*.68, y:yb-32, width:7, height:14}, g);
+      el("rect", {class:"chim-hit", x:x + w*.68 - 7, y:yb-44, width:21, height:28, "data-cx":x + w*.68 + 3.5, "data-cy":yb-32}, g);
+      el("path", {class:"roof", d:`M${x+4} ${yb} L${x+14} ${yb-24} H${x+w-14} L${x+w-4} ${yb} Z`}, g);
+      el("line", {class:"tile", x1:x+9, x2:x+w-9, y1:yb-12, y2:yb-12}, g);
+      el("path", {class:"dormer", d:`M${cx-11} ${yb-8} V${yb-30} L${cx} ${yb-38} L${cx+11} ${yb-30} V${yb-8} Z`}, g);
+      attic = {x:cx-5.5, y:yb-27, w:11, h:14};
+    }
+    el("path", {class:"facade", d:facadePath(H.g, x, yb, w), fill:`var(${H.c})`}, g);
+    g.appendChild(d);
+
+    // pignon : rive, ancre de levage, fenêtre du grenier
+    if (H.g === "pitch"){
+      el("path", {class:"edge", d:`M${x+3} ${yb-1} L${cx} ${yb-37} L${x+w-3} ${yb-1}`}, d);
+      el("line", {class:"hoist", x1:cx, x2:cx, y1:yb-36, y2:yb-30}, d);
+      attic = {x:cx-6, y:yb-25, w:12, h:16};
+    } else if (H.g === "step"){
+      el("line", {class:"hoist", x1:cx, x2:cx, y1:yb-44, y2:yb-38}, d);
+      attic = {x:cx-6, y:yb-34, w:12, h:17};
+    } else if (H.g === "bell"){
+      el("circle", {class:"edge", cx, cy:yb-40, r:4}, d);
+      attic = {x:cx-6, y:yb-28, w:12, h:17};
+    }
+    // corniche moulurée sous le pignon, chaînes d'angle
+    el("rect", {class:"cornice", x:x, y:yb, width:w, height:H.g === "cornice" ? 6 : 4}, d);
+    el("line", {class:"course", x1:x, x2:x+w, y1:yb + (H.g === "cornice" ? 8 : 6), y2:yb + (H.g === "cornice" ? 8 : 6)}, d);
+    el("line", {class:"pilaster", x1:x+3.5, x2:x+3.5, y1:yb+8, y2:BASE-34}, d);
+    el("line", {class:"pilaster", x1:x+w-3.5, x2:x+w-3.5, y1:yb+8, y2:BASE-34}, d);
+    // socle en pierre, porte cintrée et marches
+    el("rect", {class:"socle", x:x, y:BASE-34, width:w, height:34}, d);
+    el("line", {class:"course", x1:x, x2:x+w, y1:BASE-34, y2:BASE-34}, d);
+    const dx = cx - 8;
+    el("path", {class:"door", d:`M${dx} ${BASE-3} V${BASE-22} A8 8 0 0 1 ${dx+16} ${BASE-22} V${BASE-3} Z`}, d);
+    el("line", {class:"transom", x1:dx, x2:dx+16, y1:BASE-22, y2:BASE-22}, d);
+    el("line", {class:"step", x1:dx-3, x2:dx+19, y1:BASE-3, y2:BASE-3}, d);
+    el("line", {class:"step", x1:dx-5, x2:dx+21, y1:BASE-0.8, y2:BASE-0.8}, d);
+    [x + w*.17, x + w*.83].forEach(sx => el("rect", {class:"cellar", x:sx-6, y:BASE-12, width:12, height:5}, d));
+
+    // fenêtres : 4 colonnes × 4 étages, allumées du bas vers le haut, puis le pignon
+    const top = yb + 12, bottom = BASE - 38, rowH = (bottom - top) / ROWS;
+    const ww = Math.max(11, Math.round(w * .125)), wh = Math.min(22, Math.round(rowH * .64));
+    const xs = [.17, .39, .61, .83].map(p => x + w*p - ww/2);
+    const rects = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++){
+      const row = ROWS - 1 - r;
+      rects.push({x:xs[c], y:top + row*rowH + (rowH - wh)/2, w:ww, h:wh});
+    }
+    rects.push(attic);
+    // la lumière se reflète, étirée verticalement comme sur l'eau
+    rwinEls[i] = rects.map(R => el("rect", {class:"rwin", x:R.x + R.w*.18, y:R.y - R.h*.45, width:R.w*.64, height:R.h*1.9, rx:R.w*.3}, rwinLayer));
+    winEls[i] = rects.map(R => {
+      const wg = el("g", {class:"win"}, g);
+      el("rect", {class:"lintel", x:R.x-1.5, y:R.y-3.2, width:R.w+3, height:2.2}, wg);
+      el("line", {class:"sill", x1:R.x-2, x2:R.x+R.w+2, y1:R.y+R.h+1.4, y2:R.y+R.h+1.4}, wg);
+      el("rect", {class:"halo", x:R.x-3, y:R.y-3, width:R.w+6, height:R.h+6}, wg);
+      el("rect", {class:"glass", x:R.x, y:R.y, width:R.w, height:R.h}, wg);
+      el("rect", {class:"lamp", x:R.x, y:R.y, width:R.w, height:R.h}, wg);
+      el("line", {class:"mull", x1:R.x+R.w/2, x2:R.x+R.w/2, y1:R.y, y2:R.y+R.h}, wg);
+      el("line", {class:"mull", x1:R.x, x2:R.x+R.w, y1:R.y+R.h*.4, y2:R.y+R.h*.4}, wg);
+      el("rect", {class:"ring", x:R.x-3.5, y:R.y-3.5, width:R.w+7, height:R.h+7}, wg);
+      return wg;
+    });
+
+    const apex = {pitch:40, step:44, bell:56, cornice:38}[H.g];
+    if (i === NYE) drawFireworks(cx, yb - apex);
+    overEls[i] = el("text", {class:"sk-over", x:i === NYE ? x + 6 : cx, y:yb - apex - 8, style:i === NYE ? "text-anchor:start" : ""}, g);
+    const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:cx, y:BASE+15}, svg);
+    lab.textContent = `${wd(i)} ${dd(i)}`;
+    x += w;
+  });
+  drawBoat(BASE + QUAY + 36);
+}
+
+/* un dundee à voiles auriques traverse le canal, lentement et toujours au même pas */
+function drawBoat(wl){
+  const defs = svg.querySelector("defs");
+  const bf = el("filter", {id:"boat-blur", x:"-20%", y:"-50%", width:"140%", height:"200%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"2 1.2"}, bf);
+  const move = el("g", {class:"boat-move", "aria-hidden":"true"}, svg);
+  const place = el("g", {transform:`translate(0 ${wl}) scale(.8)`}, move);
+  const hull = "M-74 -13 Q-2 -8 68 -20 L62 -5 Q58 2 47 3 L-57 3 Q-68 2 -74 -13 Z";
+  // reflet de la coque et des voiles, brouillé par l'eau
+  const rf = el("g", {class:"boat-refl", filter:"url(#boat-blur)", transform:"translate(0 6) scale(1 -.45)"}, place);
+  el("path", {d:hull, class:"b-hull"}, rf);
+  el("path", {d:"M6 -26 L6 -112 L-48 -150 L-62 -30 Z", class:"b-sail"}, rf);
+
+  const bob = el("g", {class:"boat-bob"}, place);
+  const L = (x1, y1, x2, y2, cls, par = bob) => el("line", {x1, y1, x2, y2, class:cls}, par);
+  const lerp = (a, b, t) => [a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t];
+  // voile avec ses laizes : bords A→B (pied) et C→D (tête)
+  const sail = (pts, seams) => {
+    const g = el("g", {}, bob);
+    el("path", {class:"b-sail", d:"M" + pts.map(p => p.join(" ")).join(" L") + " Z"}, g);
+    if (seams) for (let k = 1; k < 6; k++){ const t = k/6, a = lerp(seams[0], seams[1], t), b = lerp(seams[2], seams[3], t); L(a[0], a[1], b[0], b[1], "b-seam", g); }
+  };
+  // gréement dormant
+  L(116, -22, 8, -150, "b-rig"); L(62, -19, 8, -132, "b-rig"); L(-74, -13, 8, -150, "b-rig");
+  L(8, -134, -6, -15, "b-rig"); L(8, -134, 22, -17, "b-rig"); L(-54, -104, -66, -14, "b-rig"); L(-54, -104, -42, -14, "b-rig");
+  // voiles d'avant, grand-voile et flèche, artimon
+  sail([[10,-142],[114,-23],[66,-27]], [[66,-27],[114,-23],[10,-142],[10,-142]]);
+  sail([[10,-126],[60,-24],[16,-25]], [[16,-25],[60,-24],[10,-126],[10,-126]]);
+  sail([[6,-26],[6,-112],[-48,-150],[-64,-30]], [[6,-26],[-64,-30],[6,-112],[-48,-150]]);
+  sail([[8,-164],[-42,-152],[8,-116]], null);
+  sail([[-56,-22],[-56,-84],[-90,-104],[-102,-24]], [[-56,-22],[-102,-24],[-56,-84],[-90,-104]]);
+  // espars
+  L(8, -18, 8, -172, "b-mast"); L(-54, -16, -54, -116, "b-mast");
+  L(6, -27, -68, -31, "b-spar"); L(6, -112, -50, -151, "b-spar");
+  L(-56, -22, -106, -24, "b-spar"); L(-56, -84, -92, -105, "b-spar");
+  L(64, -20, 118, -23, "b-spar");
+  // pavillon
+  el("path", {class:"b-flag", d:"M8 -172 L22 -168 L8 -164 Z"}, bob);
+  const dk = el("g", {class:"dannebrog"}, bob);
+  el("rect", {x:8, y:-174, width:20, height:13, fill:"var(--dk-red)"}, dk);
+  el("rect", {x:13.5, y:-174, width:2.6, height:13, fill:"var(--paper)"}, dk);
+  el("rect", {x:8, y:-168.8, width:20, height:2.6, fill:"var(--paper)"}, dk);
+  // coque noire, liston de bois, rouf vernis
+  el("path", {class:"b-hull", d:hull}, bob);
+  el("path", {class:"b-rail", d:"M-73 -11 Q-2 -6 66 -18"}, bob);
+  el("rect", {class:"b-house", x:-34, y:-24, width:30, height:12}, bob);
+  [-30, -21, -12].forEach(x => el("rect", {class:"b-port", x, y:-21, width:5, height:5}, bob));
+  el("rect", {class:"b-house", x:-50, y:-19, width:10, height:6}, bob);
+}
+
+let fwBurst, fwCx;
+/* feu d'artifice de Tivoli, le 31 : des bouquets en couleur dont les étincelles retombent */
+function drawFireworks(cx, roofTop){
+  const defs = svg.querySelector("defs");
+  const bl = el("filter", {id:"fw-glow", x:"-100%", y:"-100%", width:"300%", height:"300%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"9"}, bl);
+  const bs = el("filter", {id:"fw-soft", x:"-30%", y:"-30%", width:"160%", height:"160%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"1.1"}, bs);
+  const fw = el("g", {class:"fw", "aria-hidden":"true"}, svg);
+  let seed = 31; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const q = (p0, p1, p2, t) => (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2;
+  // chaque bouquet a son cycle : la fusée monte, la gerbe s'ouvre, scintille et retombe en s'éteignant
+  const burst = (bx, by, r, n, color, dur, phase) => {
+    const vars = `--c:var(${color});--dur:${dur}s;--fd:${(-dur * phase).toFixed(2)}s`;
+    const tg = el("g", {style:vars}, fw);
+    el("path", {class:"fw-trail", pathLength:1, d:`M${cx + (bx - cx)*.12} ${roofTop - 6} Q${cx + (bx - cx)*.5} ${roofTop - 30} ${bx} ${by + 6}`}, tg);
+    const b = el("g", {class:"fw-burst", style:vars}, fw);
+    el("circle", {class:"fw-halo", cx:bx, cy:by, r:r*.9}, b);
+    const soft = el("g", {filter:"url(#fw-soft)"}, b), crisp = el("g", {}, b);
+    for (let k = 0; k < n; k++){
+      const a = (k / n) * Math.PI * 2 + rnd() * .3, rr = r * (.82 + rnd() * .3);
+      const c1x = bx + Math.cos(a) * rr * .62, c1y = by + Math.sin(a) * rr * .62;
+      const ex = bx + Math.cos(a) * rr, ey = by + Math.sin(a) * rr + rr * .32; // la gravité courbe la gerbe
+      el("path", {class:"fw-ray", d:`M${bx + Math.cos(a)*r*.18} ${by + Math.sin(a)*r*.18} Q${c1x} ${c1y} ${ex} ${ey}`}, soft);
+      [[.55, 1.5], [.78, 1.25], [1, 1.05], [1.12, .7]].forEach(([t, rad], j) => {
+        const tt = Math.min(t, 1), px = q(bx, c1x, ex, tt), py = q(by, c1y, ey, tt) + (t > 1 ? rr * .14 : 0);
+        el("circle", {class:"fw-spark" + (j >= 2 ? " tw" : ""), cx:px, cy:py, r:rad, opacity:(1.15 - t * .55).toFixed(2),
+          style:`--tw:${(-rnd() * 1.8).toFixed(2)}s`}, crisp);
+      });
+    }
+    el("circle", {class:"fw-core", cx:bx, cy:by, r:2.2}, b);
+    return [tg, b];
+  };
+  fwBurst = burst; fwCx = cx;
+  // zone cliquable du feu d'artifice (le grand final se cache derrière trois clics)
+  el("rect", {class:"fw-hit", x:cx - 110, y:-120, width:250, height:roofTop + 114}, fw);
+  //        x          y    rayon rayons couleur   durée phase
+  burst(cx,       -16, 44, 22, "--fw",   9.6, .30);
+  burst(cx - 62,   18, 28, 16, "--fw-3", 8.8, .62);
+  burst(cx + 66,    4, 30, 16, "--fw-2", 10.4, .12);
+  burst(cx - 30,  -78, 20, 13, "--fw-4", 9.2, .80);
+  burst(cx + 42,  -92, 16, 12, "--fw-2", 11.2, .45);
+  burst(cx + 104, -56, 14, 11, "--fw",   10.0, .95);
+}
+
+/* ---------- présences : les réponses enregistrées, et la tienne en direct depuis le formulaire ---------- */
+function roster(){
+  const list = [];
+  for (const [id, v] of docs){
+    if (!editingId && id === Store.myId) continue;
+    list.push({...legacy(v), id, me: id === Store.myId});
+  }
+  if (!editingId){
+    const f = getForm();
+    if (f.presence || nbNights(f)) list.push({...f, id: Store.myId, me: true, live: true});
+  }
+  return list;
+}
+const who = p => p.prenom || (p.me ? "Toi" : "Sans prénom");
+function nightState(i, list){
+  const yes = [], maybe = [];
+  (list || roster()).forEach(p => {
+    if (p.presence === "non" || !present(p, i)) return;
+    // ta réponse en cours sans « Tu viens ? » s'allume comme un peut-être
+    (p.presence === "oui" ? yes : (p.presence === "peutetre" || p.live) ? maybe : null)?.push(p);
+  });
+  return {yes, maybe};
+}
+
+let skyReady = false, skyFirst = true;
+function renderSkyline(){
+  if (!skyReady) return;
+  const list = roster();
+  const caption = [];
+  for (let i = 0; i < N; i++){
+    const {yes, maybe} = nightState(i, list);
+    const meYes = yes.find(p => p.me), meMaybe = maybe.find(p => p.me);
+    const order = [];
+    if (meYes) order.push("me-on"); else if (meMaybe && showMaybe) order.push("me-half");
+    yes.filter(p => !p.me).forEach(() => order.push("on"));
+    if (showMaybe) maybe.filter(p => !p.me).forEach(() => order.push("half"));
+    let delay = skyFirst ? i * 90 : 0;
+    winEls[i].forEach((w, s) => {
+      const st = order[s] || "off";
+      const cls = "win" + (st === "off" ? "" : st === "me-on" ? " on me" : st === "me-half" ? " half me" : " " + st) + (w.classList.contains("story") ? " story" : "");
+      if (w.getAttribute("class") !== cls){
+        const turningOn = st !== "off";
+        w.style.setProperty("--d", turningOn ? (delay += 70) + "ms" : "0ms");
+        w.setAttribute("class", cls);
+        const r = rwinEls[i][s];
+        r.style.setProperty("--d", w.style.getPropertyValue("--d"));
+        r.setAttribute("class", "rwin" + (st === "on" || st === "me-on" ? " on" : st === "off" ? "" : " half"));
+      }
+    });
+    const extra = order.length - SLOTS;
+    overEls[i].textContent = extra > 0 ? `+${extra}` : "";
+    caption.push(`nuit du ${dayLong(i)} : ${yes.length} sur place${maybe.length ? `, ${maybe.length} peut-être` : ""}`);
+  }
+  svg.setAttribute("aria-label", "Rangée de Nyhavn, une maison par nuit. " + caption.join(" ; ") + ".");
+  skyFirst = false;
+  if (selHouse != null) readHouse(selHouse, true);
+  else if (!capLocked) capEl.innerHTML = defaultCap();
+}
+
+/* la légende : par défaut le mode d'emploi et le compte, ou la lecture d'une maison */
+const capEl = $("#skyCap");
+let selHouse = null, capLocked = false;
+function defaultCap(){
+  const all = Array.from(docs.values()).map(legacy);
+  const y = all.filter(r => r.presence === "oui").length, m = all.filter(r => r.presence === "peutetre").length;
+  const count = y || m ? ` <b>${plural(y, "personne vient", "personnes viennent")}${m ? `, ${m} peut-être` : ""}.</b>` : "";
+  return `Une maison par nuit, une fenêtre par personne qui dort sur place${NNB}: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Au-dessus du 31, le feu d'artifice de Tivoli à 23${NB}h. Touche une maison pour la lire.${count}`;
+}
+function readHouse(i, refresh){
+  if (!refresh && selHouse === i){ selHouse = null; svg.querySelectorAll(".house.sel").forEach(h => h.classList.remove("sel")); capEl.innerHTML = defaultCap(); return; }
+  selHouse = i; capLocked = false;
+  svg.querySelectorAll(".house").forEach(h => h.classList.toggle("sel", +h.dataset.i === i));
+  const {yes, maybe} = nightState(i);
+  const names = l => l.map(p => p.me ? `<b>${esc(who(p))}</b>` : esc(who(p))).join(", ");
+  capEl.innerHTML = `<b>Nuit du ${dayLong(i)}${i === NYE ? " ✦" : ""}</b>${inStay(i) ? "" : " (hors séjour)"}${NNB}: ` +
+    (yes.length ? `${yes.length} sur place, ${names(yes)}` : "personne pour l'instant") +
+    (maybe.length ? `${NNB}; peut-être ${names(maybe)}` : "") + ".";
+}
+svg.addEventListener("click", e => { const h = e.target.closest(".house"); if (h) readHouse(+h.dataset.i); });
+svg.addEventListener("keydown", e => { const h = e.target.closest(".house"); if ((e.key === "Enter" || e.key === " ") && h){ e.preventDefault(); readHouse(+h.dataset.i); } });
+$("#showMaybe").addEventListener("change", e => { showMaybe = e.target.checked; renderSkyline(); });
 
 /* ---------- data ---------- */
 const LOGE = {
@@ -903,42 +1434,40 @@ function flightRange(k, ap){
   return [Math.min(...ps), Math.max(...ps)];
 }
 
+
 /* ---------- build form controls ---------- */
-const chip = (name, id, val, html) => `<label class="chip"><input type="radio" name="${name}" id="${id}" value="${val}"><span>${html}</span></label>`;
-$("#arrChips").innerHTML = ARR.map(s => chip("arrivee", "ar-"+s, s, esc(dLong(s)) + (dIdx(s)===NYE ? ' <span class="star" aria-label="réveillon">✦</span>' : ""))).join("");
-$("#depChips").innerHTML = DEP.map(s => chip("depart", "dp-"+s, s, esc(dLong(s)))).join("");
 const logeCard = k => { const L = LOGE[k]; return `
   <label class="rcard"><input type="radio" name="logement" id="lo-${k}" value="${k}">
-    <span class="in">${planSVG(k, true)}<b>${esc(L.n)}</b><span class="p">${L.pp[0]} à ${L.pp[1]} € la nuit</span></span>
+    <span class="in">${planSVG(k, true)}<b>${esc(L.n)}</b><span class="p">${L.pp[0]}–${L.pp[1]}${NB}€ la nuit</span></span>
   </label>`; };
 $("#logeShared").innerHTML = SHARED.map(logeCard).join("");
 $("#logeSelf").innerHTML = SELFB.map(logeCard).join("");
 
-/* logement rows */
+/* logement : un repli par formule, avec son plan */
 const meter = n => Array.from({length:5}, (_,i) => `<i class="${i<n?"on":""}"></i>`).join("");
-$("#planCards").innerHTML = `<div class="legend" aria-hidden="true">
-    <span><i style="background:var(--ochre);box-shadow:none;border-radius:50%"></i>une personne</span>
-    <span><i style="background:#F5EAD4"></i>pièce à vivre</span>
-    <span><i style="background:var(--car-soft)"></i>cuisine</span>
-    <span><i style="background:#E2EAF1"></i>salle de bain</span></div>`
+$("#planCards").innerHTML = `<div class="legend" aria-hidden="true" style="padding-block:0 var(--s3)">
+    <span><i style="background:var(--amber);border-radius:50%;box-shadow:inset 0 0 0 .75px var(--ink)"></i>une personne</span>
+    <span><i style="background:color-mix(in srgb,var(--f-lin) 60%,var(--paper))"></i>pièce à vivre</span>
+    <span><i style="background:color-mix(in srgb,var(--f-sage) 38%,var(--paper))"></i>cuisine</span>
+    <span><i style="background:color-mix(in srgb,var(--glass) 70%,var(--paper))"></i>salle de bain</span></div>`
   + LOGE_ORDER.map(k => { const L = LOGE[k]; return `
   <details class="fold">
-    <summary><span class="tag ${L.grp?"group":""}">${L.grp?"Groupe":"Perso"}</span><span class="sum-main">${esc(L.n)}<span class="sum-sub">${esc(L.d)}</span></span><span class="sum-price">${L.pp[0]} à ${L.pp[1]} €<br><span class="sum-sub">la nuit</span></span></summary>
-    <div class="body">
+    <summary><h3>${esc(L.n)}</h3><span class="fig num">${L.pp[0]} – ${L.pp[1]}${NB}€ <i>/ nuit</i></span><span class="pm" aria-hidden="true"></span><span class="lede"><span class="tag${L.grp?" group":""}">${L.grp?"Groupe":"Perso"}</span> ${esc(L.d)}</span></summary>
+    <div class="fold-body">
       <figure class="lrow-body">
         ${planSVG(k, false)}
-        <div style="display:grid;gap:12px">
-          <figcaption>${esc(L.cap)}</figcaption>
+        <div>
+          <figcaption class="cap-text">${esc(L.cap)}</figcaption>
           <dl class="meters">${Object.entries(L.m).map(([t,v]) => `<dt>${t}</dt><dd aria-label="${v} sur 5">${meter(v)}</dd>`).join("")}</dl>
-          <ul class="proscons"><li class="pro">${esc(L.pro)}</li><li class="con">${esc(L.con)}</li></ul>
-          <p class="small muted">${L.pp[0]*6} à ${L.pp[1]*6} € par personne pour 6 nuits, à 2 par chambre. ${L.grp ? "Réservé par le groupe." : "Tu réserves toi-même."}</p>
+          <ul class="facts-list"><li class="pro">${esc(L.pro)}</li><li class="con">${esc(L.con)}</li></ul>
+          <p class="cap-text">${L.pp[0]*6} à ${L.pp[1]*6}${NB}€ par personne pour 6 nuits, à 2 par chambre. ${L.grp ? "Réservé par le groupe." : "Tu réserves toi-même."}</p>
         </div>
       </figure>
     </div>
   </details>`; }).join("")
-  + `<p class="small muted" style="padding-block:10px 4px">Schémas indicatifs pour se représenter l'espace, pas les plans réels des annonces.</p>`;
+  + `<p class="cap-text" style="padding-block:var(--s3) 0">Schémas indicatifs pour se représenter l'espace, pas les plans réels des annonces.</p>`;
 
-$("#hotelTable").innerHTML = HOTELS.map(h => `<tr><td><b>${esc(h[0])}</b></td><td>${esc(h[1])}</td><td class="small">${esc(h[2])}</td><td class="num">${esc(h[3])}</td><td class="num" style="white-space:nowrap">${esc(h[4])}</td></tr>`).join("");
+$("#hotelTable").innerHTML = HOTELS.map(h => `<tr><td><b>${esc(h[0])}</b></td><td>${esc(h[1])}</td><td>${esc(h[2])}</td><td class="num">${esc(h[3])}</td><td class="r">${esc(h[4])}</td></tr>`).join("");
 
 /* ---------- form state ---------- */
 const form = $("#f");
@@ -966,15 +1495,48 @@ function setForm(raw){
     else if (els.type === "checkbox") els.checked = v === "oui";
     else els.value = v;
   }
+  picking = false;
   sync();
 }
 
+/* ---------- bande des nuits : première nuit, puis dernière ---------- */
+const nightsEl = $("#nights");
+let picking = false;
+for (let i = 0; i < N; i++){
+  const b = document.createElement("button");
+  b.type = "button"; b.dataset.i = i;
+  b.innerHTML = `<span class="mk">${i === NYE ? "✦" : ""}</span><span class="d">${dd(i)}</span><span class="wd">${wd(i)}</span>`;
+  b.setAttribute("aria-label", `Nuit du ${dayLong(i)}${i === NYE ? ", réveillon" : ""}`);
+  nightsEl.appendChild(b);
+}
+nightsEl.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const i = +b.dataset.i, r = getForm();
+  let a = dIdx(r.arrivee), z = nbNights(r) ? dIdx(r.depart) - 1 : null;
+  if (!picking || a == null || z == null){ a = i; z = i; picking = true; }
+  else { if (i < a) a = i; else z = i; picking = false; }
+  form.elements.arrivee.value = isoOf(a);
+  form.elements.depart.value = isoOf(z + 1);
+  edited();
+});
+function renderNights(r){
+  const n = nbNights(r), a = dIdx(r.arrivee), z = n ? a + n - 1 : null;
+  [...nightsEl.children].forEach((b, i) => {
+    const on = n > 0 && i >= a && i <= z;
+    b.className = (inStay(i) ? "" : "out") + (on ? " in" : "") + (on && (i === a || i === z) ? " edge" : "");
+    b.setAttribute("aria-pressed", String(on));
+  });
+  const read = $("#nightsRead");
+  read.className = "nights-read";
+  if (!n){ read.innerHTML = "Touche ta première nuit, puis ta dernière. Le séjour va du lundi 28 au dimanche 3."; return; }
+  if (picking){ read.innerHTML = `Première nuit le <b>${esc(dLong(r.arrivee))}</b>${/\.$/.test(dLong(r.arrivee)) ? "" : "."} Touche maintenant ta dernière nuit.`; return; }
+  const nye = a <= NYE && z >= NYE;
+  read.innerHTML = `J'arrive le <b>${esc(dLong(r.arrivee))}</b>, je repars le <b>${esc(dLong(r.depart))}</b>${NNB}: <b>${n} nuit${n > 1 ? "s" : ""}</b>` +
+    (nye ? ", réveillon compris." : ". Attention&#8239;: tu ne seras pas là le soir du 31.");
+  if (!nye) read.className = "nights-read warn";
+}
+
 function sync(){
-  const a = dIdx(form.elements.arrivee.value || "");
-  for (const inp of form.querySelectorAll('input[name="depart"]')){
-    const bad = a != null && dIdx(inp.value) <= a;
-    inp.disabled = bad; if (bad && inp.checked) inp.checked = false;
-  }
   const r = getForm();
   const no = r.presence === "non";
   $("#detail").hidden = no;
@@ -983,14 +1545,10 @@ function sync(){
   $("#planeFields").hidden = r.transport !== "avion";
   $("#carOwnerFields").hidden = r.role !== "conducteur";
   $("#dieselHint").hidden = r.carburant !== "diesel";
-  const n = nbNights(r), hint = $("#nightsHint");
-  if (n){
-    const nye = dIdx(r.arrivee) <= NYE && dIdx(r.depart) > NYE;
-    hint.textContent = `${n} nuit${n>1?"s":""} sur place` + (nye ? ", réveillon compris." : ". Attention : tu ne seras pas là le soir du 31.");
-    hint.className = "hint" + (nye ? "" : " warn");
-  } else { hint.textContent = ""; hint.className = "hint"; }
+  renderNights(r);
   renderMyFlights(r);
   renderEstimate(r);
+  renderSkyline();
   const k = flightKey(r); if (k && COMBOS.includes(k) && flightFilter !== k){ flightFilter = k; renderFlightFilters(); renderFlights(); }
 }
 
@@ -998,42 +1556,55 @@ function estimate(r){
   const n = nbNights(r), lines = [], notes = [];
   if (!n) return null;
   if (r.transport === "voiture"){
-    lines.push(["Voiture aller-retour", 105, 165]);
-    lines.push(["Parking", 0, 50]);
+    lines.push(["Voiture, aller-retour", 105, 165]);
+    lines.push(["Parking à Copenhague", 0, 50]);
   } else if (r.transport === "avion"){
     const k = flightKey(r), fr = k && flightRange(k, r.aeroport);
-    if (fr) lines.push(["Vol direct aller-retour", fr[0], fr[1]]);
+    if (fr) lines.push(["Vol direct, aller-retour", fr[0], fr[1]]);
     else { lines.push(["Vol aller-retour (estimation)", 280, 400]); notes.push("Pas de vol relevé à ces dates."); }
     if (r.bagage === "cabine" || r.bagage === "soute") lines.push(["Valise (low-cost)", 0, 70]);
   } else {
-    lines.push(["Transport", 105, 385]);
+    lines.push(["Voiture ou avion", 105, 385]);
   }
   const key = LOGE[r.logement] ? r.logement : "wakeup";
   const L = LOGE[key];
   const solo = r.chambre === "seul" && L.solo;
   const per = solo ? L.solo : L.pp;
-  lines.push([`${L.n}, ${n} nuit${n>1?"s":""}${solo?" seul·e":""}`, per[0]*n, per[1]*n]);
+  lines.push([`${L.n}, ${n} nuit${n>1?"s":""}${solo?" seul·e":""} × ${per[0]}–${per[1]}${NB}€`, per[0]*n, per[1]*n]);
   if (!LOGE[r.logement]) notes.push("Logement pas choisi : calcul sur la base de Wakeup.");
   const lo = lines.reduce((s,l)=>s+l[1],0), hi = lines.reduce((s,l)=>s+l[2],0);
   return {lines, lo, hi, notes, n};
 }
 function renderEstimate(r){
-  const e = r.presence === "non" ? null : estimate(r);
-  if (!e){
-    $("#estTotal").innerHTML = r.presence === "non" ? "—" : '— <small>choisis tes dates</small>';
-    $("#estLines").innerHTML = ""; $("#estBudget").innerHTML = ""; return;
+  const tot = $("#estTotal"), led = $("#estLines"), rule = $("#estRule"), bud = $("#estBudget");
+  if (r.presence === "non"){
+    tot.textContent = "—"; rule.innerHTML = ""; bud.innerHTML = "";
+    led.innerHTML = `<div><dt>Tu ne viens pas cette fois. Tu peux changer d'avis à tout moment.</dt><dd></dd></div>`; return;
   }
-  $("#estTotal").textContent = range(e.lo, e.hi);
-  $("#estLines").innerHTML = e.lines.map(l => `<li><span>${esc(l[0])}</span><span>${range(l[1],l[2])}</span></li>`).join("")
-    + e.notes.map(t => `<li><span>${esc(t)}</span><span></span></li>`).join("");
-  const b = +r.budget; let h = "";
+  const e = estimate(r);
+  if (!e){
+    tot.innerHTML = '— <small>choisis tes nuits</small>'; rule.innerHTML = ""; bud.innerHTML = "";
+    led.innerHTML = ""; return;
+  }
+  tot.textContent = range(e.lo, e.hi);
+  led.innerHTML = e.lines.map(l => `<div><dt>${esc(l[0])}</dt><dd>${range(l[1],l[2])}</dd></div>`).join("")
+    + e.notes.map(t => `<div><dt class="faint">${esc(t)}</dt><dd></dd></div>`).join("")
+    + `<div><dt><b>Total</b></dt><dd>${range(e.lo, e.hi)}</dd></div>`;
+  const b = +r.budget, cap = b && b !== 999 ? b : 0;
+  const MAX = Math.max(1400, Math.ceil(e.hi / 200) * 200), step = MAX > 2000 ? 400 : 200, rx = v => 10 + (Math.min(v, MAX) / MAX) * 880;
+  let s = `<line class="ax" x1="10" x2="890" y1="22" y2="22"/>`;
+  for (let v = 0; v <= MAX; v += step) s += `<line class="tk" x1="${rx(v)}" x2="${rx(v)}" y1="18" y2="26"/><text class="tl" x="${rx(v)}" y="42">${v.toLocaleString("fr-FR")}</text>`;
+  s += `<rect class="band" x="${rx(e.lo)}" y="17" width="${Math.max(2, rx(e.hi) - rx(e.lo))}" height="10"/>`;
+  if (cap) s += `<line class="cap-line" x1="${rx(cap)}" x2="${rx(cap)}" y1="6" y2="32"/><text class="cap-lbl" x="${rx(cap)+5}" y="12">ton max</text>`;
+  rule.innerHTML = s;
+  let h = "";
   if (b){
     const max = b === 999 ? Infinity : b;
     if (e.hi <= max) h = '<span class="tag ok">Dans ton budget</span>';
     else if (e.lo <= max) h = '<span class="tag warn">Limite selon les prix</span>';
     else h = '<span class="tag bad">Au-dessus de ton budget</span>';
   }
-  $("#estBudget").innerHTML = h;
+  bud.innerHTML = h;
 }
 function renderMyFlights(r){
   const box = $("#myFlights");
@@ -1041,8 +1612,8 @@ function renderMyFlights(r){
   const k = flightKey(r);
   let fs = k ? FLIGHTS.filter(f => f.k === k).sort((a,b) => a.p - b.p) : [];
   if (r.aeroport === "ORY" || r.aeroport === "CDG") fs = fs.filter(f => f.ap === r.aeroport);
-  if (!fs.length){ box.innerHTML = `<span class="hint">Pas de vol relevé à ces dates : regarde directement sur Google Flights.</span>`; return; }
-  box.innerHTML = `<span class="ql">Vols relevés pour tes dates</span><div class="scroll-x"><table><tbody>${fs.map(f => `<tr><td>${esc(f.ap)}</td><td>${esc(f.co)}${f.esc?' <span class="tag">1 escale</span>':""}</td><td class="num">${esc(f.h)}</td><td class="price-cell">${eur(f.p)}</td></tr>`).join("")}</tbody></table></div>`;
+  if (!fs.length){ box.innerHTML = `<span class="note">Pas de vol relevé à ces dates&#8239;: regarde directement sur Google Flights.</span>`; return; }
+  box.innerHTML = `<span class="ql">Vols relevés pour tes dates</span><div class="tbl-scroll"><table class="spec"><tbody>${fs.map(f => `<tr><td>${esc(f.ap)}</td><td>${esc(f.co)}${f.esc?' <span class="tag">1 escale</span>':""}</td><td class="num">${esc(f.h)}</td><td class="r"><b>${eur(f.p)}</b></td></tr>`).join("")}</tbody></table></div>`;
 }
 
 /* ---------- local draft (per-viewer convenience) ---------- */
@@ -1050,8 +1621,8 @@ const DRAFT_KEY = "cph-nye-draft";
 function saveDraft(){ try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ts:Date.now(), v:getForm()})); } catch(e){} }
 function loadDraft(){ try { const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); return d && d.v ? d : null; } catch(e){ return null; } }
 
-let editingId = null;
-form.addEventListener("input", () => { sync(); if (!editingId) saveDraft(); setStatus(""); });
+function edited(){ sync(); if (!editingId) saveDraft(); setStatus(""); }
+form.addEventListener("input", edited);
 form.addEventListener("change", () => { sync(); if (!editingId) saveDraft(); });
 
 /* ---------- recap text ---------- */
@@ -1109,30 +1680,14 @@ function renderFlights(){
   $("#flightTable tbody").innerHTML = rows.map(f => `<tr class="${!f.esc && f.p===best[f.k] ? "best":""}">
     <td>${esc(comboLabel(f.k))}</td><td>${esc(f.ap)}</td>
     <td>${esc(f.co)} ${f.esc?'<span class="tag">1 escale</span>':f.lc?'<span class="tag">petit sac seul</span>':""}</td>
-    <td class="num">${esc(f.h)}</td><td class="price-cell">${eur(f.p)}</td></tr>`).join("");
+    <td class="num">${esc(f.h)}</td><td class="r"><b>${eur(f.p)}</b></td></tr>`).join("");
 }
 $("#flightFilters").addEventListener("click", e => {
   const b = e.target.closest("button[data-k]"); if (!b) return;
   flightFilter = b.dataset.k; renderFlightFilters(); renderFlights();
 });
-renderFlightFilters(); renderFlights();
-
-/* ---------- deadline display ---------- */
-(function(){
-  const d = daysLeft();
-  if (deadlinePassed()){ $("#deadlineTxt").innerHTML = "<strong>Voiture et logement partagé</strong> : les réponses sont closes depuis le 31 octobre. Un changement ? Préviens l'organisateur."; }
-  else $("#deadlineDays").textContent = d > 1 ? `(dans ${d} jours)` : d === 1 ? "(demain)" : "(aujourd'hui)";
-})();
-
-/* ---------- restore draft before the store answers ---------- */
-const draft = loadDraft();
-if (draft) setForm(draft.v); else sync();
 
 /* ================= shared store: claude.ai db, Google Sheet, or none ================= */
-const Store = { mode:"none", myId:null, isOwner:false, db:null };
-let docs = new Map();
-let firstData = true;
-
 const MINE_KEY = "cph-nye-mine", ID_KEY = "cph-nye-id";
 function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k,v){ try { localStorage.setItem(k, v); } catch(e){} }
@@ -1173,44 +1728,50 @@ function onData(m){
     if (mine && !editingId && (!dr || (mine.updatedAt || 0) >= dr.ts)) setForm(mine);
   }
   renderGroup();
+  renderSkyline();
 }
 
 /* ---------- group rendering ---------- */
 const STATUS_P = {oui:["ok","Vient"], peutetre:["warn","Peut-être"], non:["","Ne vient pas"]};
 function groupEmpty(html){ $("#groupBody").innerHTML = `<div class="empty">${html}</div>`; }
-const plural = (n, one, many) => `${n} ${n > 1 ? many : one}`;
 
 function renderGroup(){
   const body = $("#groupBody");
   const openKeys = new Set(Array.from(body.querySelectorAll("details[open]")).map(d => d.dataset.k));
   const all = Array.from(docs.entries()).map(([id,v]) => ({id, ...legacy(v)}));
-  const addBtn = canAddOthers() ? `<button type="button" class="btn btn-line" data-act="add">Répondre pour quelqu'un d'autre</button>` : "";
+  const addBtn = canAddOthers() ? `<button type="button" class="btn-line" data-act="add">Répondre pour quelqu'un d'autre</button>` : "";
   const order = {oui:0, peutetre:1, non:2};
   all.sort((a,b) => (order[a.presence]??3) - (order[b.presence]??3) || (dIdx(a.arrivee)??99) - (dIdx(b.arrivee)??99) || String(a.prenom).localeCompare(String(b.prenom), "fr"));
   const yes = all.filter(r => r.presence === "oui"), maybe = all.filter(r => r.presence === "peutetre"), no = all.filter(r => r.presence === "non");
   const active = yes.concat(maybe);
   const cols = nightCols(active);
   const tot = (list, i) => list.filter(r => present(r, i)).length;
-
-  renderSkyline(cols, cols.map(i => tot(yes, i)), cols.map(i => tot(maybe, i)));
-  $("#skyCap").innerHTML = active.length
-    ? `Une maison par nuit, une fenêtre allumée par personne qui dort sur place. Les fenêtres pâles sont les peut-être. <strong>${plural(yes.length,"personne vient","personnes viennent")}${maybe.length?`, ${maybe.length} peut-être`:""}.</strong>`
-    : "Une maison par nuit, une fenêtre allumée par personne qui dort sur place. Elles s'allument au fil des réponses.";
+  $("#grpCount").textContent = all.length ? `${yes.length} oui · ${maybe.length} peut-être` : "";
 
   if (!all.length){
     groupEmpty(`<b>Personne n'a encore répondu.</b><span class="muted">Remplis « Mes choix » pour allumer la première fenêtre.</span>${addBtn}`);
     return;
   }
   const name = r => esc(r.prenom || "Sans prénom");
-
-  const nightRows = active.map(r => {
-    const ok = nbNights(r) > 0;
-    const cells = cols.map(i => { const on = present(r, i); return `<td><span class="cell ${on ? (r.presence==="oui"?"on":"maybe") : ""}"></span></td>`; }).join("");
-    return `<tr><td>${name(r)}${!ok?' <span class="tag">dates ?</span>':""}${r.flexible==="oui"?' <span class="muted small" title="dates souples">~</span>':""}</td>${cells}</tr>`;
-  }).join("");
   const sharedList = l => l.filter(r => SHARED.includes(r.logement));
-  const totals = cols.map(i => { const y = tot(yes,i), m = tot(maybe,i); return `<td>${y}${m?`<span class="muted small"> +${m}</span>`:""}</td>`; }).join("");
-  const sharedTotals = cols.map(i => { const y = tot(sharedList(yes),i), m = tot(sharedList(maybe),i); return `<td>${y}${m?`<span class="small"> +${m}</span>`:""}</td>`; }).join("");
+  const TR = {voiture:"Voiture", avion:"Avion", nsp:"Pas décidé"};
+
+  // le tableau des nuits, une ligne par personne
+  const head = `<thead><tr><th>Prénom</th><th class="st">Vient</th><th class="tr">Transport</th>` +
+    cols.map(i => `<th class="c${i === NYE ? " nye" : ""}${inStay(i) ? "" : " out"}" title="${esc(dayLong(i))}">${i === NYE ? "✦" : ""}<br>${dd(i)}</th>`).join("") +
+    `<th class="tot">Nuits</th></tr></thead>`;
+  const rows = all.map(r => {
+    const n = r.presence === "non" ? 0 : nbNights(r);
+    const cells = cols.map(i => {
+      const here = r.presence !== "non" && present(r, i);
+      return `<td class="c"><span class="cell ${here ? (r.presence === "oui" ? "on" : "half") : (inStay(i) ? "" : "out")}"></span></td>`;
+    }).join("");
+    const st = STATUS_P[r.presence] || ["","?"];
+    return `<tr class="${r.id === Store.myId ? "me" : ""}${r.presence === "non" ? " no" : ""}"><td><span class="n">${name(r)}</span>${r.id === Store.myId ? ' <span class="faint">· toi</span>' : ""}${r.flexible === "oui" && r.presence !== "non" ? ' <span class="faint" title="dates souples">~</span>' : ""}</td>` +
+      `<td class="st">${st[1]}</td><td class="tr">${r.presence === "non" ? "—" : (TR[r.transport] || "?")}</td>${cells}<td class="tot">${n || (r.presence === "non" ? "—" : '<span class="tag">dates ?</span>')}</td></tr>`;
+  }).join("");
+  const foot = `<tfoot><tr><td>Sur place</td><td class="st"></td><td class="tr"></td>` + cols.map(i => { const y = tot(yes,i), m = tot(maybe,i); return `<td class="c">${y || ""}${m ? `<i> +${m}</i>` : ""}</td>`; }).join("") + `<td class="tot"></td></tr>` +
+    `<tr><td>Dont logement partagé</td><td class="st"></td><td class="tr"></td>` + cols.map(i => { const y = tot(sharedList(yes),i), m = tot(sharedList(maybe),i); return `<td class="c">${y || ""}${m ? `<i> +${m}</i>` : ""}</td>`; }).join("") + `<td class="tot"></td></tr></tfoot>`;
 
   // transport
   const car = active.filter(r => r.transport === "voiture"), plane = active.filter(r => r.transport === "avion"), tnsp = active.filter(r => !r.transport || r.transport === "nsp");
@@ -1244,8 +1805,7 @@ function renderGroup(){
   const bc = {}; bl.forEach(([k]) => bc[k] = 0); active.forEach(r => { if (bc[r.budget] != null) bc[r.budget]++; });
   const bMax = Math.max(1, ...Object.values(bc));
 
-  // people table
-  const tr = r => ({voiture:'<span class="tag car">Voiture</span>', avion:'<span class="tag plane">Avion</span>'}[r.transport] || '<span class="tag">?</span>');
+  // toutes les réponses
   const peopleRows = all.map(r => {
     const st = STATUS_P[r.presence] || ["","?"];
     const isMine = r.id === Store.myId;
@@ -1256,12 +1816,12 @@ function renderGroup(){
     const acts = canManage(r.id) && !isMine ? `<div class="acts"><button type="button" class="linkbtn" data-act="edit" data-id="${esc(r.id)}">Modifier</button><button type="button" class="linkbtn" data-act="del" data-id="${esc(r.id)}">Supprimer</button></div>` : "";
     const lo = LOGE[r.logement];
     return `<tr>
-      <td><b>${name(r)}</b>${isMine?' <span class="muted small">(toi)</span>':""}${acts}</td>
+      <td><b>${name(r)}</b>${isMine?' <span class="faint">· toi</span>':""}${acts}</td>
       <td><span class="tag ${st[0]}">${st[1]}</span></td>
-      <td class="num" style="white-space:nowrap">${r.presence==="non"?"—":(n? `${esc(dShort(r.arrivee))} → ${esc(dShort(r.depart))}<br><span class="muted small">${n} nuits${r.flexible==="oui"?", souple":""}</span>`:"?")}</td>
-      <td>${r.presence==="non"?"—":tr(r)}${info?`<br><span class="muted small">${info}</span>`:""}</td>
-      <td>${r.presence==="non"?"—":(lo ? `${esc(lo.n)}<br><span class="muted small">${lo.grp?"partagé":"réserve seul"}</span>` : "?")}${r.chambre==="seul"?'<br><span class="muted small">chambre seul·e</span>':""}${r.avec?`<br><span class="muted small">avec ${esc(r.avec)}</span>`:""}</td>
-      <td class="small">${esc(r.commentaire || "")}</td>
+      <td class="num" style="white-space:nowrap">${r.presence==="non"?"—":(n? `${esc(dShort(r.arrivee))} → ${esc(dShort(r.depart))}<br><span class="faint">${n} nuits${r.flexible==="oui"?", souple":""}</span>`:"?")}</td>
+      <td>${r.presence==="non"?"—":(TR[r.transport] || "?")}${info?`<br><span class="faint">${info}</span>`:""}</td>
+      <td>${r.presence==="non"?"—":(lo ? `${esc(lo.n)}<br><span class="faint">${lo.grp?"partagé":"réserve seul"}</span>` : "?")}${r.chambre==="seul"?'<br><span class="faint">chambre seul·e</span>':""}${r.avec?`<br><span class="faint">avec ${esc(r.avec)}</span>`:""}</td>
+      <td>${esc(r.commentaire || "")}</td>
     </tr>`;
   }).join("");
 
@@ -1271,52 +1831,47 @@ function renderGroup(){
     : `Voiture et logement partagé : encore ${plural(Math.max(d,0),"jour","jours")} pour répondre.`;
 
   body.innerHTML = `
-    <p class="summary"><strong>${plural(yes.length,"personne vient","personnes viennent")}</strong>${maybe.length?`, ${maybe.length} peut-être`:""}. ${plural(car.length,"en voiture","en voiture")}, ${plural(plane.length,"en avion","en avion")}, ${sharedN} pour le logement partagé.</p>
-    <p class="closing">${closing}</p>
-
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline"><h3>Qui dort sur place, nuit par nuit</h3><span class="muted small">Hachuré : peut-être. ~ : dates souples.</span></div>
-      ${active.length ? `<div class="scroll-x"><table class="nights">
-        <thead><tr><th>Nuit du</th>${cols.map(i => `<th>${esc(dShort(isoOf(i)))}${i===NYE?' <span class="star">✦</span>':""}</th>`).join("")}</tr></thead>
-        <tbody>${nightRows}</tbody>
-        <tfoot><tr><td>Total</td>${totals}</tr><tr><td>Dont logement partagé</td>${sharedTotals}</tr></tfoot>
-      </table></div>` : `<p class="muted">Personne n'a encore dit oui ou peut-être.</p>`}
+    <div style="display:grid;gap:var(--s2)">
+      <p class="summary"><b>${plural(yes.length,"personne vient","personnes viennent")}</b>${maybe.length?`, ${maybe.length} peut-être`:""}. ${car.length} en voiture, ${plane.length} en avion, ${sharedN} pour le logement partagé.</p>
+      <p class="closing">${closing}</p>
     </div>
+    <div class="tbl-scroll"><table class="grp">${head}<tbody>${rows}</tbody>${foot}</table></div>
+    <p class="cap-text"><span class="key"></span>sur place, <span class="key half"></span>peut-être. ~${NB}: dates souples.</p>
 
-    <div style="margin-top:24px">
+    <div class="folds">
     <details class="fold" data-k="detail">
-      <summary><span class="sum-main">Transport, logement et budgets<span class="sum-sub">Places en voiture, préférences, budgets</span></span>${seatTag}</summary>
-      <div class="body"><div class="panels">
+      <summary><h3>Transport, logement et budgets</h3><span class="fig">${seatTag}</span><span class="pm" aria-hidden="true"></span><span class="lede">Places en voiture, préférences, budgets.</span></summary>
+      <div class="fold-body"><div class="panels">
         <div>
-          <h3>Transport</h3>
+          <h4>Transport</h4>
           <div class="bars">
-            ${bar("Voiture", car.length, tMax, "car")}
-            ${bar("Avion", plane.length, tMax, "plane")}
+            ${bar("Voiture", car.length, tMax)}
+            ${bar("Avion", plane.length, tMax)}
             ${bar("Pas décidé", tnsp.length, tMax, "dim")}
           </div>
-          ${car.length ? `<span class="small">${plural(drivers.length,"conducteur","conducteurs")} avec voiture${relais?`, ${relais} pour les relais`:""}.</span>` : ""}
-          ${diesel.length ? `<span class="tag warn" style="white-space:normal;justify-self:start">Diesel : ${diesel.map(name).join(", ")}</span>` : ""}
-          ${(iti.ferry+iti.pont+iti.egal) ? `<span class="small muted">Ferry ${iti.ferry}, pont ${iti.pont}, peu importe ${iti.egal}.</span>` : ""}
-          ${plane.length ? `<span class="small muted">Avion : ${Object.entries(comboCount).map(([k,v]) => `${esc(k)} (${v})`).join(", ")}${bagCount?`, ${bagCount} avec valise`:""}.</span>` : ""}
+          ${car.length ? `<span class="note">${plural(drivers.length,"conducteur","conducteurs")} avec voiture${relais?`, ${relais} pour les relais`:""}.</span>` : ""}
+          ${diesel.length ? `<span class="tag warn multi" style="justify-self:start">Diesel : ${diesel.map(name).join(", ")}</span>` : ""}
+          ${(iti.ferry+iti.pont+iti.egal) ? `<span class="note">Ferry ${iti.ferry}, pont ${iti.pont}, peu importe ${iti.egal}.</span>` : ""}
+          ${plane.length ? `<span class="note">Avion : ${Object.entries(comboCount).map(([k,v]) => `${esc(k)} (${v})`).join(", ")}${bagCount?`, ${bagCount} avec valise`:""}.</span>` : ""}
         </div>
         <div>
-          <h3>Logement</h3>
-          <span class="small muted">Partagé : ${sharedN}. Hôtel perso : ${selfN}.${lnone?` Sans avis : ${lnone}.`:""}${solo?` ${solo} seul·e.`:""}</span>
+          <h4>Logement</h4>
+          <span class="note">Partagé : ${sharedN}. Hôtel perso : ${selfN}.${lnone?` Sans avis : ${lnone}.`:""}${solo?` ${solo} seul·e.`:""}</span>
           <div class="bars">${LOGE_ORDER.map(k => bar(esc(LOGE[k].n), lv[k], lMax, (k===leader && lv[k]) ? "" : "dim")).join("")}</div>
         </div>
         <div>
-          <h3>Budgets</h3>
+          <h4>Budgets</h4>
           <div class="bars">${bl.map(([k,l]) => bar(l, bc[k], bMax, "dim")).join("")}</div>
-          <span class="small muted">Transport et logement, par personne.</span>
+          <span class="note">Transport et logement, par personne.</span>
         </div>
       </div></div>
     </details>
     <details class="fold" data-k="people">
-      <summary><span class="sum-main">Toutes les réponses<span class="sum-sub">${plural(all.length,"réponse","réponses")}${no.length?`, dont ${no.length} qui ne vien${no.length>1?"nent":"t"} pas`:""}</span></span></summary>
-      <div class="body">
-        <div style="display:flex;gap:8px;flex-wrap:wrap">${addBtn}<button type="button" class="btn btn-line" data-act="copyAll">Copier le récap du groupe</button></div>
+      <summary><h3>Toutes les réponses</h3><span class="fig num">${all.length}</span><span class="pm" aria-hidden="true"></span><span class="lede">${plural(all.length,"réponse","réponses")}${no.length?`, dont ${no.length} qui ne vien${no.length>1?"nent":"t"} pas`:""}. Logement, mot pour le groupe, récap à copier.</span></summary>
+      <div class="fold-body">
+        <div style="display:flex;gap:var(--s2);flex-wrap:wrap">${addBtn}<button type="button" class="btn-line" data-act="copyAll">Copier le récap du groupe</button></div>
         <div class="notice err" id="delConfirm" hidden></div>
-        <div class="scroll-x"><table class="people">
+        <div class="tbl-scroll"><table class="spec wide people">
           <thead><tr><th>Qui</th><th>Statut</th><th>Dates</th><th>Transport</th><th>Logement</th><th>Mot</th></tr></thead>
           <tbody>${peopleRows}</tbody>
         </table></div>
@@ -1357,7 +1912,7 @@ $("#groupBody").addEventListener("click", async e => {
   if (act === "del"){
     const r = docs.get(id), box = $("#delConfirm");
     pendingDel = id; box.hidden = false;
-    box.innerHTML = `<span>Supprimer la réponse de <b>${esc(r?.prenom || "Sans prénom")}</b> ?</span><span class="row"><button type="button" class="linkbtn" data-act="delYes">Oui, supprimer</button><button type="button" class="linkbtn" data-act="delNo">Annuler</button></span>`;
+    box.innerHTML = `<span>Supprimer la réponse de <b>${esc(r?.prenom || "Sans prénom")}</b>${NNB}?</span><span class="acts"><button type="button" class="linkbtn" data-act="delYes">Oui, supprimer</button><button type="button" class="linkbtn" data-act="delNo">Annuler</button></span>`;
   }
   if (act === "delNo"){ pendingDel = null; $("#delConfirm").hidden = true; }
   if (act === "delYes" && pendingDel){
@@ -1373,7 +1928,7 @@ function startEditing(id, data){
   $("#editingName").textContent = data.prenom || "une nouvelle personne";
   $("#saveBtn").textContent = "Enregistrer cette réponse";
   setStatus(""); $("#sameName").hidden = true;
-  $("#moi").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  $("#moi").scrollIntoView({behavior: still ? "auto" : "smooth"});
   $("#prenom").focus({preventScroll:true});
 }
 function backToMine(){
@@ -1388,7 +1943,7 @@ $("#backToMine").addEventListener("click", backToMine);
 
 /* ---------- save ---------- */
 let readOnly = false;
-const norm = s => String(s || "").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+const norm = s => String(s || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const RO_MSG = "Ta réponse ne peut pas être enregistrée : ton accès à cette page est en lecture seule. Copie ce récap et colle-le dans la conversation du groupe.";
 const NOSTORE_MSG = "L'enregistrement n'est pas disponible ici. Copie ce récap et colle-le dans la conversation du groupe.";
 
@@ -1404,7 +1959,7 @@ async function trySave(confirmedNew){
     const twin = Array.from(docs.entries()).find(([id,v]) => norm(v.prenom) === norm(r.prenom) && !created().has(id));
     if (twin){
       const box = $("#sameName"); box.hidden = false;
-      box.innerHTML = `<span>Une réponse au nom de <b>${esc(twin[1].prenom)}</b> existe déjà. C'est la tienne, envoyée depuis un autre appareil ?</span><span class="row"><button type="button" class="linkbtn" id="twinYes">Oui, la remplacer</button><button type="button" class="linkbtn" id="twinNo">Non, c'est quelqu'un d'autre</button></span>`;
+      box.innerHTML = `<span>Une réponse au nom de <b>${esc(twin[1].prenom)}</b> existe déjà. C'est la tienne, envoyée depuis un autre appareil${NNB}?</span><span class="acts"><button type="button" class="linkbtn" id="twinYes">Oui, la remplacer</button><button type="button" class="linkbtn" id="twinNo">Non, c'est quelqu'un d'autre</button></span>`;
       $("#twinYes").onclick = () => { Store.myId = twin[0]; lsSet(ID_KEY, twin[0]); box.hidden = true; trySave(true); };
       $("#twinNo").onclick = () => { box.hidden = true; trySave(true); };
       return;
@@ -1417,7 +1972,7 @@ async function trySave(confirmedNew){
     try { await storeSave(target, body); }
     catch(err){ if (err && err.code === "unavailable"){ await new Promise(res => setTimeout(res, 600 + Math.random()*600)); await storeSave(target, body); } else throw err; }
     const t = new Date().toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
-    if (target !== Store.myId){ addCreated(target); $("#editingName").textContent = r.prenom; setStatus(`Réponse de ${r.prenom} enregistrée à ${t}.`, "ok"); }
+    if (target !== Store.myId){ addCreated(target); renderGroup(); $("#editingName").textContent = r.prenom; setStatus(`Réponse de ${r.prenom} enregistrée à ${t}.`, "ok"); }
     else { setStatus(`Enregistré à ${t}. Merci !`, "ok"); saveDraft(); }
     $("#fallback").hidden = true;
   } catch(err){
@@ -1439,12 +1994,12 @@ async function connectSheet(){
   Store.mode = "sheet"; Store.myId = id;
   try { await refreshSheet(); }
   catch(e){ Store.mode = "none"; return false; }
-  $("#groupEyebrow").textContent = "Les réponses de tout le monde, mises à jour toutes les minutes.";
+  $("#groupEyebrow").textContent = "Les mêmes nuits que les maisons, une ligne par personne. Mis à jour toutes les minutes.";
   setInterval(() => { if (document.visibilityState === "visible") refreshSheet().catch(() => {}); }, 60000);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refreshSheet().catch(() => {}); });
   return true;
 }
-(async function connect(){
+async function connect(){
   const cl = window.claude;
   if (cl && typeof cl.use === "function"){
     const [d, u] = await Promise.all([cl.use("db").catch(() => null), cl.use("user").catch(() => null)]);
@@ -1453,7 +2008,7 @@ async function connectSheet(){
     if (d && me && me.id){
       Store.mode = "db"; Store.db = d; Store.myId = me.id; Store.isOwner = !!me.isOwner;
       if (me.name && !$("#prenom").value){ $("#prenom").value = me.name.split(" ")[0]; sync(); }
-      $("#groupEyebrow").textContent = "Les réponses de tout le monde, en direct.";
+      $("#groupEyebrow").textContent = "Les mêmes nuits que les maisons, une ligne par personne. En direct.";
       d.collection("responses").onSnapshot(snap => onData(new Map(snap.docs.map(s => [s.id, s.data()]))),
         err => groupEmpty(err && err.code === "revoked" ? "<b>Les réponses ne sont plus accessibles sur cette page.</b>" : "<b>Les réponses n'ont pas pu être chargées.</b><span class=\"muted\">Recharge la page dans un moment.</span>"));
       return;
@@ -1461,7 +2016,113 @@ async function connectSheet(){
   }
   if (await connectSheet()) return;
   groupEmpty(noStoreMsg());
+}
+
+/* ---------- échéance ---------- */
+(function(){
+  const d = daysLeft();
+  if (deadlinePassed()){
+    $("#countdown").textContent = "Réponses closes";
+    $("#deadlineTxt").innerHTML = "<b>Voiture et logement partagé</b>&#8239;: les réponses sont closes depuis le 31 octobre. Un changement&#8239;? Préviens l'organisateur.";
+  } else {
+    $("#countdown").textContent = `J−${d}`;
+    $("#daysLeft").textContent = d > 1 ? `Encore ${d} jours.` : d === 1 ? "C'est demain." : "C'est aujourd'hui.";
+  }
 })();
+
+/* ---------- nav : section courante ---------- */
+const links = [...document.querySelectorAll(".nav ul a")];
+if ("IntersectionObserver" in window){
+  const io = new IntersectionObserver(ents => ents.forEach(en => {
+    if (!en.isIntersecting) return;
+    links.forEach(a => a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id)));
+  }), {rootMargin:"-45% 0px -50% 0px"});
+  ["moi","groupe","logement","transport","infos"].forEach(id => io.observe(document.getElementById(id)));
+}
+
+/* ================= démarrage ================= */
+buildSkyline();
+renderFlightFilters(); renderFlights();
+const draft = loadDraft();
+if (draft) setForm(draft.v); else sync();
+capEl.innerHTML = defaultCap();
+connect();
+/* premier allumage : laisser le navigateur peindre les fenêtres éteintes d'abord */
+requestAnimationFrame(() => requestAnimationFrame(() => { skyReady = true; skyFirst = true; renderSkyline(); }));
+
+/* ---------- trois secrets dans le dessin ---------- */
+const sayCap = html => { selHouse = null; capLocked = true; svg.querySelectorAll(".house.sel").forEach(h => h.classList.remove("sel")); capEl.innerHTML = html; };
+const unsay = () => { capLocked = false; capEl.innerHTML = defaultCap(); };
+
+/* 1. Andersen à sa fenêtre : double-clic ou appui long sur le grenier de la maison du 29 */
+const ANDERSEN = 3, attic = winEls[ANDERSEN][SLOTS - 1];
+(() => {
+  const gl = attic.querySelector(".glass"), x = +gl.getAttribute("x"), y = +gl.getAttribute("y"), w = +gl.getAttribute("width"), h = +gl.getAttribute("height");
+  const a = el("g", {class:"andersen"}, attic);
+  el("rect", {class:"a-candle", x, y, width:w, height:h}, a);
+  const sx = x + w*.45, sy = y + h;
+  el("path", {class:"a-man", d:`M${sx-4.6} ${sy} Q${sx-4.4} ${sy-6} ${sx} ${sy-6.4} Q${sx+4.4} ${sy-6} ${sx+4.6} ${sy} Z`}, a);   // épaules
+  el("circle", {class:"a-man", cx:sx, cy:sy-8.6, r:2.3}, a);                                                                   // tête
+  el("rect", {class:"a-man", x:sx-2.1, y:sy-15.4, width:4.2, height:5}, a);                                                    // haut-de-forme
+  el("rect", {class:"a-man", x:sx-3.4, y:sy-10.9, width:6.8, height:.9}, a);                                                   // bord du chapeau
+  el("line", {class:"a-quill", x1:sx+3, y1:sy-3, x2:sx+6.5, y2:sy-9}, a);                                                     // la plume
+  el("rect", {class:"a-hit", x:x-4, y:y-4, width:w+8, height:h+8}, attic);
+})();
+let andersenOn = false;
+function andersen(){
+  andersenOn = !andersenOn;
+  attic.classList.toggle("story", andersenOn);
+  if (andersenOn) sayCap(`<b>Hans Christian Andersen</b> a vécu à Nyhavn, au n°${NB}20, où il a écrit ses premiers contes, dont <i>La Princesse au petit pois</i>.`);
+  else unsay();
+}
+attic.addEventListener("dblclick", e => { e.stopPropagation(); andersen(); });
+let press;
+attic.addEventListener("pointerdown", e => { if (e.pointerType === "mouse") return; press = setTimeout(() => { press = null; andersen(); }, 600); });
+["pointerup","pointerleave","pointercancel"].forEach(t => attic.addEventListener(t, () => { clearTimeout(press); }));
+
+/* 2. Hygge : une cheminée qui fume, une bougie à chaque fenêtre */
+let hyggeT;
+function hygge(chx, chy){
+  clearTimeout(hyggeT);
+  svg.querySelectorAll(".smoke").forEach(n => n.remove());
+  const sm = el("g", {class:"smoke"}, svg);
+  for (let k = 0; k < 3; k++)
+    el("path", {class:"puff", style:`--sd:${k * 1.1}s`, d:`M${chx} ${chy} c-5 -7 5 -11 0 -18 c-5 -7 5 -11 0 -18`}, sm);
+  svg.classList.add("hygge");
+  sayCap(`<b>Hygge.</b> Un feu dans la cheminée, une bougie à chaque fenêtre.`);
+  hyggeT = setTimeout(() => { svg.classList.remove("hygge"); sm.remove(); unsay(); }, 6500);
+}
+winEls.flat().forEach(w => w.querySelector(".lamp").style.setProperty("--fl", (-Math.random() * 2).toFixed(2) + "s"));
+
+/* 3. Le grand final : trois clics sur le feu d'artifice */
+let clicks = [];
+function finale(){
+  if (svg.classList.contains("finale")) return;
+  svg.classList.add("finale");
+  const extra = [];
+  const COLORS = ["--fw","--fw-2","--fw-3","--fw-4"];
+  for (let k = 0; k < 14; k++){
+    const bx = fwCx + (Math.random() - .5) * 520, by = -100 + Math.random() * 150, r = 16 + Math.random() * 30;
+    const d = k * .28 + Math.random() * .3, dur = 5.2;
+    fwBurst(bx, by, r, 12 + Math.round(r / 3), COLORS[k % 4], dur, -d / dur).forEach(g => { g.classList.add("once"); extra.push(g); });
+  }
+  sayCap(`<b>Godt nytår&#8239;!</b> Rendez-vous à Tivoli le 31, 23${NB}h.`);
+  setTimeout(() => { extra.forEach(g => g.remove()); svg.classList.remove("finale"); unsay(); }, 10000);
+}
+
+svg.addEventListener("click", e => {
+  const ch = e.target.closest(".chim-hit");
+  if (ch){ e.stopImmediatePropagation(); hygge(+ch.dataset.cx, +ch.dataset.cy); return; }
+  if (e.target.closest(".a-hit")){ e.stopImmediatePropagation(); return; }
+  if (e.target.closest(".fw")){
+    const now = Date.now(); clicks = clicks.filter(t => now - t < 1600); clicks.push(now);
+    if (clicks.length >= 3){ clicks = []; finale(); }
+  }
+}, true);
+
+/* sur téléphone, la rangée défile : on la centre sur le 31 et son feu d'artifice */
+const sc = $(".sky-scroll");
+if (sc.scrollWidth > sc.clientWidth) sc.scrollLeft = Math.max(0, houseCx[NYE] / 960 * sc.scrollWidth - sc.clientWidth / 2);
 })();
 </script>
 </body>

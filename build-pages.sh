@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 src=nouvel-an-copenhague.html
 out=docs/index.html
 mkdir -p docs
-marker='<header class="hero">'
+marker='<nav class="nav"'
 grep -q "$marker" "$src" || { echo "marqueur introuvable dans $src" >&2; exit 1; }
 {
   printf '%s\n' '<!doctype html>' '<html lang="fr">' '<head>' \
