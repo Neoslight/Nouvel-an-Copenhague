@@ -118,14 +118,22 @@ button{font:inherit;color:inherit}
 .sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
 .sk-day.nye{font-weight:700;fill:var(--ink)}
 .fw{mix-blend-mode:multiply}
-.fw-halo{fill:var(--c);opacity:.2;filter:url(#fw-glow)}
+.fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
 .fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
 .fw-spark{fill:var(--c)}
 .fw-core{fill:var(--c);opacity:.5}
-.fw-trail{fill:none;stroke:var(--fw);stroke-width:1;stroke-dasharray:1.5 3.5;stroke-linecap:round;opacity:.55}
-.fw-burst{transform-box:fill-box;transform-origin:center;animation:burst 5.4s var(--ease) infinite;animation-delay:var(--fd,0s)}
-@keyframes burst{0%{transform:scale(.5);opacity:.45}14%{transform:scale(1);opacity:1}60%{transform:scale(1.05) translateY(1.5%);opacity:.95}100%{transform:scale(1.1) translateY(3%);opacity:.45}}
-@media (prefers-reduced-motion:reduce){.fw-burst{animation:none}}
+.fw-trail{fill:none;stroke:var(--c);stroke-width:1.2;stroke-linecap:round;stroke-dasharray:.16 2;stroke-dashoffset:.16;opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .fw-burst{transform-box:fill-box;transform-origin:center;animation:bloom var(--dur) cubic-bezier(.16,.8,.3,1) var(--fd) infinite both}
+  .fw-halo{animation:flash var(--dur) ease-out var(--fd) infinite both}
+  .fw-trail{animation:rise var(--dur) cubic-bezier(.3,.6,.4,1) var(--fd) infinite both}
+  .fw-spark.tw{animation:twinkle 1.8s ease-in-out var(--tw) infinite alternate}
+}
+/* la fusée (0–6 %), l'éclosion (6–22 %), la lente retombée qui s'éteint (22–88 %), puis le ciel se repose */
+@keyframes rise{0%{stroke-dashoffset:.16;opacity:0}1%{opacity:.8}6%{stroke-dashoffset:-1;opacity:.8}7%,100%{stroke-dashoffset:-1;opacity:0}}
+@keyframes bloom{0%,6%{transform:scale(.1);opacity:0}8%{opacity:1}22%{transform:scale(1) translateY(0);opacity:1}62%{opacity:.85}88%,100%{transform:scale(1.06) translateY(6%);opacity:0}}
+@keyframes flash{0%,6%{opacity:0}10%{opacity:.55}30%{opacity:.18}80%{opacity:.08}88%,100%{opacity:0}}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
 .house{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.win .lamp,.win .halo{transition:none}html{scroll-behavior:auto}}
 
@@ -769,8 +777,12 @@ function drawFireworks(cx, roofTop){
   const fw = el("g", {class:"fw", "aria-hidden":"true"}, svg);
   let seed = 31; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
   const q = (p0, p1, p2, t) => (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2;
-  const burst = (bx, by, r, n, color, delay) => {
-    const b = el("g", {class:"fw-burst", style:`--fd:${delay}s;--c:var(${color})`}, fw);
+  // chaque bouquet a son cycle : la fusée monte, la gerbe s'ouvre, scintille et retombe en s'éteignant
+  const burst = (bx, by, r, n, color, dur, phase) => {
+    const vars = `--c:var(${color});--dur:${dur}s;--fd:${(-dur * phase).toFixed(2)}s`;
+    const tg = el("g", {style:vars}, fw);
+    el("path", {class:"fw-trail", pathLength:1, d:`M${cx + (bx - cx)*.12} ${roofTop - 6} Q${cx + (bx - cx)*.5} ${roofTop - 30} ${bx} ${by + 6}`}, tg);
+    const b = el("g", {class:"fw-burst", style:vars}, fw);
     el("circle", {class:"fw-halo", cx:bx, cy:by, r:r*.9}, b);
     const soft = el("g", {filter:"url(#fw-soft)"}, b), crisp = el("g", {}, b);
     for (let k = 0; k < n; k++){
@@ -778,22 +790,21 @@ function drawFireworks(cx, roofTop){
       const c1x = bx + Math.cos(a) * rr * .62, c1y = by + Math.sin(a) * rr * .62;
       const ex = bx + Math.cos(a) * rr, ey = by + Math.sin(a) * rr + rr * .32; // la gravité courbe la gerbe
       el("path", {class:"fw-ray", d:`M${bx + Math.cos(a)*r*.18} ${by + Math.sin(a)*r*.18} Q${c1x} ${c1y} ${ex} ${ey}`}, soft);
-      [[.55, 1.5], [.78, 1.25], [1, 1.05], [1.12, .7]].forEach(([t, rad]) => {
+      [[.55, 1.5], [.78, 1.25], [1, 1.05], [1.12, .7]].forEach(([t, rad], j) => {
         const tt = Math.min(t, 1), px = q(bx, c1x, ex, tt), py = q(by, c1y, ey, tt) + (t > 1 ? rr * .14 : 0);
-        el("circle", {class:"fw-spark", cx:px, cy:py, r:rad, opacity:(1.15 - t * .55).toFixed(2)}, crisp);
+        el("circle", {class:"fw-spark" + (j >= 2 ? " tw" : ""), cx:px, cy:py, r:rad, opacity:(1.15 - t * .55).toFixed(2),
+          style:`--tw:${(-rnd() * 1.8).toFixed(2)}s`}, crisp);
       });
     }
     el("circle", {class:"fw-core", cx:bx, cy:by, r:2.2}, b);
   };
-  // fusées qui montent du toit
-  [[0, -16], [-58, 18], [62, 4]].forEach(([dx, ty]) =>
-    el("path", {class:"fw-trail", d:`M${cx + dx*.15} ${roofTop - 6} Q${cx + dx*.4} ${roofTop - 40} ${cx + dx} ${ty + 14}`}, fw));
-  burst(cx,       -16, 44, 22, "--fw",   0);
-  burst(cx - 62,   18, 28, 16, "--fw-3", .9);
-  burst(cx + 66,    4, 30, 16, "--fw-2", .45);
-  burst(cx - 30,  -78, 20, 13, "--fw-4", 1.6);
-  burst(cx + 42,  -92, 16, 12, "--fw-2", 2.2);
-  burst(cx + 104, -56, 14, 11, "--fw",   1.2);
+  //        x          y    rayon rayons couleur   durée phase
+  burst(cx,       -16, 44, 22, "--fw",   9.6, .30);
+  burst(cx - 62,   18, 28, 16, "--fw-3", 8.8, .62);
+  burst(cx + 66,    4, 30, 16, "--fw-2", 10.4, .12);
+  burst(cx - 30,  -78, 20, 13, "--fw-4", 9.2, .80);
+  burst(cx + 42,  -92, 16, 12, "--fw-2", 11.2, .45);
+  burst(cx + 104, -56, 14, 11, "--fw",   10.0, .95);
 }
 
 /* ---------- présence ---------- */
