@@ -124,6 +124,25 @@ button{font:inherit;color:inherit}
   .rip.b{animation:drift 11s ease-in-out -4s infinite alternate-reverse}
 }
 @keyframes drift{0%{transform:translate(-10px,0)}50%{transform:translate(0,.6px)}100%{transform:translate(10px,0)}}
+.boat-move{pointer-events:none;transform:translateX(330px)}
+.b-hull{fill:var(--ink)}
+.b-rail{fill:none;stroke:var(--f-ochre);stroke-width:1.3}
+.b-house{fill:var(--f-ochre);stroke:var(--ink);stroke-width:.7}
+.b-port{fill:var(--glass);stroke:var(--ink);stroke-width:.5}
+.b-sail{fill:var(--paper);fill-opacity:.9;stroke:var(--ink);stroke-width:.8;stroke-linejoin:round}
+.b-seam{stroke:var(--ink);stroke-width:.5;opacity:.18}
+.b-mast{stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+.b-spar{stroke:var(--ink);stroke-width:1.5;stroke-linecap:round}
+.b-rig{stroke:var(--ink);stroke-width:.5;opacity:.45}
+.b-flag{fill:var(--late)}
+.boat-refl{opacity:.22}
+.boat-refl .b-sail{fill:var(--paper);fill-opacity:1;stroke:none}
+@media (prefers-reduced-motion:no-preference){
+  .boat-move{animation:sail 96s linear -38s infinite}
+  .boat-bob{transform-box:fill-box;transform-origin:50% 100%;animation:bob 4.6s ease-in-out infinite alternate}
+}
+@keyframes sail{from{transform:translateX(-140px)}to{transform:translateX(1100px)}}
+@keyframes bob{from{transform:rotate(-.7deg) translateY(-.4px)}to{transform:rotate(.7deg) translateY(.6px)}}
 .fw{mix-blend-mode:multiply}
 .fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
 .fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
@@ -793,6 +812,53 @@ function buildSkyline(){
     lab.textContent = `${wd(i)} ${dd(i)}`;
     x += w;
   });
+  drawBoat(BASE + QUAY + 36);
+}
+
+/* un dundee à voiles auriques traverse le canal, lentement et toujours au même pas */
+function drawBoat(wl){
+  const defs = svg.querySelector("defs");
+  const bf = el("filter", {id:"boat-blur", x:"-20%", y:"-50%", width:"140%", height:"200%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"2 1.2"}, bf);
+  const move = el("g", {class:"boat-move", "aria-hidden":"true"}, svg);
+  const place = el("g", {transform:`translate(0 ${wl}) scale(.8)`}, move);
+  const hull = "M-74 -13 Q-2 -8 68 -20 L62 -5 Q58 2 47 3 L-57 3 Q-68 2 -74 -13 Z";
+  // reflet de la coque et des voiles, brouillé par l'eau
+  const rf = el("g", {class:"boat-refl", filter:"url(#boat-blur)", transform:"translate(0 6) scale(1 -.45)"}, place);
+  el("path", {d:hull, class:"b-hull"}, rf);
+  el("path", {d:"M6 -26 L6 -112 L-48 -150 L-62 -30 Z", class:"b-sail"}, rf);
+
+  const bob = el("g", {class:"boat-bob"}, place);
+  const L = (x1, y1, x2, y2, cls, par = bob) => el("line", {x1, y1, x2, y2, class:cls}, par);
+  const lerp = (a, b, t) => [a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t];
+  // voile avec ses laizes : bords A→B (pied) et C→D (tête)
+  const sail = (pts, seams) => {
+    const g = el("g", {}, bob);
+    el("path", {class:"b-sail", d:"M" + pts.map(p => p.join(" ")).join(" L") + " Z"}, g);
+    if (seams) for (let k = 1; k < 6; k++){ const t = k/6, a = lerp(seams[0], seams[1], t), b = lerp(seams[2], seams[3], t); L(a[0], a[1], b[0], b[1], "b-seam", g); }
+  };
+  // gréement dormant
+  L(116, -22, 8, -150, "b-rig"); L(62, -19, 8, -132, "b-rig"); L(-74, -13, 8, -150, "b-rig");
+  L(8, -134, -6, -15, "b-rig"); L(8, -134, 22, -17, "b-rig"); L(-54, -104, -66, -14, "b-rig"); L(-54, -104, -42, -14, "b-rig");
+  // voiles d'avant, grand-voile et flèche, artimon
+  sail([[10,-142],[114,-23],[66,-27]], [[66,-27],[114,-23],[10,-142],[10,-142]]);
+  sail([[10,-126],[60,-24],[16,-25]], [[16,-25],[60,-24],[10,-126],[10,-126]]);
+  sail([[6,-26],[6,-112],[-48,-150],[-64,-30]], [[6,-26],[-64,-30],[6,-112],[-48,-150]]);
+  sail([[8,-164],[-42,-152],[8,-116]], null);
+  sail([[-56,-22],[-56,-84],[-90,-104],[-102,-24]], [[-56,-22],[-102,-24],[-56,-84],[-90,-104]]);
+  // espars
+  L(8, -18, 8, -172, "b-mast"); L(-54, -16, -54, -116, "b-mast");
+  L(6, -27, -68, -31, "b-spar"); L(6, -112, -50, -151, "b-spar");
+  L(-56, -22, -106, -24, "b-spar"); L(-56, -84, -92, -105, "b-spar");
+  L(64, -20, 118, -23, "b-spar");
+  // pavillon
+  el("path", {class:"b-flag", d:"M8 -172 L22 -168 L8 -164 Z"}, bob);
+  // coque noire, liston de bois, rouf vernis
+  el("path", {class:"b-hull", d:hull}, bob);
+  el("path", {class:"b-rail", d:"M-73 -11 Q-2 -6 66 -18"}, bob);
+  el("rect", {class:"b-house", x:-34, y:-24, width:30, height:12}, bob);
+  [-30, -21, -12].forEach(x => el("rect", {class:"b-port", x, y:-21, width:5, height:5}, bob));
+  el("rect", {class:"b-house", x:-50, y:-19, width:10, height:6}, bob);
 }
 
 /* feu d'artifice de Tivoli, le 31 : des bouquets en couleur dont les étincelles retombent */
