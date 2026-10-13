@@ -1,5 +1,5 @@
 <title>Nouvel An à Copenhague</title>
-<meta name="description" content="Nouvel An 2026-27 à Copenhague : dates, voiture ou avion, logement, budget. Donne tes réponses avant le 31 octobre.">
+<meta name="description" content="Nouvel An 2026-27 à Copenhague : dates, voiture ou avion, logement, budget. Donne tes réponses quand tu peux.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
@@ -345,7 +345,6 @@ textarea.text{font-size:var(--t-m);resize:vertical;min-height:2.6em}
 /* ———————————————————— LE GROUPE ———————————————————— */
 .summary{font-size:var(--t-l);line-height:1.4;max-width:52ch;color:var(--ink-2)}
 .summary b{color:var(--ink);font-weight:600}
-.closing{font-size:var(--t-s);font-weight:600;color:var(--late)}
 .tbl-scroll{overflow-x:auto;min-width:0}
 .grp{width:100%;min-width:640px;border-collapse:collapse;font-size:var(--t-s);font-variant-numeric:tabular-nums}
 .grp th,.grp td{padding:9px 6px 9px 0;border-bottom:1px solid var(--hair);text-align:left;font-weight:400;vertical-align:middle}
@@ -579,7 +578,7 @@ footer a{color:var(--ink-2)}
         </div>
 
         <div class="row" role="group" aria-labelledby="l-tr">
-          <div class="label"><span class="step">3 / 5</span><b id="l-tr">Je viens en</b><small>Le groupe organise la voiture, réponse avant le 31/10.</small></div>
+          <div class="label"><span class="step">3 / 5</span><b id="l-tr">Je viens en</b><small>Le groupe organise la voiture.</small></div>
           <div class="field">
             <div class="seg" role="radiogroup" aria-labelledby="l-tr">
               <label><input type="radio" name="transport" value="voiture"><span>Voiture<span class="p">105–165&nbsp;€</span></span></label><label><input type="radio" name="transport" value="avion"><span>Avion<span class="p">280–385&nbsp;€</span></span></label><label><input type="radio" name="transport" value="nsp"><span>Je ne sais pas encore</span></label>
@@ -640,7 +639,7 @@ footer a{color:var(--ink-2)}
           <div class="label"><span class="step">4 / 5</span><b id="l-lo">Pour dormir</b><small>Toujours en chambre privée. Prix par personne et par nuit.</small></div>
           <div class="field">
             <div class="q">
-              <span class="ql"><span id="q-lo1">Logement partagé, réservé par le groupe</span> <span class="tag group">avant le 31/10</span></span>
+              <span class="ql"><span id="q-lo1">Logement partagé, réservé par le groupe</span></span>
               <div class="cards" role="radiogroup" aria-labelledby="q-lo1" id="logeShared"></div>
             </div>
             <div class="q">
@@ -1814,15 +1813,10 @@ function renderGroup(){
     </tr>`;
   }).join("");
 
-  const d = daysLeft();
-  const closing = deadlinePassed()
-    ? `Voiture et logement partagé : réponses closes depuis le 31 octobre.`
-    : `Voiture et logement partagé : encore ${plural(Math.max(d,0),"jour","jours")} pour répondre.`;
 
   body.innerHTML = `
     <div style="display:grid;gap:var(--s2)">
       <p class="summary"><b>${plural(yes.length,"personne vient","personnes viennent")}</b>${maybe.length?`, ${maybe.length} peut-être`:""}. ${car.length} en voiture, ${plane.length} en avion, ${sharedN} pour le logement partagé.</p>
-      <p class="closing">${closing}</p>
     </div>
     <div class="tbl-scroll"><table class="grp">${head}<tbody>${rows}</tbody>${foot}</table></div>
     <p class="cap-text"><span class="key"></span>sur place, <span class="key half"></span>peut-être. ~${NB}: dates souples.</p>

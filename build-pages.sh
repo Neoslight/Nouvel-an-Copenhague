@@ -13,7 +13,7 @@ grep -q "$marker" "$src" || { echo "marqueur introuvable dans $src" >&2; exit 1;
     '<meta charset="utf-8">' \
     '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' \
     '<meta property="og:title" content="Nouvel An à Copenhague">' \
-    '<meta property="og:description" content="Dates, voiture ou avion, logement, budget : donne tes réponses avant le 31 octobre.">' \
+    '<meta property="og:description" content="Dates, voiture ou avion, logement, budget : donne tes réponses.">' \
     '<meta property="og:type" content="website">' \
     '<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>'
   awk -v m="$marker" 'index($0, m){exit} {print}' "$src"
