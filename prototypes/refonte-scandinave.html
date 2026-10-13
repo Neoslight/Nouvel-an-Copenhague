@@ -117,6 +117,13 @@ button{font:inherit;color:inherit}
 .win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
 .sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
 .sk-day.nye{font-weight:700;fill:var(--ink)}
+.rwin{fill:var(--amber);opacity:0;transition:opacity 1.6s var(--ease);transition-delay:calc(var(--d,0ms) + 250ms)}
+.rwin.on{opacity:.5}.rwin.half{opacity:.2}
+@media (prefers-reduced-motion:no-preference){
+  .rip.a{animation:drift 9s ease-in-out infinite alternate}
+  .rip.b{animation:drift 12s ease-in-out -4s infinite alternate-reverse}
+}
+@keyframes drift{from{transform:translateX(-7px)}to{transform:translateX(7px)}}
 .fw{mix-blend-mode:multiply}
 .fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
 .fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
@@ -651,6 +658,9 @@ function facadePath(g, x, y, w){
 const svg = $("#skyline");
 const winEls = []; // [night][slot] -> g
 const overEls = [];
+const rwinEls = []; // reflets des fenêtres dans le canal, même ordre que winEls
+let rwinLayer;
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function buildSkyline(){
   const defs = el("defs", {}, svg);
   const rg = el("radialGradient", {id:"lamp", cx:"50%", cy:"55%", r:"70%"}, defs);
@@ -670,18 +680,28 @@ function buildSkyline(){
   el("feGaussianBlur", {stdDeviation:"1.4 0.6"}, rb);
   el("rect", {x:0, y:WY, width:960, height:WH, fill:"url(#canal)"}, svg);
   // reflet des façades, écrasé et brouillé par l'eau
+  // l'eau ondule : un bruit lent déplace tout le reflet, façades et fenêtres ensemble
+  const wave = el("filter", {id:"wave", filterUnits:"userSpaceOnUse", x:0, y:WY, width:960, height:WH}, defs);
+  const turb = el("feTurbulence", {type:"fractalNoise", baseFrequency:"0.011 0.16", numOctaves:1, seed:4, result:"n"}, wave);
+  if (!still) el("animate", {attributeName:"baseFrequency", dur:"14s", values:"0.011 0.16;0.014 0.2;0.011 0.16", repeatCount:"indefinite"}, turb);
+  el("feDisplacementMap", {in:"SourceGraphic", in2:"n", scale:7, xChannelSelector:"R", yChannelSelector:"G", result:"d"}, wave);
+  el("feGaussianBlur", {in:"d", stdDeviation:"1.7 1.3"}, wave);
   const mirror = el("g", {"clip-path":"url(#canal-clip)"}, svg);
-  const refl = el("g", {transform:`translate(0 ${WY}) scale(1 -.5) translate(0 ${-BASE})`, filter:"url(#ripple)", opacity:.32}, mirror);
+  const water = el("g", {filter:"url(#wave)"}, mirror);
+  const flip = `translate(0 ${WY}) scale(1 -.5) translate(0 ${-BASE})`;
+  const refl = el("g", {transform:flip, opacity:.32}, water);
+  rwinLayer = el("g", {transform:flip}, water);
   let rx0 = X0;
   HOUSES.forEach((H, i) => { el("path", {d:facadePath(H.g, rx0, BASE - H.h, H.w), fill:`var(${H.c})`}, refl); rx0 += H.w; });
   // rides : traits courts, plus serrés et plus longs vers le large
   let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const ripA = el("g", {class:"rip a"}, mirror), ripB = el("g", {class:"rip b"}, mirror);
   for (let row = 0; row < 11; row++){
     const y = WY + 5 + row * 7 + row * row * .12;
     let x = rnd() * 40 - 20;
     while (x < 960){
       const len = 10 + rnd() * (18 + row * 5);
-      el("line", {x1:x, x2:x + len, y1:y, y2:y, stroke:"var(--water-line)", "stroke-width":1, "stroke-linecap":"round", opacity:(.45 + rnd() * .45).toFixed(2)}, mirror);
+      el("line", {x1:x, x2:x + len, y1:y, y2:y, stroke:"var(--water-line)", "stroke-width":1, "stroke-linecap":"round", opacity:(.45 + rnd() * .45).toFixed(2)}, row % 2 ? ripB : ripA);
       x += len + 14 + rnd() * 46;
     }
   }
@@ -745,6 +765,8 @@ function buildSkyline(){
       rects.push({x:xs[c], y:top + row*rowH + (rowH - wh)/2, w:ww, h:wh});
     }
     rects.push(attic);
+    // la lumière se reflète, étirée verticalement comme sur l'eau
+    rwinEls[i] = rects.map(R => el("rect", {class:"rwin", x:R.x + R.w*.18, y:R.y - R.h*.45, width:R.w*.64, height:R.h*1.9, rx:R.w*.3}, rwinLayer));
     winEls[i] = rects.map(R => {
       const wg = el("g", {class:"win"}, g);
       el("rect", {class:"lintel", x:R.x-1.5, y:R.y-3.2, width:R.w+3, height:2.2}, wg);
@@ -841,6 +863,9 @@ function renderSkyline(){
         const turningOn = st !== "off";
         w.style.setProperty("--d", turningOn ? (delay += 70) + "ms" : "0ms");
         w.setAttribute("class", cls);
+        const r = rwinEls[i][s];
+        r.style.setProperty("--d", w.style.getPropertyValue("--d"));
+        r.setAttribute("class", "rwin" + (st === "on" || st === "me-on" ? " on" : st === "off" ? "" : " half"));
       }
     });
     const y = yes.length, m = showMaybe ? maybe.length : 0;
