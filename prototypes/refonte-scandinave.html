@@ -19,7 +19,7 @@
   --amber:#E4A23F; --amber-hi:#F7D58C; --amber-soft:#F2E4C6;
   /* façades de Nyhavn, passées par l'hiver */
   --f-brick:#B57D6B; --f-sage:#A3B09D; --f-ochre:#D3AF6C; --f-zinc:#AAB2B6; --f-petrol:#55747A; --f-lin:#DDD3C1;
-  --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-line:#E4EAED;
+  --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-deep:#AFC0C9; --water-line:#EEF2F3;
   --late:#97452F;
   /* type */
   --f:"Schibsted Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -102,8 +102,6 @@ button{font:inherit;color:inherit}
 .win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
 .sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
 .sk-day.nye{font-weight:700;fill:var(--ink)}
-.sk-count{font:600 11px var(--f);fill:var(--ink);text-anchor:middle;font-variant-numeric:tabular-nums}
-.sk-count .m{font-weight:400;fill:var(--ink-3)}
 .sk-star{font:400 15px var(--f);fill:var(--ink);text-anchor:middle}
 .house{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.win .lamp,.win .halo{transition:none}html{scroll-behavior:auto}}
@@ -309,9 +307,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
     </div>
 
     <figure class="quay">
-      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 318" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 372" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
       <figcaption class="sky-legend">
-        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Sur le canal, le nombre de présents. Touche une maison pour la lire.</p>
+        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Touche une maison pour la lire.</p>
         <label class="toggle"><input type="checkbox" id="show-maybe" checked> Allumer les peut-être</label>
       </figcaption>
     </figure>
@@ -621,7 +619,6 @@ function facadePath(g, x, y, w){
 
 const svg = $("#skyline");
 const winEls = []; // [night][slot] -> g
-const countEls = [];
 function buildSkyline(){
   const defs = el("defs", {}, svg);
   const rg = el("radialGradient", {id:"lamp", cx:"50%", cy:"55%", r:"70%"}, defs);
@@ -631,7 +628,31 @@ function buildSkyline(){
   el("feGaussianBlur", {stdDeviation:"4.5"}, f);
 
   // eau et quai
-  el("rect", {x:0, y:BASE + QUAY, width:960, height:318 - BASE - QUAY, fill:"var(--water)"}, svg);
+  const WY = BASE + QUAY, WH = 372 - WY;
+  const wg = el("linearGradient", {id:"canal", x1:0, y1:0, x2:0, y2:1}, defs);
+  el("stop", {offset:"0%", "stop-color":"var(--water-deep)"}, wg);
+  el("stop", {offset:"100%", "stop-color":"var(--water)"}, wg);
+  const cp = el("clipPath", {id:"canal-clip"}, defs);
+  el("rect", {x:0, y:WY, width:960, height:WH}, cp);
+  const rb = el("filter", {id:"ripple", x:"-5%", y:"-5%", width:"110%", height:"110%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"1.4 0.6"}, rb);
+  el("rect", {x:0, y:WY, width:960, height:WH, fill:"url(#canal)"}, svg);
+  // reflet des façades, écrasé et brouillé par l'eau
+  const mirror = el("g", {"clip-path":"url(#canal-clip)"}, svg);
+  const refl = el("g", {transform:`translate(0 ${WY}) scale(1 -.5) translate(0 ${-BASE})`, filter:"url(#ripple)", opacity:.32}, mirror);
+  let rx0 = X0;
+  HOUSES.forEach((H, i) => { if (inStay(i)) el("path", {d:facadePath(H.g, rx0, BASE - H.h, H.w), fill:`var(${H.c})`}, refl); rx0 += H.w; });
+  // rides : traits courts, plus serrés et plus longs vers le large
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  for (let row = 0; row < 11; row++){
+    const y = WY + 5 + row * 7 + row * row * .12;
+    let x = rnd() * 40 - 20;
+    while (x < 960){
+      const len = 10 + rnd() * (18 + row * 5);
+      el("line", {x1:x, x2:x + len, y1:y, y2:y, stroke:"var(--water-line)", "stroke-width":1, "stroke-linecap":"round", opacity:(.45 + rnd() * .45).toFixed(2)}, mirror);
+      x += len + 14 + rnd() * 46;
+    }
+  }
   el("rect", {x:0, y:BASE, width:960, height:QUAY, fill:"var(--kalk)"}, svg);
   el("line", {x1:0, x2:960, y1:BASE, y2:BASE, stroke:"var(--ink)", "stroke-width":1.2}, svg);
   el("line", {x1:0, x2:960, y1:BASE + QUAY, y2:BASE + QUAY, stroke:"var(--ink)", "stroke-width":.6, opacity:.5}, svg);
@@ -672,7 +693,6 @@ function buildSkyline(){
     }
     const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:x+H.w/2, y:BASE+15}, svg);
     lab.textContent = `${wd(i)} ${dd(i)}`;
-    countEls[i] = el("text", {class:"sk-count", x:x+H.w/2, y:BASE + QUAY + 24}, svg);
     x += H.w;
   });
 }
@@ -714,7 +734,6 @@ function renderSkyline(){
       }
     });
     const y = yes.length, m = showMaybe ? maybe.length : 0;
-    countEls[i].innerHTML = y || m ? `${y}${m ? `<tspan class="m"> +${m}</tspan>` : ""}` : `<tspan class="m">·</tspan>`;
     caption.push(`nuit du ${dayLong(i)} : ${y} sur place${m ? `, ${m} peut-être` : ""}`);
   }
   svg.setAttribute("aria-label", "Rangée de Nyhavn. " + caption.join(" ; ") + ".");
