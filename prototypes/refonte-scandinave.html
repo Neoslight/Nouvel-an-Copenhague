@@ -95,9 +95,8 @@ button{font:inherit;color:inherit}
 .win .mull{stroke:var(--ink);stroke-width:.55;opacity:.55}
 .win .lamp{fill:url(#lamp);opacity:0;transition:opacity .9s var(--ease);transition-delay:var(--d,0ms)}
 .win .halo{fill:var(--amber);opacity:0;filter:url(#soft);transition:opacity 1.2s var(--ease);transition-delay:var(--d,0ms)}
-.win .refl{fill:var(--amber);opacity:0;transition:opacity 1.4s var(--ease);transition-delay:calc(var(--d,0ms) + 200ms)}
-.win.on .lamp{opacity:1}.win.on .halo{opacity:.38}.win.on .refl{opacity:.5}
-.win.half .lamp{opacity:.42}.win.half .halo{opacity:.1}.win.half .refl{opacity:.18}
+.win.on .lamp{opacity:1}.win.on .halo{opacity:.38}
+.win.half .lamp{opacity:.42}.win.half .halo{opacity:.1}
 .win.me .glass{stroke-width:1.6}
 .win.me .ring{opacity:1}
 .win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
@@ -107,7 +106,7 @@ button{font:inherit;color:inherit}
 .sk-count .m{font-weight:400;fill:var(--ink-3)}
 .sk-star{font:400 15px var(--f);fill:var(--ink);text-anchor:middle}
 .house{cursor:pointer}
-@media (prefers-reduced-motion:reduce){.win .lamp,.win .halo,.win .refl{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.win .lamp,.win .halo{transition:none}html{scroll-behavior:auto}}
 
 /* commutateur sobre */
 .toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:var(--t-s);color:var(--ink-2);user-select:none}
@@ -155,14 +154,14 @@ main{display:grid;gap:0}
 .sub > span{font-size:var(--t-s);color:var(--ink-2)}
 @media (max-width:640px){.row{grid-template-columns:minmax(0,1fr);gap:var(--s3)}}
 
-.text{width:100%;max-width:380px;font:500 var(--t-l)/1.3 var(--f);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--hair-2);padding:6px 0;border-radius:0}
+.text{width:100%;font:500 var(--t-l)/1.3 var(--f);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--hair-2);padding:6px 0;border-radius:0}
 .text::placeholder{color:var(--ink-3);font-weight:400}
 .text:focus{outline:none;border-bottom-color:var(--ink)}
 textarea.text{font-size:var(--t-m);max-width:none;resize:vertical;min-height:2.6em}
 
 /* choix segmentés : texte, filets, encre pleine quand choisi */
-.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);max-width:100%}
-.seg button{appearance:none;border:0;background:transparent;padding:10px 16px;font-size:var(--t-s);font-weight:500;color:var(--ink-2);cursor:pointer;position:relative;transition:background .25s var(--ease),color .25s}
+.seg{display:flex;flex-wrap:wrap;width:100%;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);max-width:100%}
+.seg button{appearance:none;flex:1 1 0;min-width:max-content;text-align:center;border:0;background:transparent;padding:11px 16px;font-size:var(--t-s);font-weight:500;color:var(--ink-2);cursor:pointer;position:relative;transition:background .25s var(--ease),color .25s}
 .seg button + button{border-left:1px solid var(--hair)}
 .seg button:hover{color:var(--ink);background:var(--linen)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
@@ -170,7 +169,7 @@ textarea.text{font-size:var(--t-m);max-width:none;resize:vertical;min-height:2.6
 .seg button .p{font-weight:400;opacity:.7;margin-left:8px;font-variant-numeric:tabular-nums}
 
 /* bande des nuits : une case par nuit, comme les maisons */
-.nights{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);max-width:560px}
+.nights{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border:1px solid var(--hair-2);border-radius:2px;background:var(--paper)}
 .nights button{appearance:none;border:0;background:transparent;cursor:pointer;display:grid;gap:2px;justify-items:center;padding:8px 0 10px;font-variant-numeric:tabular-nums;transition:background .3s var(--ease)}
 .nights button + button{border-left:1px solid var(--hair)}
 .nights .wd{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
@@ -310,9 +309,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
     </div>
 
     <figure class="quay">
-      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 336" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 318" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
       <figcaption class="sky-legend">
-        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Touche une maison pour la lire.</p>
+        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Sur le canal, le nombre de présents. Touche une maison pour la lire.</p>
         <label class="toggle"><input type="checkbox" id="show-maybe" checked> Allumer les peut-être</label>
       </figcaption>
     </figure>
@@ -632,8 +631,7 @@ function buildSkyline(){
   el("feGaussianBlur", {stdDeviation:"4.5"}, f);
 
   // eau et quai
-  el("rect", {x:0, y:BASE + QUAY, width:960, height:336 - BASE - QUAY, fill:"var(--water)"}, svg);
-  for (let k = 0; k < 5; k++) el("line", {x1:0, x2:960, y1:BASE + QUAY + 9 + k*9, y2:BASE + QUAY + 9 + k*9, stroke:"var(--water-line)", "stroke-width":1}, svg);
+  el("rect", {x:0, y:BASE + QUAY, width:960, height:318 - BASE - QUAY, fill:"var(--water)"}, svg);
   el("rect", {x:0, y:BASE, width:960, height:QUAY, fill:"var(--kalk)"}, svg);
   el("line", {x1:0, x2:960, y1:BASE, y2:BASE, stroke:"var(--ink)", "stroke-width":1.2}, svg);
   el("line", {x1:0, x2:960, y1:BASE + QUAY, y2:BASE + QUAY, stroke:"var(--ink)", "stroke-width":.6, opacity:.5}, svg);
@@ -667,9 +665,6 @@ function buildSkyline(){
       el("line", {class:"mull", x1:wx+ww/2, x2:wx+ww/2, y1:wy, y2:wy+wh}, w);
       el("line", {class:"mull", x1:wx, x2:wx+ww, y1:wy+wh*.42, y2:wy+wh*.42}, w);
       el("rect", {class:"ring", x:wx-3.5, y:wy-3.5, width:ww+7, height:wh+7}, w);
-      // reflet dans le canal
-      const ry = BASE + QUAY + 5 + (BASE - wy - wh) * .2;
-      el("rect", {class:"refl", x:wx+1, y:ry, width:ww-2, height:1.6}, w);
       winEls[i].push(w);
     }
     if (i === NYE){
@@ -677,7 +672,7 @@ function buildSkyline(){
     }
     const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:x+H.w/2, y:BASE+15}, svg);
     lab.textContent = `${wd(i)} ${dd(i)}`;
-    countEls[i] = el("text", {class:"sk-count", x:x+H.w/2, y:330}, svg);
+    countEls[i] = el("text", {class:"sk-count", x:x+H.w/2, y:BASE + QUAY + 24}, svg);
     x += H.w;
   });
 }
