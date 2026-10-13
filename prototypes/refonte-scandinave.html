@@ -87,9 +87,24 @@ button{font:inherit;color:inherit}
 .house .facade{stroke:var(--ink);stroke-width:.8;vector-effect:non-scaling-stroke}
 .house.ghost .facade{fill:var(--paper)!important;stroke:var(--hair-2);stroke-dasharray:3 3}
 .house .roof{fill:var(--roof);stroke:var(--ink);stroke-width:.8}
+.house .tile{stroke:var(--ink);stroke-width:.5;opacity:.35}
+.house .dormer{fill:var(--roof);stroke:var(--ink);stroke-width:.8}
+.house .edge{fill:none;stroke:var(--ink);stroke-width:.6;opacity:.4}
+.house .hoist{stroke:var(--ink);stroke-width:1.6;opacity:.7}
+.house .cornice{fill:var(--ink);opacity:.14}
+.house .pilaster{stroke:var(--ink);stroke-width:.5;opacity:.22}
+.house .socle{fill:var(--ink);opacity:.09}
+.house .transom,.house .step{stroke:var(--ink);stroke-width:.7;opacity:.55}
+.house .cellar{fill:var(--ink);opacity:.32}
+.win .lintel{fill:var(--ink);opacity:.2}
+.win .sill{stroke:var(--ink);stroke-width:.9;opacity:.55}
+.house.ghost .detail{opacity:.35}
+.house.ghost .win .lintel,.house.ghost .win .sill{opacity:.1}
+.sk-over{font:600 11px var(--f);fill:var(--ink-2);text-anchor:middle;font-variant-numeric:tabular-nums}
 .house .course{stroke:var(--ink);stroke-width:.6;opacity:.45}
 .house .door{fill:var(--ink);opacity:.62}
-.house.ghost .door,.house.ghost .course{opacity:.25}
+.house .detail .course{opacity:.4}
+
 .house.sel .facade{stroke-width:1.6}
 .win .glass{fill:var(--glass);stroke:var(--ink);stroke-width:.7}
 .win .mull{stroke:var(--ink);stroke-width:.55;opacity:.55}
@@ -307,9 +322,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
     </div>
 
     <figure class="quay">
-      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 372" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 384" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
       <figcaption class="sky-legend">
-        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Touche une maison pour la lire.</p>
+        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Au-delà de 17, le surplus s’affiche au-dessus du toit. Touche une maison pour la lire.</p>
         <label class="toggle"><input type="checkbox" id="show-maybe" checked> Allumer les peut-être</label>
       </figcaption>
     </figure>
@@ -592,18 +607,18 @@ let showMaybe = true;
 
 /* ---------- maisons de Nyhavn ---------- */
 const HOUSES = [
-  {w:92,  h:150, g:"pitch",   c:"--f-lin"},
-  {w:100, h:168, g:"cornice", c:"--f-zinc"},
-  {w:104, h:162, g:"step",    c:"--f-ochre"},
-  {w:96,  h:178, g:"bell",    c:"--f-brick"},
-  {w:108, h:156, g:"cornice", c:"--f-zinc"},
-  {w:100, h:152, g:"step",    c:"--f-petrol"},
-  {w:96,  h:172, g:"pitch",   c:"--f-sage"},
-  {w:106, h:164, g:"bell",    c:"--f-ochre"},
-  {w:98,  h:158, g:"cornice", c:"--f-brick"}
+  {w:92,  h:168, g:"pitch",   c:"--f-lin"},
+  {w:100, h:186, g:"cornice", c:"--f-zinc"},
+  {w:104, h:180, g:"step",    c:"--f-ochre"},
+  {w:96,  h:196, g:"bell",    c:"--f-brick"},
+  {w:108, h:174, g:"cornice", c:"--f-zinc"},
+  {w:100, h:170, g:"step",    c:"--f-petrol"},
+  {w:96,  h:190, g:"pitch",   c:"--f-sage"},
+  {w:106, h:182, g:"bell",    c:"--f-ochre"},
+  {w:98,  h:176, g:"cornice", c:"--f-brick"}
 ];
-const BASE = 262, QUAY = 22, X0 = (960 - HOUSES.reduce((s,h)=>s+h.w,0)) / 2;
-const COLS = 3, ROWS = 4, SLOTS = COLS * ROWS;
+const BASE = 274, QUAY = 22, X0 = (960 - HOUSES.reduce((s,h)=>s+h.w,0)) / 2;
+const COLS = 4, ROWS = 4, SLOTS = COLS * ROWS + 1; // + la fenêtre du pignon
 const el = (tag, attrs, parent) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs){ const v = String(attrs[k]); if (v.startsWith("var(")) e.style.setProperty(k, v); else e.setAttribute(k, v); } if (parent) parent.appendChild(e); return e; };
 
 function facadePath(g, x, y, w){
@@ -619,6 +634,7 @@ function facadePath(g, x, y, w){
 
 const svg = $("#skyline");
 const winEls = []; // [night][slot] -> g
+const overEls = [];
 function buildSkyline(){
   const defs = el("defs", {}, svg);
   const rg = el("radialGradient", {id:"lamp", cx:"50%", cy:"55%", r:"70%"}, defs);
@@ -628,7 +644,7 @@ function buildSkyline(){
   el("feGaussianBlur", {stdDeviation:"4.5"}, f);
 
   // eau et quai
-  const WY = BASE + QUAY, WH = 372 - WY;
+  const WY = BASE + QUAY, WH = 384 - WY;
   const wg = el("linearGradient", {id:"canal", x1:0, y1:0, x2:0, y2:1}, defs);
   el("stop", {offset:"0%", "stop-color":"var(--water-deep)"}, wg);
   el("stop", {offset:"100%", "stop-color":"var(--water)"}, wg);
@@ -659,41 +675,81 @@ function buildSkyline(){
 
   let x = X0;
   HOUSES.forEach((H, i) => {
-    const yb = BASE - H.h;
+    const yb = BASE - H.h, cx = x + H.w/2, w = H.w;
     const g = el("g", {class:"house" + (inStay(i) ? "" : " ghost"), "data-i":i, tabindex:0, role:"button"}, svg);
+    const d = el("g", {class:"detail"});
+    // toit à la Mansart, cheminée et lucarne pour les maisons à corniche
+    let attic;
     if (H.g === "cornice"){
-      el("path", {class:"roof", d:`M${x+5} ${yb} L${x+15} ${yb-24} H${x+H.w-15} L${x+H.w-5} ${yb} Z`}, g);
-      el("rect", {class:"roof", x:x+H.w/2-9, y:yb-34, width:18, height:14}, g); // lucarne
+      el("rect", {class:"roof", x:x + w*.68, y:yb-32, width:7, height:14}, g); // cheminée
+      el("path", {class:"roof", d:`M${x+4} ${yb} L${x+14} ${yb-24} H${x+w-14} L${x+w-4} ${yb} Z`}, g);
+      el("line", {class:"tile", x1:x+9, x2:x+w-9, y1:yb-12, y2:yb-12}, g);
+      el("path", {class:"dormer", d:`M${cx-11} ${yb-8} V${yb-30} L${cx} ${yb-38} L${cx+11} ${yb-30} V${yb-8} Z`}, g);
+      attic = {x:cx-5.5, y:yb-27, w:11, h:14};
+    } else if (H.ch){
+      el("rect", {class:"roof", x:x + w*.2, y:yb-30, width:7, height:16}, g);
     }
-    el("path", {class:"facade", d:facadePath(H.g, x, yb, H.w), fill:`var(${H.c})`}, g);
-    if (H.g === "cornice") el("line", {class:"course", x1:x, x2:x+H.w, y1:yb+5, y2:yb+5}, g);
-    // rez-de-chaussée : bandeau + porte
-    el("line", {class:"course", x1:x, x2:x+H.w, y1:BASE-30, y2:BASE-30}, g);
-    el("rect", {class:"door", x:x+H.w*.5-7, y:BASE-26, width:14, height:26}, g);
+    el("path", {class:"facade", d:facadePath(H.g, x, yb, w), fill:`var(${H.c})`}, g);
+    g.appendChild(d);
 
-    // fenêtres : 3 colonnes × 4 étages, allumées du bas vers le haut
+    // pignon : rive, ancre de levage, fenêtre du grenier
+    if (H.g === "pitch"){
+      el("path", {class:"edge", d:`M${x+3} ${yb-1} L${cx} ${yb-37} L${x+w-3} ${yb-1}`}, d);
+      el("line", {class:"hoist", x1:cx, x2:cx, y1:yb-36, y2:yb-30}, d);
+      attic = {x:cx-6, y:yb-25, w:12, h:16};
+    } else if (H.g === "step"){
+      el("line", {class:"hoist", x1:cx, x2:cx, y1:yb-44, y2:yb-38}, d);
+      attic = {x:cx-6, y:yb-34, w:12, h:17};
+    } else if (H.g === "bell"){
+      el("circle", {class:"edge", cx, cy:yb-40, r:4}, d);
+      attic = {x:cx-6, y:yb-28, w:12, h:17};
+    }
+    // corniche moulurée sous le pignon, chaînes d'angle
+    el("rect", {class:"cornice", x:x, y:yb, width:w, height:H.g === "cornice" ? 6 : 4}, d);
+    el("line", {class:"course", x1:x, x2:x+w, y1:yb + (H.g === "cornice" ? 8 : 6), y2:yb + (H.g === "cornice" ? 8 : 6)}, d);
+    el("line", {class:"pilaster", x1:x+3.5, x2:x+3.5, y1:yb+8, y2:BASE-34}, d);
+    el("line", {class:"pilaster", x1:x+w-3.5, x2:x+w-3.5, y1:yb+8, y2:BASE-34}, d);
+    // socle en pierre, porte cintrée et marches
+    el("rect", {class:"socle", x:x, y:BASE-34, width:w, height:34}, d);
+    el("line", {class:"course", x1:x, x2:x+w, y1:BASE-34, y2:BASE-34}, d);
+    const dx = cx - 8;
+    el("path", {class:"door", d:`M${dx} ${BASE-3} V${BASE-22} A8 8 0 0 1 ${dx+16} ${BASE-22} V${BASE-3} Z`}, d);
+    el("line", {class:"transom", x1:dx, x2:dx+16, y1:BASE-22, y2:BASE-22}, d);
+    el("line", {class:"step", x1:dx-3, x2:dx+19, y1:BASE-3, y2:BASE-3}, d);
+    el("line", {class:"step", x1:dx-5, x2:dx+21, y1:BASE-0.8, y2:BASE-0.8}, d);
+    [x + w*.17, x + w*.83].forEach(sx => el("rect", {class:"cellar", x:sx-6, y:BASE-12, width:12, height:5}, d));
+
+    // fenêtres : 4 colonnes × 4 étages, allumées du bas vers le haut, puis le pignon
     const top = yb + 12, bottom = BASE - 38, rowH = (bottom - top) / ROWS;
-    const ww = Math.round(H.w * .15), wh = Math.min(22, Math.round(rowH * .62));
-    const xs = [.22, .5, .78].map(p => x + H.w*p - ww/2);
-    winEls[i] = [];
-    for (let s = 0; s < SLOTS; s++){
-      const row = ROWS - 1 - Math.floor(s / COLS), col = s % COLS;
-      const wx = xs[col], wy = top + row*rowH + (rowH - wh)/2;
-      const w = el("g", {class:"win"}, g);
-      el("rect", {class:"halo", x:wx-3, y:wy-3, width:ww+6, height:wh+6}, w);
-      el("rect", {class:"glass", x:wx, y:wy, width:ww, height:wh}, w);
-      el("rect", {class:"lamp", x:wx, y:wy, width:ww, height:wh}, w);
-      el("line", {class:"mull", x1:wx+ww/2, x2:wx+ww/2, y1:wy, y2:wy+wh}, w);
-      el("line", {class:"mull", x1:wx, x2:wx+ww, y1:wy+wh*.42, y2:wy+wh*.42}, w);
-      el("rect", {class:"ring", x:wx-3.5, y:wy-3.5, width:ww+7, height:wh+7}, w);
-      winEls[i].push(w);
+    const ww = Math.max(11, Math.round(w * .125)), wh = Math.min(22, Math.round(rowH * .64));
+    const xs = [.17, .39, .61, .83].map(p => x + w*p - ww/2);
+    const rects = [];
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++){
+      const row = ROWS - 1 - r;
+      rects.push({x:xs[c], y:top + row*rowH + (rowH - wh)/2, w:ww, h:wh});
     }
+    rects.push(attic);
+    winEls[i] = rects.map(R => {
+      const wg = el("g", {class:"win"}, g);
+      el("rect", {class:"lintel", x:R.x-1.5, y:R.y-3.2, width:R.w+3, height:2.2}, wg);
+      el("line", {class:"sill", x1:R.x-2, x2:R.x+R.w+2, y1:R.y+R.h+1.4, y2:R.y+R.h+1.4}, wg);
+      el("rect", {class:"halo", x:R.x-3, y:R.y-3, width:R.w+6, height:R.h+6}, wg);
+      el("rect", {class:"glass", x:R.x, y:R.y, width:R.w, height:R.h}, wg);
+      el("rect", {class:"lamp", x:R.x, y:R.y, width:R.w, height:R.h}, wg);
+      el("line", {class:"mull", x1:R.x+R.w/2, x2:R.x+R.w/2, y1:R.y, y2:R.y+R.h}, wg);
+      el("line", {class:"mull", x1:R.x, x2:R.x+R.w, y1:R.y+R.h*.4, y2:R.y+R.h*.4}, wg);
+      el("rect", {class:"ring", x:R.x-3.5, y:R.y-3.5, width:R.w+7, height:R.h+7}, wg);
+      return wg;
+    });
+
+    const apex = {pitch:40, step:44, bell:56, cornice:38}[H.g];
     if (i === NYE){
-      const t = el("text", {class:"sk-star", x:x+H.w/2, y:yb - 50}, g); t.textContent = "✦";
+      const t = el("text", {class:"sk-star", x:cx, y:yb - apex - 8}, g); t.textContent = "✦";
     }
-    const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:x+H.w/2, y:BASE+15}, svg);
+    overEls[i] = el("text", {class:"sk-over", x:cx + (i === NYE ? 20 : 0), y:yb - apex - 8}, g);
+    const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:cx, y:BASE+15}, svg);
     lab.textContent = `${wd(i)} ${dd(i)}`;
-    x += H.w;
+    x += w;
   });
 }
 
@@ -734,6 +790,8 @@ function renderSkyline(){
       }
     });
     const y = yes.length, m = showMaybe ? maybe.length : 0;
+    const extra = order.length - SLOTS;
+    overEls[i].textContent = extra > 0 ? `+${extra}` : "";
     caption.push(`nuit du ${dayLong(i)} : ${y} sur place${m ? `, ${m} peut-être` : ""}`);
   }
   svg.setAttribute("aria-label", "Rangée de Nyhavn. " + caption.join(" ; ") + ".");
