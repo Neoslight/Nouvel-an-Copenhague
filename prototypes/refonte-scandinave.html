@@ -1,0 +1,900 @@
+<title>Copenhague 26–27</title>
+<meta name="description" content="Nouvel An 2026-27 à Copenhague : dates, budget, réponses avant le 31 octobre. Prototype de refonte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Direction 1 · L'Épure architecturale.
+   Une colonne de 960 px, rythmée par des filets et du blanc ; le ciel d'hiver en tête,
+   une rangée de façades de Nyhavn dessinées au trait qui EST la donnée (une maison par nuit,
+   une fenêtre par personne). Seule chaleur de la page : l'ambre des fenêtres allumées. Clair uniquement. */
+:root{
+  color-scheme:light;
+  /* lumière & matière */
+  --sky-hi:#D7E0E6; --sky:#E6EBED; --linen:#F5F4F0; --paper:#FBFAF7; --kalk:#E3E1DA;
+  --hair:#D5D3CC; --hair-2:#B9B8B1;
+  /* encre feutrée */
+  --ink:#1F252B; --ink-2:#4F575F; --ink-3:#858B90;
+  /* bougie : réservé à la présence (fenêtres, nuits) */
+  --amber:#E4A23F; --amber-hi:#F7D58C; --amber-soft:#F2E4C6;
+  /* façades de Nyhavn, passées par l'hiver */
+  --f-brick:#B57D6B; --f-sage:#A3B09D; --f-ochre:#D3AF6C; --f-zinc:#AAB2B6; --f-petrol:#55747A; --f-lin:#DDD3C1;
+  --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-line:#E4EAED;
+  --late:#97452F;
+  /* type */
+  --f:"Schibsted Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --t-xs:.75rem; --t-s:.875rem; --t-m:1rem; --t-l:1.25rem; --t-xl:clamp(1.6rem,3.2vw,2.1rem); --t-xxl:clamp(2.7rem,7.6vw,5.2rem);
+  --track-cap:.09em;
+  /* rythme */
+  --gut:clamp(16px,4vw,32px); --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:104px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+@supports (interpolate-size:allow-keywords){:root{interpolate-size:allow-keywords}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--linen);color:var(--ink);font:400 var(--t-m)/1.6 var(--f);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-kerning:normal}
+h1,h2,h3{margin:0;line-height:1.08;text-wrap:balance;font-weight:700}
+p,dl,dd,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:var(--hair-2);text-underline-offset:.22em}
+a:hover{text-decoration-color:var(--ink)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.wrap{max-width:960px;margin-inline:auto;padding-inline:var(--gut)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.cap{font-size:var(--t-xs);font-weight:600;letter-spacing:var(--track-cap);text-transform:uppercase;color:var(--ink-3)}
+.muted{color:var(--ink-2)}
+.faint{color:var(--ink-3)}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ———————————————————— NAV ———————————————————— */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+  background:color-mix(in srgb,var(--linen) 78%,transparent);
+  backdrop-filter:saturate(1.1) blur(14px);-webkit-backdrop-filter:saturate(1.1) blur(14px);
+  border-bottom:1px solid color-mix(in srgb,var(--hair) 70%,transparent)}
+.nav .wrap{display:flex;align-items:center;gap:var(--s4);height:52px}
+.brand{font-weight:700;font-size:var(--t-s);letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.brand span{font-weight:400;color:var(--ink-3)}
+.nav ul{display:flex;gap:var(--s4);overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav ul::-webkit-scrollbar{display:none}
+.nav ul a{font-size:var(--t-s);color:var(--ink-2);text-decoration:none;white-space:nowrap;padding-block:16px;border-bottom:1px solid transparent}
+.nav ul a:hover,.nav ul a[aria-current=true]{color:var(--ink);border-bottom-color:var(--ink)}
+.countdown{font-size:var(--t-s);font-weight:600;color:var(--late);white-space:nowrap}
+@media (max-width:640px){.brand span{display:none}.countdown{display:none}}
+
+/* ———————————————————— HERO ———————————————————— */
+.hero{background:linear-gradient(180deg,var(--sky-hi) 0%,var(--sky) 46%,var(--linen) 100%);padding-top:clamp(40px,8vw,88px)}
+.hero-head{display:grid;gap:var(--s3)}
+.eyebrow{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t-s);color:var(--ink-2)}
+.eyebrow b{font-weight:600;color:var(--ink)}
+.hero h1{font-size:var(--t-xxl);font-weight:800;letter-spacing:-.045em;line-height:.94}
+.hero h1 em{font-style:normal;font-weight:400;letter-spacing:-.04em;color:var(--ink-2)}
+.lead{max-width:54ch;font-size:var(--t-l);line-height:1.45;color:var(--ink-2)}
+.lead b{font-weight:600;color:var(--ink)}
+
+.quay{margin-top:clamp(28px,5vw,48px)}
+.sky-scroll{overflow-x:auto;scrollbar-width:thin;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut)}
+#skyline{display:block;width:100%;min-width:620px;height:auto}
+.sky-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s4);padding-block:var(--s3) var(--s5);font-size:var(--t-s);color:var(--ink-2)}
+.sky-legend p{max-width:58ch}
+.sky-legend b{color:var(--ink);font-weight:600}
+.key{display:inline-block;width:9px;height:12px;margin-inline:2px 4px;vertical-align:-1px;background:var(--amber);box-shadow:inset 0 0 0 .75px var(--ink)}
+.key.half{background:color-mix(in srgb,var(--amber) 42%,var(--glass))}
+.key.off{background:var(--glass)}
+
+/* fenêtres */
+.house .facade{stroke:var(--ink);stroke-width:.8;vector-effect:non-scaling-stroke}
+.house.ghost .facade{fill:var(--paper)!important;stroke:var(--hair-2);stroke-dasharray:3 3}
+.house .roof{fill:var(--roof);stroke:var(--ink);stroke-width:.8}
+.house .course{stroke:var(--ink);stroke-width:.6;opacity:.45}
+.house .door{fill:var(--ink);opacity:.62}
+.house.ghost .door,.house.ghost .course{opacity:.25}
+.house.sel .facade{stroke-width:1.6}
+.win .glass{fill:var(--glass);stroke:var(--ink);stroke-width:.7}
+.win .mull{stroke:var(--ink);stroke-width:.55;opacity:.55}
+.win .lamp{fill:url(#lamp);opacity:0;transition:opacity .9s var(--ease);transition-delay:var(--d,0ms)}
+.win .halo{fill:var(--amber);opacity:0;filter:url(#soft);transition:opacity 1.2s var(--ease);transition-delay:var(--d,0ms)}
+.win .refl{fill:var(--amber);opacity:0;transition:opacity 1.4s var(--ease);transition-delay:calc(var(--d,0ms) + 200ms)}
+.win.on .lamp{opacity:1}.win.on .halo{opacity:.38}.win.on .refl{opacity:.5}
+.win.half .lamp{opacity:.42}.win.half .halo{opacity:.1}.win.half .refl{opacity:.18}
+.win.me .glass{stroke-width:1.6}
+.win.me .ring{opacity:1}
+.win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
+.sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
+.sk-day.nye{font-weight:700;fill:var(--ink)}
+.sk-count{font:600 11px var(--f);fill:var(--ink);text-anchor:middle;font-variant-numeric:tabular-nums}
+.sk-count .m{font-weight:400;fill:var(--ink-3)}
+.sk-star{font:400 15px var(--f);fill:var(--ink);text-anchor:middle}
+.house{cursor:pointer}
+@media (prefers-reduced-motion:reduce){.win .lamp,.win .halo,.win .refl{transition:none}html{scroll-behavior:auto}}
+
+/* commutateur sobre */
+.toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:var(--t-s);color:var(--ink-2);user-select:none}
+.toggle input{appearance:none;margin:0;width:30px;height:16px;border:1px solid var(--ink-3);border-radius:8px;position:relative;background:var(--paper);cursor:pointer;transition:border-color .2s}
+.toggle input::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--ink-3);transition:transform .3s var(--ease),background .3s}
+.toggle input:checked{border-color:var(--ink)}
+.toggle input:checked::after{transform:translateX(14px);background:var(--ink)}
+
+/* ———————————————————— FAITS CLÉS ———————————————————— */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.fact{display:grid;align-content:start;gap:var(--s2);padding:var(--s4) var(--s4) var(--s5) 0}
+.fact + .fact{padding-left:var(--s4);border-left:1px solid var(--hair)}
+.fact .big{font-size:var(--t-xl);font-feature-settings:"lnum";font-weight:700;letter-spacing:-.025em;line-height:1.05}
+.fact .big small{font-size:.5em;font-weight:500;letter-spacing:0;color:var(--ink-3)}
+.fact p{font-size:var(--t-s);color:var(--ink-2);max-width:32ch}
+.fact.late .big{color:var(--late)}
+.ledger{display:grid;font-size:var(--t-s);margin-top:var(--s1)}
+.ledger div{display:grid;grid-template-columns:1fr auto;gap:var(--s3);padding-block:6px;border-top:1px solid var(--hair)}
+.ledger dt{color:var(--ink-2)}
+.ledger dd{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.ledger dd i{font-style:normal;font-weight:400;color:var(--ink-3)}
+@media (max-width:760px){
+  .facts{grid-template-columns:minmax(0,1fr)}
+  .fact,.fact + .fact{padding:var(--s4) 0;border-left:0}
+  .fact + .fact{border-top:1px solid var(--hair)}
+}
+
+/* ———————————————————— SECTIONS ———————————————————— */
+main{display:grid;gap:0}
+.sec{padding-block:var(--s6) 0;display:grid;gap:var(--s4)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:var(--s2) var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--ink)}
+.sec-head h2{font-size:var(--t-xl);letter-spacing:-.025em}
+.sec-head p{grid-column:1/-1;color:var(--ink-2);max-width:60ch}
+.sec-head .cap{align-self:end;padding-bottom:6px}
+
+/* ———————————————————— FORMULAIRE ———————————————————— */
+.form{display:grid}
+.row{display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:var(--s2) var(--s5);padding-block:var(--s4);border-bottom:1px solid var(--hair)}
+.row > .label{display:grid;align-content:start;gap:2px}
+.row > .label b{font-weight:600}
+.row > .label .step{font-size:var(--t-xs);color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.row > .label small{font-size:var(--t-s);color:var(--ink-3);line-height:1.4}
+.field{display:grid;gap:var(--s3);min-width:0}
+.sub{display:grid;gap:var(--s2)}
+.sub > span{font-size:var(--t-s);color:var(--ink-2)}
+@media (max-width:640px){.row{grid-template-columns:minmax(0,1fr);gap:var(--s3)}}
+
+.text{width:100%;max-width:380px;font:500 var(--t-l)/1.3 var(--f);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--hair-2);padding:6px 0;border-radius:0}
+.text::placeholder{color:var(--ink-3);font-weight:400}
+.text:focus{outline:none;border-bottom-color:var(--ink)}
+textarea.text{font-size:var(--t-m);max-width:none;resize:vertical;min-height:2.6em}
+
+/* choix segmentés : texte, filets, encre pleine quand choisi */
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);max-width:100%}
+.seg button{appearance:none;border:0;background:transparent;padding:10px 16px;font-size:var(--t-s);font-weight:500;color:var(--ink-2);cursor:pointer;position:relative;transition:background .25s var(--ease),color .25s}
+.seg button + button{border-left:1px solid var(--hair)}
+.seg button:hover{color:var(--ink);background:var(--linen)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.seg button[aria-pressed=true] + button{border-left-color:var(--ink)}
+.seg button .p{font-weight:400;opacity:.7;margin-left:8px;font-variant-numeric:tabular-nums}
+
+/* bande des nuits : une case par nuit, comme les maisons */
+.nights{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border:1px solid var(--hair-2);border-radius:2px;background:var(--paper);max-width:560px}
+.nights button{appearance:none;border:0;background:transparent;cursor:pointer;display:grid;gap:2px;justify-items:center;padding:8px 0 10px;font-variant-numeric:tabular-nums;transition:background .3s var(--ease)}
+.nights button + button{border-left:1px solid var(--hair)}
+.nights .wd{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.nights .d{font-size:var(--t-m);font-weight:600;color:var(--ink-2)}
+.nights .mk{height:12px;font-size:11px;line-height:12px;color:var(--ink)}
+.nights button.out .d{color:var(--ink-3);font-weight:400}
+.nights button.in{background:var(--amber-soft)}
+.nights button.in .d{color:var(--ink)}
+.nights button.edge{background:var(--amber)}
+.nights button.edge .d,.nights button.edge .wd{color:var(--ink)}
+.nights button:hover:not(.in){background:var(--linen)}
+.nights-read{font-size:var(--t-s);color:var(--ink-2)}
+.nights-read b{color:var(--ink);font-weight:600}
+
+.cond{display:grid;gap:var(--s3);padding-left:var(--s3);border-left:1px solid var(--hair)}
+.note{font-size:var(--t-s);color:var(--ink-2);max-width:56ch}
+.note b{color:var(--ink);font-weight:600}
+
+/* estimation : la règle est la donnée */
+.estimate{display:grid;gap:var(--s3);padding-block:var(--s5) var(--s4)}
+.estimate-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s2) var(--s4)}
+.estimate .total{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.estimate .ledger{max-width:520px}
+.rule{width:100%;height:auto;display:block;overflow:visible}
+.rule .ax{stroke:var(--hair-2);stroke-width:1}
+.rule .tk{stroke:var(--hair-2);stroke-width:1}
+.rule .tl{font:400 10px var(--f);fill:var(--ink-3);text-anchor:middle;font-variant-numeric:tabular-nums}
+.rule .band{fill:var(--ink);transition:x .5s var(--ease),width .5s var(--ease)}
+.rule .cap-line{stroke:var(--late);stroke-width:1.5;transition:transform .5s var(--ease)}
+.rule .cap-lbl{font:600 10px var(--f);fill:var(--late)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s4)}
+.btn{appearance:none;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font:600 var(--t-m)/1 var(--f);padding:15px 26px;border-radius:2px;cursor:pointer;transition:background .2s}
+.btn:hover{background:#38414A}
+.btn-text{appearance:none;border:0;background:none;padding:0;font:500 var(--t-m)/1 var(--f);color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:var(--hair-2);text-underline-offset:.25em;cursor:pointer}
+.btn-text:hover{text-decoration-color:var(--ink)}
+.status{font-size:var(--t-s);color:var(--ink-2)}
+
+/* ———————————————————— LE GROUPE ———————————————————— */
+.tbl-scroll{overflow-x:auto}
+.grp{width:100%;min-width:640px;border-collapse:collapse;font-size:var(--t-s);font-variant-numeric:tabular-nums}
+.grp th,.grp td{padding:9px 0;border-bottom:1px solid var(--hair);text-align:left;font-weight:400;vertical-align:middle}
+.grp thead th{font-size:var(--t-xs);color:var(--ink-3);border-bottom:1px solid var(--ink);padding-bottom:8px}
+.grp .n{font-weight:600;color:var(--ink)}
+.grp .who{width:22%}
+.grp .st{width:14%;color:var(--ink-2)}
+.grp .tr{width:12%;color:var(--ink-2)}
+.grp .c{width:4.4%;text-align:center}
+.grp .tot{width:7%;text-align:right;font-weight:600}
+.grp thead .c{color:var(--ink-2)}
+.grp thead .c.nye{color:var(--ink);font-weight:700}
+.grp thead .c.out{color:var(--ink-3)}
+.cell{display:inline-block;width:12px;height:15px;background:var(--glass);box-shadow:inset 0 0 0 .75px color-mix(in srgb,var(--ink) 40%,transparent);vertical-align:middle;transition:background .5s var(--ease)}
+.cell.on{background:var(--amber);box-shadow:inset 0 0 0 .75px var(--ink)}
+.cell.half{background:color-mix(in srgb,var(--amber) 42%,var(--glass))}
+.cell.out{background:transparent;box-shadow:inset 0 0 0 .75px var(--hair)}
+.grp tr.me td{background:color-mix(in srgb,var(--amber-soft) 45%,transparent)}
+.grp tr.no td{color:var(--ink-3)}
+.grp tr.no .n{color:var(--ink-3);font-weight:400;text-decoration:line-through;text-decoration-color:var(--hair-2)}
+.grp tfoot td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600;padding-top:10px}
+.grp tfoot .c{font-weight:600}
+.grp tfoot .c i{font-style:normal;font-weight:400;color:var(--ink-3);font-size:var(--t-xs)}
+.sample{font-size:var(--t-xs);color:var(--ink-3)}
+
+/* ———————————————————— FOLDS ———————————————————— */
+.folds{display:grid;border-top:1px solid var(--ink)}
+.fold{border-bottom:1px solid var(--hair)}
+.fold summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto 22px;align-items:baseline;gap:var(--s1) var(--s4);padding-block:var(--s4)}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary h3{font-size:var(--t-l);font-weight:600;letter-spacing:-.012em}
+.fold summary .lede{grid-column:1;font-size:var(--t-s);color:var(--ink-2)}
+.fold summary .fig{grid-row:1;grid-column:2;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fold summary .fig i{font-style:normal;font-weight:400;color:var(--ink-3);font-size:var(--t-s)}
+.pm{grid-row:1;grid-column:3;align-self:center;position:relative;width:13px;height:13px;justify-self:end}
+.pm::before,.pm::after{content:"";position:absolute;background:var(--ink);transition:transform .45s var(--ease)}
+.pm::before{left:0;right:0;top:6px;height:1px}
+.pm::after{top:0;bottom:0;left:6px;width:1px}
+.fold[open] .pm::after{transform:scaleY(0)}
+.fold summary:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:var(--hair-2)}
+@supports selector(::details-content){
+  .fold::details-content{block-size:0;overflow:hidden;transition:block-size .5s var(--ease),content-visibility .5s allow-discrete}
+  .fold[open]::details-content{block-size:auto}
+}
+.fold-body{display:grid;gap:var(--s4);padding-bottom:var(--s5)}
+@media (max-width:560px){.fold summary{grid-template-columns:minmax(0,1fr) 22px}.fold summary .fig{grid-row:auto;grid-column:1}.pm{grid-column:2}}
+
+.spec{width:100%;min-width:560px;border-collapse:collapse;font-size:var(--t-s);font-variant-numeric:tabular-nums}
+.spec th,.spec td{text-align:left;padding:10px var(--s3) 10px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-weight:400}
+.spec thead th{font-size:var(--t-xs);color:var(--ink-3);border-bottom-color:var(--ink-3)}
+.spec .r{text-align:right;white-space:nowrap;padding-right:0}
+.spec td b{font-weight:600}
+.spec .tag{font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.spec tr.grp-row td:first-child b::after{content:" · groupe";font-weight:400;color:var(--ink-3)}
+
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5)}
+.duo > div{display:grid;gap:var(--s2);align-content:start}
+.duo h4{margin:0;font-size:var(--t-m);font-weight:600;display:flex;justify-content:space-between;gap:var(--s3);padding-bottom:var(--s2);border-bottom:1px solid var(--ink)}
+.duo h4 span{font-variant-numeric:tabular-nums}
+@media (max-width:640px){.duo{grid-template-columns:minmax(0,1fr)}}
+.facts-list{display:grid;font-size:var(--t-s)}
+.facts-list li{padding-block:8px;border-bottom:1px solid var(--hair);color:var(--ink-2);max-width:62ch}
+.facts-list li b{color:var(--ink);font-weight:600}
+
+.day{width:100%;height:auto;display:block;max-width:720px}
+.day .night{fill:var(--water)}
+.day .light{fill:var(--paper);stroke:var(--hair-2);stroke-width:.8}
+.day .fw{stroke:var(--amber);stroke-width:3;stroke-linecap:butt}
+.day .ax{font:400 10px var(--f);fill:var(--ink-3);text-anchor:middle;font-variant-numeric:tabular-nums}
+.day .lb{font:500 10.5px var(--f);fill:var(--ink-2)}
+.day .lb.fwl{fill:var(--ink);font-weight:600}
+.cap-text{font-size:var(--t-s);color:var(--ink-2);max-width:62ch}
+
+/* ———————————————————— PIED ———————————————————— */
+footer{margin-top:var(--s7);padding-block:var(--s4) var(--s6);border-top:1px solid var(--hair);font-size:var(--t-xs);color:var(--ink-3)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2) var(--s4)}
+</style>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">København <span>Nouvel An 26–27</span></a>
+    <ul>
+      <li><a href="#choix">Mes choix</a></li>
+      <li><a href="#groupe">Le groupe</a></li>
+      <li><a href="#details">Logements</a></li>
+      <li><a href="#details">Transport</a></li>
+      <li><a href="#details">À savoir</a></li>
+    </ul>
+    <span class="countdown num" id="countdown">J−18</span>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-head">
+      <p class="eyebrow"><span><b>28.12.2026 → 03.01.2027</b></span><span>6 nuits</span><span>Réveillon le jeudi 31</span></p>
+      <h1>Nouvel An<br><em>à</em> Copenhague</h1>
+      <p class="lead">Du <b>lundi 28 décembre</b> au <b>dimanche 3 janvier</b>. Chacun arrive et repart quand il veut, la soirée du 31 est déjà prévue.</p>
+    </div>
+
+    <figure class="quay">
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 336" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <figcaption class="sky-legend">
+        <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Touche une maison pour la lire.</p>
+        <label class="toggle"><input type="checkbox" id="show-maybe" checked> Allumer les peut-être</label>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="wrap">
+  <section aria-label="L'essentiel">
+    <div class="facts">
+      <div class="fact">
+        <span class="cap">Quand</span>
+        <span class="big">28.12 → 03.01</span>
+        <p>Six nuits, le réveillon au milieu. Tu choisis tes propres dates plus bas.</p>
+      </div>
+      <div class="fact">
+        <span class="cap">Combien, par personne</span>
+        <span class="big">383 à 1&#8239;105&nbsp;€ <small>tout compris</small></span>
+        <dl class="ledger">
+          <div><dt>En voiture, aller-retour</dt><dd>105 – 165&nbsp;€</dd></div>
+          <div><dt>En avion, aller-retour</dt><dd>280 – 385&nbsp;€</dd></div>
+          <div><dt>Une nuit, chambre privée</dt><dd>38 – 120&nbsp;€</dd></div>
+        </dl>
+      </div>
+      <div class="fact late">
+        <span class="cap">Avant le</span>
+        <span class="big">samedi 31 oct.</span>
+        <p><b>Dis si tu viens en voiture</b> et si tu veux le logement partagé&#8239;: le groupe réserve les deux. <span id="days-left"></span></p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- ——— MES CHOIX ——— -->
+    <section class="sec" id="choix" aria-labelledby="h-choix">
+      <div class="sec-head">
+        <h2 id="h-choix">Mes choix</h2>
+        <span class="cap">2 minutes</span>
+        <p>Réponds avec ce que tu sais aujourd'hui, tu pourras modifier plus tard. Ta fenêtre s'allume là-haut au fur et à mesure.</p>
+      </div>
+
+      <form class="form" id="form" novalidate>
+        <div class="row">
+          <div class="label"><span class="step">1 / 5</span><b>Toi</b></div>
+          <div class="field">
+            <label class="sr" for="f-name">Prénom</label>
+            <input class="text" id="f-name" name="name" autocomplete="given-name" placeholder="Ton prénom">
+            <div class="seg" role="group" aria-label="Tu viens ?" data-key="status">
+              <button type="button" data-v="oui">Oui</button><button type="button" data-v="peut-etre">Peut-être</button><button type="button" data-v="non">Non, pas cette fois</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label"><span class="step">2 / 5</span><b>Mes nuits</b><small>Touche ta première nuit, puis ta dernière.</small></div>
+          <div class="field">
+            <div class="nights" id="nights" role="group" aria-label="Nuits sur place"></div>
+            <p class="nights-read" id="nights-read"></p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label"><span class="step">3 / 5</span><b>Je viens en</b><small>Le groupe organise la voiture, réponse avant le 31/10.</small></div>
+          <div class="field">
+            <div class="seg" role="group" aria-label="Transport" data-key="transport">
+              <button type="button" data-v="voiture">Voiture<span class="p">105–165&nbsp;€</span></button><button type="button" data-v="avion">Avion<span class="p">280–385&nbsp;€</span></button><button type="button" data-v="nsp">Je ne sais pas</button>
+            </div>
+            <div class="cond" id="cond-car">
+              <div class="sub"><span>En voiture, je suis</span>
+                <div class="seg" role="group" aria-label="Rôle en voiture" data-key="role">
+                  <button type="button" data-v="conducteur">Conducteur</button><button type="button" data-v="relais">Je peux faire des relais</button><button type="button" data-v="passager">Passager</button>
+                </div>
+              </div>
+              <p class="note">Environ 13&nbsp;h de route, ferry Puttgarden → Rødby (45&nbsp;min) ou pont du Storebælt, même prix. Parking à Copenhague&#8239;: environ <b>50&nbsp;€</b> par personne en plus.</p>
+            </div>
+            <div class="cond" id="cond-plane" hidden>
+              <p class="note">Tu réserves ton vol toi-même. Direct en 2&nbsp;h depuis Orly ou Roissy. En tarif de base, une valise ajoute <b>40 à 70&nbsp;€</b> aller-retour.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label"><span class="step">4 / 5</span><b>Pour dormir</b><small>Toujours en chambre privée.</small></div>
+          <div class="field">
+            <div class="seg" role="group" aria-label="Logement" data-key="lodge">
+              <button type="button" data-v="partage">Logement partagé<span class="p">60–120&nbsp;€</span></button><button type="button" data-v="hotel2">Hôtel à deux<span class="p">38–47&nbsp;€</span></button><button type="button" data-v="hotel1">Hôtel seul·e<span class="p">76–98&nbsp;€</span></button>
+            </div>
+            <p class="note">Prix par personne et par nuit. Le logement partagé est réservé par le groupe avant le 31/10&#8239;; l'hôtel, tu le réserves quand tu veux.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label"><span class="step">5 / 5</span><b>Mon maximum</b><small>Transport et logement compris.</small></div>
+          <div class="field">
+            <div class="seg num" role="group" aria-label="Budget maximum" data-key="budget">
+              <button type="button" data-v="400">Moins de 400&nbsp;€</button><button type="button" data-v="550">400 à 550&nbsp;€</button><button type="button" data-v="700">550 à 700&nbsp;€</button><button type="button" data-v="0">Plus de 700&nbsp;€</button>
+            </div>
+            <label class="sub"><span>Un mot pour le groupe (facultatif)</span>
+              <textarea class="text" id="f-note" name="note" rows="2" placeholder="Je ramène le gløgg."></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="estimate" aria-live="polite">
+          <div class="estimate-top">
+            <span class="cap">Ton budget estimé</span>
+            <span class="total" id="est-total">—</span>
+          </div>
+          <svg class="rule" id="rule" viewBox="0 0 900 46" aria-hidden="true"></svg>
+          <dl class="ledger" id="est-ledger"></dl>
+          <p class="note faint">D'après les prix relevés le 12 octobre. Hors repas, sorties et Tivoli.</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="submit">Enregistrer</button>
+          <button class="btn-text" type="button" id="copy">Copier mon récap</button>
+          <span class="status" id="status" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- ——— LE GROUPE ——— -->
+    <section class="sec" id="groupe" aria-labelledby="h-groupe">
+      <div class="sec-head">
+        <h2 id="h-groupe">Le groupe</h2>
+        <span class="cap num" id="grp-count"></span>
+        <p>Les mêmes nuits que les maisons, une ligne par personne. <span class="sample">Réponses d'exemple pour ce prototype.</span></p>
+      </div>
+      <div class="tbl-scroll"><table class="grp" id="grp"></table></div>
+    </section>
+
+    <!-- ——— DÉTAILS REPLIÉS ——— -->
+    <section class="sec" id="details" aria-labelledby="h-details">
+      <div class="sec-head">
+        <h2 id="h-details">Le détail</h2>
+        <span class="cap">Prix relevés le 12.10</span>
+      </div>
+      <div class="folds" style="border-top:0">
+
+        <details class="fold" id="logements">
+          <summary>
+            <h3>Logements</h3>
+            <span class="fig num">38 – 120&nbsp;€ <i>/ nuit</i></span>
+            <span class="pm" aria-hidden="true"></span>
+            <span class="lede">Cinq formules, toutes en chambres privées. Pas de dortoir.</span>
+          </summary>
+          <div class="fold-body">
+            <div class="tbl-scroll">
+              <table class="spec">
+                <thead><tr><th>Formule</th><th>Comment</th><th>Pour</th><th>Contre</th><th class="r">Par pers. et par nuit</th></tr></thead>
+                <tbody>
+                  <tr class="grp-row"><td><b>2 Airbnb de 2 chambres</b></td><td>Deux appartements voisins, 60 à 90&nbsp;m², 4 ou 5 personnes chacun</td><td>Bon compromis prix et ambiance</td><td>Trouver deux annonces proches</td><td class="r"><b>60 – 65&nbsp;€</b></td></tr>
+                  <tr class="grp-row"><td><b>1 grand Airbnb</b></td><td>Maison ou grand duplex pour 8 à 10, 4 chambres</td><td>Tout le monde sous le même toit</td><td>Offre rare, 4 ou 5 nuits minimum, ménage en plus</td><td class="r"><b>75 – 90&nbsp;€</b></td></tr>
+                  <tr class="grp-row"><td><b>Appart-hôtel</b></td><td>Lofts de 28&nbsp;m² pour 2 dans le même immeuble, rooftop commun</td><td>Confort hôtelier, parking sur place</td><td>Le plus cher</td><td class="r"><b>100 – 120&nbsp;€</b></td></tr>
+                  <tr><td><b>Wakeup</b></td><td>Chambre double avec salle de bain, face à Tivoli</td><td>Pas cher, privé, dates libres</td><td>Peu de vie commune</td><td class="r"><b>43 – 47&nbsp;€</b></td></tr>
+                  <tr><td><b>Cabinn</b></td><td>Petite chambre type cabine avec douche</td><td>Le moins cher sans dortoir</td><td>Compact, fonctionnel</td><td class="r"><b>38 – 41&nbsp;€</b></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cap-text">Seul·e à l'hôtel, tu paies la chambre entière&#8239;: 76 à 98&nbsp;€ la nuit. Quartiers conseillés&#8239;: Vesterbro (gare, Tivoli), Christianshavn (les canaux), Nørrebro (bars), Østerbro (calme, parking plus facile).</p>
+          </div>
+        </details>
+
+        <details class="fold" id="transport">
+          <summary>
+            <h3>Transport</h3>
+            <span class="fig num">105 – 385&nbsp;€ <i>A/R</i></span>
+            <span class="pm" aria-hidden="true"></span>
+            <span class="lede">Paris → Copenhague. Au moins une voiture part, les autres prennent l'avion.</span>
+          </summary>
+          <div class="fold-body">
+            <div class="duo">
+              <div>
+                <h4>En voiture <span>105 – 165&nbsp;€</span></h4>
+                <ul class="facts-list">
+                  <li><b>1&#8239;220&nbsp;km</b> par trajet, environ 13&nbsp;h</li>
+                  <li><b>520 à 660&nbsp;€</b> par voiture (essence, péages, ferry), partagés à 4 ou 5</li>
+                  <li>Parking environ 40&nbsp;€ par jour, soit <b>50&nbsp;€</b> par personne sur 6 nuits</li>
+                  <li>Pneus hiver 3PMSF exigés en Allemagne par neige</li>
+                </ul>
+              </div>
+              <div>
+                <h4>En avion <span>280 – 385&nbsp;€</span></h4>
+                <ul class="facts-list">
+                  <li>Direct en <b>2&nbsp;h</b>, Orly (Transavia) ou Roissy (Air France, Norwegian)</li>
+                  <li>Aéroport → gare centrale en <b>13&nbsp;min</b>, 36&nbsp;DKK</li>
+                  <li>Une valise chez les low-cost&#8239;: <b>40 à 70&nbsp;€</b> de plus</li>
+                  <li>Les prix montent à l'approche des fêtes</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tbl-scroll">
+              <table class="spec">
+                <thead><tr><th>Ferry ou pont&#8239;?</th><th>Ferry Puttgarden → Rødby</th><th>Pont du Storebælt</th></tr></thead>
+                <tbody>
+                  <tr><td class="tag">Voiture A/R</td><td><b>520 – 660&nbsp;€</b></td><td><b>530 – 590&nbsp;€</b></td></tr>
+                  <tr><td class="tag">Passage</td><td>48 à 118&nbsp;€ l'aller, jusqu'à 9 passagers</td><td>235&nbsp;DKK, environ 32&nbsp;€</td></tr>
+                  <tr><td class="tag">Pour</td><td>Pause de 45&nbsp;min, 150&nbsp;km de moins</td><td>Pas d'horaire fixe</td></tr>
+                  <tr><td class="tag">Contre</td><td>À réserver en ligne, prix au port presque doublé</td><td>Environ 3&nbsp;h de route en plus sur l'A/R</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details class="fold" id="savoir">
+          <summary>
+            <h3>À savoir</h3>
+            <span class="fig num">7&nbsp;h <i>de jour le 31</i></span>
+            <span class="pm" aria-hidden="true"></span>
+            <span class="lede">La lumière, le feu d'artifice, l'argent, le bruit.</span>
+          </summary>
+          <div class="fold-body">
+            <figure style="display:grid;gap:var(--s2)">
+              <svg class="day" viewBox="0 0 720 74" role="img" aria-label="Le 31 décembre : jour de 8 h 37 à 15 h 46, feu d'artifice de Tivoli à 23 h">
+                <rect class="night" x="0" y="22" width="720" height="22"/>
+                <rect class="light" x="258.5" y="22" width="214.5" height="22"/>
+                <line class="fw" x1="690" y1="16" x2="690" y2="50"/>
+                <text class="lb" x="258.5" y="13">8&nbsp;h&nbsp;37</text>
+                <text class="lb" x="473" y="13" text-anchor="end">15&nbsp;h&nbsp;46</text>
+                <text class="lb fwl" x="684" y="13" text-anchor="end">23&nbsp;h, Tivoli</text>
+                <text class="ax" x="4" y="62" style="text-anchor:start">0&nbsp;h</text><text class="ax" x="180" y="62">6&nbsp;h</text><text class="ax" x="360" y="62">12&nbsp;h</text><text class="ax" x="540" y="62">18&nbsp;h</text><text class="ax" x="716" y="62" style="text-anchor:end">24&nbsp;h</text>
+              </svg>
+              <figcaption class="cap-text">Le 31 décembre&#8239;: environ 7&nbsp;h de jour. Le trait jaune&#8239;: le feu d'artifice de Tivoli à 23&nbsp;h, inclus dans le billet d'entrée.</figcaption>
+            </figure>
+            <ul class="facts-list">
+              <li><b>Annulation.</b> Si tu réserves toi-même, prends un tarif annulable&#8239;: le groupe peut encore bouger.</li>
+              <li><b>Nuit du 31.</b> Souvent plus chère, vérifie-la à part.</li>
+              <li><b>Monnaie.</b> Environ 7,46&nbsp;DKK pour 1&nbsp;€. La carte passe partout.</li>
+              <li><b>Diesel.</b> Euro&nbsp;5 minimum ou filtre à particules, plaque à enregistrer avant d'arriver (amende 1&#8239;500&nbsp;DKK).</li>
+              <li><b>Bruit.</b> En Airbnb, Copenhague est stricte en immeuble.</li>
+              <li><b>Sur place.</b> Gløgg à Torvehallerne, sauna et bain glacé au port, les canaux de Christianshavn à pied.</li>
+            </ul>
+          </div>
+        </details>
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Prix relevés le 12 octobre 2026 (Google Flights, Google Hotels, sites officiels), à revérifier avant de réserver.</span>
+    <span>Prototype · rien n'est envoyé</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const SVGNS = "http://www.w3.org/2000/svg";
+const NB = " ", NNB = " ";
+
+/* ---------- nuits : index 0 = nuit du 26 déc. ---------- */
+const D0 = Date.UTC(2026, 11, 26);
+const N = 9, STAY = [2, 7], NYE = 5;
+const dateOf = i => new Date(D0 + i * 864e5);
+const fmt = (i, o) => dateOf(i).toLocaleDateString("fr-FR", {timeZone:"UTC", ...o});
+const wd = i => fmt(i, {weekday:"short"}).replace(".", "");
+const dd = i => dateOf(i).getUTCDate();
+const dayLong = i => fmt(i, {weekday:"long", day:"numeric", month:"long"});
+const inStay = i => i >= STAY[0] && i <= STAY[1];
+
+/* ---------- groupe (exemples) : a = 1re nuit, b = dernière nuit ---------- */
+const PEOPLE = [
+  {n:"Léa",    s:"oui",       a:2, b:7, t:"Voiture"},
+  {n:"Hugo",   s:"oui",       a:3, b:7, t:"Voiture"},
+  {n:"Inès",   s:"peut-etre", a:2, b:5, t:"Avion"},
+  {n:"Malo",   s:"oui",       a:4, b:6, t:"Avion"},
+  {n:"Chloé",  s:"oui",       a:1, b:5, t:"Avion"},
+  {n:"Sam",    s:"peut-etre", a:5, b:6, t:"Avion"},
+  {n:"Jeanne", s:"oui",       a:2, b:7, t:"Voiture"},
+  {n:"Baptiste", s:"non",     a:2, b:7, t:"—"}
+];
+const me = {n:"", s:"oui", a:2, b:7, transport:"voiture", role:"passager", lodge:"partage", budget:"550", picking:false};
+const STATUS = {"oui":"Oui", "peut-etre":"Peut-être", "non":"Non"};
+const TRANS = {voiture:"Voiture", avion:"Avion", nsp:"Je ne sais pas"};
+let showMaybe = true;
+
+/* ---------- maisons de Nyhavn ---------- */
+const HOUSES = [
+  {w:92,  h:150, g:"pitch",   c:"--f-lin"},
+  {w:100, h:168, g:"cornice", c:"--f-zinc"},
+  {w:104, h:162, g:"step",    c:"--f-ochre"},
+  {w:96,  h:178, g:"bell",    c:"--f-brick"},
+  {w:108, h:156, g:"cornice", c:"--f-zinc"},
+  {w:100, h:152, g:"step",    c:"--f-petrol"},
+  {w:96,  h:172, g:"pitch",   c:"--f-sage"},
+  {w:106, h:164, g:"bell",    c:"--f-ochre"},
+  {w:98,  h:158, g:"cornice", c:"--f-brick"}
+];
+const BASE = 262, QUAY = 22, X0 = (960 - HOUSES.reduce((s,h)=>s+h.w,0)) / 2;
+const COLS = 3, ROWS = 4, SLOTS = COLS * ROWS;
+const el = (tag, attrs, parent) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs){ const v = String(attrs[k]); if (v.startsWith("var(")) e.style.setProperty(k, v); else e.setAttribute(k, v); } if (parent) parent.appendChild(e); return e; };
+
+function facadePath(g, x, y, w){
+  const start = `M${x} ${BASE} V${y}`, end = `V${BASE} Z`;
+  switch (g){
+    case "pitch": return `${start} L${x+w/2} ${y-40} L${x+w} ${y} ${end}`;
+    case "step": { const s = w/8, t = 11;
+      return `${start} V${y-t} H${x+s} V${y-2*t} H${x+2*s} V${y-3*t} H${x+3*s} V${y-4*t} H${x+w-3*s} V${y-3*t} H${x+w-2*s} V${y-2*t} H${x+w-s} V${y-t} H${x+w} ${end}`; }
+    case "bell": return `${start} Q${x+w*.16} ${y-2} ${x+w*.22} ${y-18} L${x+w*.3} ${y-30} Q${x+w*.5} ${y-56} ${x+w*.7} ${y-30} L${x+w*.78} ${y-18} Q${x+w*.84} ${y-2} ${x+w} ${y} ${end}`;
+    default: return `${start} H${x+w} ${end}`;
+  }
+}
+
+const svg = $("#skyline");
+const winEls = []; // [night][slot] -> g
+const countEls = [];
+function buildSkyline(){
+  const defs = el("defs", {}, svg);
+  const rg = el("radialGradient", {id:"lamp", cx:"50%", cy:"55%", r:"70%"}, defs);
+  el("stop", {offset:"0%", "stop-color":"var(--amber-hi)"}, rg);
+  el("stop", {offset:"100%", "stop-color":"var(--amber)"}, rg);
+  const f = el("filter", {id:"soft", x:"-80%", y:"-80%", width:"260%", height:"260%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"4.5"}, f);
+
+  // eau et quai
+  el("rect", {x:0, y:BASE + QUAY, width:960, height:336 - BASE - QUAY, fill:"var(--water)"}, svg);
+  for (let k = 0; k < 5; k++) el("line", {x1:0, x2:960, y1:BASE + QUAY + 9 + k*9, y2:BASE + QUAY + 9 + k*9, stroke:"var(--water-line)", "stroke-width":1}, svg);
+  el("rect", {x:0, y:BASE, width:960, height:QUAY, fill:"var(--kalk)"}, svg);
+  el("line", {x1:0, x2:960, y1:BASE, y2:BASE, stroke:"var(--ink)", "stroke-width":1.2}, svg);
+  el("line", {x1:0, x2:960, y1:BASE + QUAY, y2:BASE + QUAY, stroke:"var(--ink)", "stroke-width":.6, opacity:.5}, svg);
+
+  let x = X0;
+  HOUSES.forEach((H, i) => {
+    const yb = BASE - H.h;
+    const g = el("g", {class:"house" + (inStay(i) ? "" : " ghost"), "data-i":i, tabindex:0, role:"button"}, svg);
+    if (H.g === "cornice"){
+      el("path", {class:"roof", d:`M${x+5} ${yb} L${x+15} ${yb-24} H${x+H.w-15} L${x+H.w-5} ${yb} Z`}, g);
+      el("rect", {class:"roof", x:x+H.w/2-9, y:yb-34, width:18, height:14}, g); // lucarne
+    }
+    el("path", {class:"facade", d:facadePath(H.g, x, yb, H.w), fill:`var(${H.c})`}, g);
+    if (H.g === "cornice") el("line", {class:"course", x1:x, x2:x+H.w, y1:yb+5, y2:yb+5}, g);
+    // rez-de-chaussée : bandeau + porte
+    el("line", {class:"course", x1:x, x2:x+H.w, y1:BASE-30, y2:BASE-30}, g);
+    el("rect", {class:"door", x:x+H.w*.5-7, y:BASE-26, width:14, height:26}, g);
+
+    // fenêtres : 3 colonnes × 4 étages, allumées du bas vers le haut
+    const top = yb + 12, bottom = BASE - 38, rowH = (bottom - top) / ROWS;
+    const ww = Math.round(H.w * .15), wh = Math.min(22, Math.round(rowH * .62));
+    const xs = [.22, .5, .78].map(p => x + H.w*p - ww/2);
+    winEls[i] = [];
+    for (let s = 0; s < SLOTS; s++){
+      const row = ROWS - 1 - Math.floor(s / COLS), col = s % COLS;
+      const wx = xs[col], wy = top + row*rowH + (rowH - wh)/2;
+      const w = el("g", {class:"win"}, g);
+      el("rect", {class:"halo", x:wx-3, y:wy-3, width:ww+6, height:wh+6}, w);
+      el("rect", {class:"glass", x:wx, y:wy, width:ww, height:wh}, w);
+      el("rect", {class:"lamp", x:wx, y:wy, width:ww, height:wh}, w);
+      el("line", {class:"mull", x1:wx+ww/2, x2:wx+ww/2, y1:wy, y2:wy+wh}, w);
+      el("line", {class:"mull", x1:wx, x2:wx+ww, y1:wy+wh*.42, y2:wy+wh*.42}, w);
+      el("rect", {class:"ring", x:wx-3.5, y:wy-3.5, width:ww+7, height:wh+7}, w);
+      // reflet dans le canal
+      const ry = BASE + QUAY + 5 + (BASE - wy - wh) * .2;
+      el("rect", {class:"refl", x:wx+1, y:ry, width:ww-2, height:1.6}, w);
+      winEls[i].push(w);
+    }
+    if (i === NYE){
+      const t = el("text", {class:"sk-star", x:x+H.w/2, y:yb - 50}, g); t.textContent = "✦";
+    }
+    const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:x+H.w/2, y:BASE+15}, svg);
+    lab.textContent = `${wd(i)} ${dd(i)}`;
+    countEls[i] = el("text", {class:"sk-count", x:x+H.w/2, y:330}, svg);
+    x += H.w;
+  });
+}
+
+/* ---------- présence ---------- */
+const meName = () => me.n.trim() || "Toi";
+function roster(){
+  const list = PEOPLE.map(p => ({...p, me:false}));
+  list.unshift({n:meName(), s:me.s, a:me.a, b:me.b, t:TRANS[me.transport] || "—", me:true});
+  return list;
+}
+function nightState(i){
+  const yes = [], maybe = [];
+  roster().forEach(p => {
+    if (p.s === "non" || i < p.a || i > p.b) return;
+    (p.s === "oui" ? yes : maybe).push(p);
+  });
+  return {yes, maybe};
+}
+
+let first = true;
+function renderSkyline(){
+  let caption = [];
+  for (let i = 0; i < N; i++){
+    const {yes, maybe} = nightState(i);
+    const meYes = yes.find(p => p.me), meMaybe = maybe.find(p => p.me);
+    const order = [];
+    if (meYes) order.push("me-on"); else if (meMaybe && showMaybe) order.push("me-half");
+    yes.filter(p => !p.me).forEach(() => order.push("on"));
+    if (showMaybe) maybe.filter(p => !p.me).forEach(() => order.push("half"));
+    let delay = first ? i * 90 : 0;
+    winEls[i].forEach((w, s) => {
+      const st = order[s] || "off";
+      const cls = "win" + (st === "off" ? "" : st === "me-on" ? " on me" : st === "me-half" ? " half me" : " " + st);
+      if (w.getAttribute("class") !== cls){
+        const turningOn = st !== "off";
+        w.style.setProperty("--d", turningOn ? (delay += 70) + "ms" : "0ms");
+        w.setAttribute("class", cls);
+      }
+    });
+    const y = yes.length, m = showMaybe ? maybe.length : 0;
+    countEls[i].innerHTML = y || m ? `${y}${m ? `<tspan class="m"> +${m}</tspan>` : ""}` : `<tspan class="m">·</tspan>`;
+    caption.push(`nuit du ${dayLong(i)} : ${y} sur place${m ? `, ${m} peut-être` : ""}`);
+  }
+  svg.setAttribute("aria-label", "Rangée de Nyhavn. " + caption.join(" ; ") + ".");
+  first = false;
+}
+
+/* lire une maison */
+const capEl = $("#sky-cap"), capDefault = capEl.innerHTML;
+let selHouse = null;
+function readHouse(i){
+  svg.querySelectorAll(".house").forEach(h => h.classList.toggle("sel", +h.dataset.i === i && selHouse !== i));
+  if (selHouse === i){ selHouse = null; capEl.innerHTML = capDefault; return; }
+  selHouse = i;
+  const {yes, maybe} = nightState(i);
+  const names = l => l.map(p => p.me ? `<b>${esc(p.n)}</b>` : esc(p.n)).join(", ");
+  capEl.innerHTML = `<b>Nuit du ${dayLong(i)}${i === NYE ? " ✦" : ""}</b>${inStay(i) ? "" : " (hors séjour)"}${NNB}: ` +
+    (yes.length ? `${yes.length} sur place, ${names(yes)}` : "personne pour l'instant") +
+    (maybe.length ? `${NNB}; peut-être ${names(maybe)}` : "") + ".";
+}
+svg.addEventListener("click", e => { const h = e.target.closest(".house"); if (h) readHouse(+h.dataset.i); });
+svg.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".house")){ e.preventDefault(); readHouse(+e.target.closest(".house").dataset.i); } });
+$("#show-maybe").addEventListener("change", e => { showMaybe = e.target.checked; renderAll(); });
+
+/* ---------- utilitaires ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const eur = n => Math.round(n).toLocaleString("fr-FR") + NB + "€";
+const range = (a, b) => Math.round(a) === Math.round(b) ? eur(a) : Math.round(a).toLocaleString("fr-FR") + " – " + eur(b);
+
+/* ---------- bande des nuits ---------- */
+const nightsEl = $("#nights");
+for (let i = 0; i < N; i++){
+  const b = document.createElement("button");
+  b.type = "button"; b.dataset.i = i;
+  b.innerHTML = `<span class="mk">${i === NYE ? "✦" : ""}</span><span class="d">${dd(i)}</span><span class="wd">${wd(i)}</span>`;
+  b.setAttribute("aria-label", `Nuit du ${dayLong(i)}`);
+  nightsEl.appendChild(b);
+}
+nightsEl.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const i = +b.dataset.i;
+  if (!me.picking){ me.a = i; me.b = i; me.picking = true; }
+  else { if (i < me.a){ me.a = i; } else { me.b = i; } me.picking = false; }
+  renderAll();
+});
+function renderNights(){
+  [...nightsEl.children].forEach((b, i) => {
+    const on = i >= me.a && i <= me.b;
+    b.className = (inStay(i) ? "" : "out") + (on ? " in" : "") + (on && (i === me.a || i === me.b) ? " edge" : "");
+    b.setAttribute("aria-pressed", String(on));
+  });
+  const n = me.b - me.a + 1;
+  const arr = fmt(me.a, {weekday:"short", day:"numeric", month:"short"}), dep = fmt(me.b + 1, {weekday:"short", day:"numeric", month:"short"});
+  $("#nights-read").innerHTML = me.picking
+    ? `Première nuit le <b>${arr}</b>. Touche maintenant ta dernière nuit.`
+    : `J'arrive le <b>${arr}</b>, je repars le <b>${dep}</b>${NNB}: <b>${n} nuit${n > 1 ? "s" : ""}</b>${me.a <= NYE && me.b >= NYE ? ", réveillon compris" : ", sans le réveillon"}.`;
+}
+
+/* ---------- choix segmentés ---------- */
+document.querySelectorAll(".seg[data-key]").forEach(seg => {
+  const key = seg.dataset.key, map = {status:"s"};
+  seg.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    me[map[key] || key] = b.dataset.v;
+    renderAll();
+  });
+});
+function renderSegs(){
+  document.querySelectorAll(".seg[data-key]").forEach(seg => {
+    const key = seg.dataset.key, v = me[key === "status" ? "s" : key];
+    seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === v)));
+  });
+  $("#cond-car").hidden = me.transport !== "voiture";
+  $("#cond-plane").hidden = me.transport !== "avion";
+}
+$("#f-name").addEventListener("input", e => { me.n = e.target.value; renderGroup(); });
+
+/* ---------- estimation ---------- */
+const LODGE = {partage:[60,120,"Logement partagé"], hotel2:[38,47,"Hôtel à deux"], hotel1:[76,98,"Hôtel seul·e"]};
+function estimate(){
+  const nights = me.b - me.a + 1, L = LODGE[me.lodge];
+  const lines = [];
+  if (me.transport === "voiture"){ lines.push(["Voiture, aller-retour", 105, 165]); lines.push(["Parking à Copenhague", 50, 50]); }
+  else if (me.transport === "avion") lines.push(["Avion, aller-retour", 280, 385]);
+  else lines.push(["Voiture ou avion", 105, 385]);
+  lines.push([`${L[2]}, ${nights} nuit${nights > 1 ? "s" : ""} × ${L[0]}–${L[1]}${NB}€`, L[0]*nights, L[1]*nights]);
+  const lo = lines.reduce((s,l)=>s+l[1],0), hi = lines.reduce((s,l)=>s+l[2],0);
+  return {lines, lo, hi};
+}
+const RULE_MAX = 1400, rx = v => 10 + (v / RULE_MAX) * 880;
+function renderEstimate(){
+  const tot = $("#est-total"), led = $("#est-ledger"), rule = $("#rule");
+  if (me.s === "non"){ tot.textContent = "—"; led.innerHTML = `<div><dt>Tu ne viens pas cette fois. Tu peux changer d'avis à tout moment.</dt><dd></dd></div>`; rule.innerHTML = ""; return; }
+  const {lines, lo, hi} = estimate();
+  tot.textContent = range(lo, hi);
+  led.innerHTML = lines.map(l => `<div><dt>${l[0]}</dt><dd>${range(l[1], l[2])}</dd></div>`).join("") +
+    `<div><dt><b>Total</b></dt><dd>${range(lo, hi)}</dd></div>`;
+  const cap = +me.budget;
+  let s = `<line class="ax" x1="10" x2="890" y1="22" y2="22"/>`;
+  for (let v = 0; v <= RULE_MAX; v += 200) s += `<line class="tk" x1="${rx(v)}" x2="${rx(v)}" y1="18" y2="26"/><text class="tl" x="${rx(v)}" y="42">${v.toLocaleString("fr-FR")}</text>`;
+  s += `<rect class="band" x="${rx(lo)}" y="17" width="${Math.max(2, rx(hi) - rx(lo))}" height="10"/>`;
+  if (cap) s += `<line class="cap-line" x1="${rx(cap)}" x2="${rx(cap)}" y1="6" y2="32"/><text class="cap-lbl" x="${rx(cap)+5}" y="12">ton max</text>`;
+  rule.innerHTML = s;
+}
+
+/* ---------- le groupe ---------- */
+function renderGroup(){
+  const list = roster();
+  const head = `<thead><tr><th class="who">Prénom</th><th class="st">Vient</th><th class="tr">Transport</th>` +
+    Array.from({length:N}, (_, i) => `<th class="c${i === NYE ? " nye" : ""}${inStay(i) ? "" : " out"}" title="${dayLong(i)}">${i === NYE ? "✦<br>" : "<br>"}${dd(i)}</th>`).join("") +
+    `<th class="tot">Nuits</th></tr></thead>`;
+  const rows = list.map(p => {
+    const cells = Array.from({length:N}, (_, i) => {
+      const here = p.s !== "non" && i >= p.a && i <= p.b;
+      const cls = here ? (p.s === "oui" ? "on" : "half") : (inStay(i) ? "" : "out");
+      return `<td class="c"><span class="cell ${cls}"></span></td>`;
+    }).join("");
+    const n = p.s === "non" ? 0 : p.b - p.a + 1;
+    return `<tr class="${p.me ? "me" : ""}${p.s === "non" ? " no" : ""}"><td class="who"><span class="n">${esc(p.n)}</span>${p.me ? ` <span class="faint">· toi</span>` : ""}</td><td class="st">${STATUS[p.s]}</td><td class="tr">${p.s === "non" ? "—" : esc(p.t)}</td>${cells}<td class="tot">${n || "—"}</td></tr>`;
+  }).join("");
+  const foot = `<tfoot><tr><td colspan="3">Sur place</td>` + Array.from({length:N}, (_, i) => {
+    const {yes, maybe} = nightState(i);
+    return `<td class="c">${yes.length || ""}${maybe.length ? `<i> +${maybe.length}</i>` : ""}</td>`;
+  }).join("") + `<td class="tot"></td></tr></tfoot>`;
+  $("#grp").innerHTML = head + `<tbody>${rows}</tbody>` + foot;
+  const yesN = list.filter(p => p.s === "oui").length, mN = list.filter(p => p.s === "peut-etre").length;
+  $("#grp-count").textContent = `${yesN} oui · ${mN} peut-être`;
+}
+
+/* ---------- enregistrer & copier ---------- */
+function recap(){
+  if (me.s === "non") return `${meName()} : pas cette fois.`;
+  const {lo, hi} = estimate(), n = me.b - me.a + 1;
+  const arr = fmt(me.a, {weekday:"short", day:"numeric", month:"short"}), dep = fmt(me.b + 1, {weekday:"short", day:"numeric", month:"short"});
+  return `${meName()} : ${STATUS[me.s]}, du ${arr} au ${dep} (${n} nuit${n > 1 ? "s" : ""}), ${TRANS[me.transport].toLowerCase()}, ${LODGE[me.lodge][2].toLowerCase()}. Budget estimé${NB}: ${range(lo, hi)}.` + ($("#f-note").value.trim() ? ` « ${$("#f-note").value.trim()} »` : "");
+}
+const status = $("#status");
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const t = new Date().toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"}).replace(":", NB + "h" + NB);
+  status.textContent = `Enregistré à ${t}. Prototype${NNB}: rien n'est envoyé.`;
+});
+$("#copy").addEventListener("click", () => {
+  const text = recap();
+  const done = () => status.textContent = "Récap copié.";
+  const fallback = () => { status.textContent = text; const r = document.createRange(); r.selectNodeContents(status); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch(_) { fallback(); }
+});
+
+/* ---------- échéance ---------- */
+const DEADLINE = new Date(2026, 9, 31, 23, 59, 59);
+const left = Math.ceil((DEADLINE - new Date()) / 864e5);
+if (left > 0){
+  $("#countdown").textContent = `J−${left}`;
+  $("#days-left").textContent = `Encore ${left} jour${left > 1 ? "s" : ""}.`;
+} else {
+  $("#countdown").textContent = "Réservations faites";
+  $("#days-left").textContent = "La date est passée, écris au groupe.";
+}
+
+/* ---------- nav : section courante ---------- */
+const links = [...document.querySelectorAll(".nav ul a")];
+const io = new IntersectionObserver(ents => ents.forEach(en => {
+  if (!en.isIntersecting) return;
+  links.forEach(a => a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id)));
+}), {rootMargin:"-45% 0px -50% 0px"});
+["choix","groupe","details"].forEach(id => io.observe(document.getElementById(id)));
+/* les trois derniers liens ouvrent leur repli */
+links.slice(2).forEach((a, k) => a.addEventListener("click", () => { const d = document.getElementById(["logements","transport","savoir"][k]); d.open = true; }));
+
+function renderAll(){ renderSegs(); renderNights(); renderSkyline(); renderEstimate(); renderGroup(); if (selHouse != null){ const i = selHouse; selHouse = null; readHouse(i); } }
+buildSkyline();
+renderAll();
+/* premier allumage : laisser le navigateur peindre les fenêtres éteintes d'abord */
+winEls.flat().forEach(w => w.setAttribute("class", "win"));
+first = true;
+requestAnimationFrame(() => requestAnimationFrame(renderSkyline));
+})();
+</script>
