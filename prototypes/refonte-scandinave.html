@@ -657,7 +657,7 @@ function buildSkyline(){
   const mirror = el("g", {"clip-path":"url(#canal-clip)"}, svg);
   const refl = el("g", {transform:`translate(0 ${WY}) scale(1 -.5) translate(0 ${-BASE})`, filter:"url(#ripple)", opacity:.32}, mirror);
   let rx0 = X0;
-  HOUSES.forEach((H, i) => { if (inStay(i)) el("path", {d:facadePath(H.g, rx0, BASE - H.h, H.w), fill:`var(${H.c})`}, refl); rx0 += H.w; });
+  HOUSES.forEach((H, i) => { el("path", {d:facadePath(H.g, rx0, BASE - H.h, H.w), fill:`var(${H.c})`}, refl); rx0 += H.w; });
   // rides : traits courts, plus serrés et plus longs vers le large
   let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
   for (let row = 0; row < 11; row++){
@@ -676,7 +676,7 @@ function buildSkyline(){
   let x = X0;
   HOUSES.forEach((H, i) => {
     const yb = BASE - H.h, cx = x + H.w/2, w = H.w;
-    const g = el("g", {class:"house" + (inStay(i) ? "" : " ghost"), "data-i":i, tabindex:0, role:"button"}, svg);
+    const g = el("g", {class:"house", "data-i":i, tabindex:0, role:"button"}, svg);
     const d = el("g", {class:"detail"});
     // toit à la Mansart, cheminée et lucarne pour les maisons à corniche
     let attic;
