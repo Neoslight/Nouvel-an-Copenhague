@@ -20,7 +20,7 @@
   /* façades de Nyhavn, passées par l'hiver */
   --f-brick:#B57D6B; --f-sage:#A3B09D; --f-ochre:#D3AF6C; --f-zinc:#AAB2B6; --f-petrol:#55747A; --f-lin:#DDD3C1;
   --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-deep:#AFC0C9; --water-line:#EEF2F3;
-  --late:#97452F; --fw:#D9A21E; --fw-2:#B5452F;
+  --late:#97452F; --fw:#D49A12; --fw-2:#C2462F; --fw-3:#2F7FA0; --fw-4:#5E9A57;
   /* type */
   --f:"Schibsted Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
   --t-xs:.75rem; --t-s:.875rem; --t-m:1rem; --t-l:1.25rem; --t-xl:clamp(1.6rem,3.2vw,2.1rem); --t-xxl:clamp(2.7rem,7.6vw,5.2rem);
@@ -65,7 +65,7 @@ button{font:inherit;color:inherit}
 
 /* ———————————————————— HERO ———————————————————— */
 .hero{background:linear-gradient(180deg,var(--sky-hi) 0%,var(--sky) 46%,var(--linen) 100%);padding-top:clamp(40px,8vw,88px)}
-.hero-head{display:grid;gap:var(--s3)}
+.hero-head{display:grid;gap:var(--s3);position:relative;z-index:1}
 .eyebrow{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t-s);color:var(--ink-2)}
 .eyebrow b{font-weight:600;color:var(--ink)}
 .hero h1{font-size:var(--t-xxl);font-weight:800;letter-spacing:-.045em;line-height:.94}
@@ -74,7 +74,7 @@ button{font:inherit;color:inherit}
 .lead b{font-weight:600;color:var(--ink)}
 
 .quay{margin-top:clamp(28px,5vw,48px)}
-.sky-scroll{overflow-x:auto;scrollbar-width:thin;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut)}
+.sky-scroll{position:relative;z-index:0;margin-top:-13.5%;overflow-x:auto;scrollbar-width:thin;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut)}
 #skyline{display:block;width:100%;min-width:620px;height:auto}
 .sky-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s4);padding-block:var(--s3) var(--s5);font-size:var(--t-s);color:var(--ink-2)}
 .sky-legend p{max-width:58ch}
@@ -117,14 +117,14 @@ button{font:inherit;color:inherit}
 .win .ring{fill:none;stroke:var(--ink);stroke-width:.8;opacity:0;transition:opacity .4s}
 .sk-day{font:500 11px var(--f);fill:var(--ink-2);text-anchor:middle}
 .sk-day.nye{font-weight:700;fill:var(--ink)}
-.fw line,.fw-trail{stroke:var(--fw);stroke-width:1.3;stroke-linecap:round;fill:none}
-.fw circle{fill:var(--fw)}
-.fw .small line{stroke:var(--fw-2)}.fw .small circle{fill:var(--fw-2)}
-.fw .core{fill:var(--paper)}
-.fw-trail{stroke-dasharray:2 3;opacity:.8}
-.fw-lbl{font:700 11px var(--f);fill:var(--ink);text-anchor:end;font-variant-numeric:tabular-nums}
-.fw-burst{transform-box:fill-box;transform-origin:center;animation:burst 4.8s var(--ease) infinite;animation-delay:var(--fd,0s)}
-@keyframes burst{0%{transform:scale(.55);opacity:.35}12%{transform:scale(1);opacity:1}55%{transform:scale(1.04);opacity:1}100%{transform:scale(1.08);opacity:.35}}
+.fw{mix-blend-mode:multiply}
+.fw-halo{fill:var(--c);opacity:.2;filter:url(#fw-glow)}
+.fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
+.fw-spark{fill:var(--c)}
+.fw-core{fill:var(--c);opacity:.5}
+.fw-trail{fill:none;stroke:var(--fw);stroke-width:1;stroke-dasharray:1.5 3.5;stroke-linecap:round;opacity:.55}
+.fw-burst{transform-box:fill-box;transform-origin:center;animation:burst 5.4s var(--ease) infinite;animation-delay:var(--fd,0s)}
+@keyframes burst{0%{transform:scale(.5);opacity:.45}14%{transform:scale(1);opacity:1}60%{transform:scale(1.05) translateY(1.5%);opacity:.95}100%{transform:scale(1.1) translateY(3%);opacity:.45}}
 @media (prefers-reduced-motion:reduce){.fw-burst{animation:none}}
 .house{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.win .lamp,.win .halo{transition:none}html{scroll-behavior:auto}}
@@ -330,7 +330,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
     </div>
 
     <figure class="quay">
-      <div class="sky-scroll"><svg id="skyline" viewBox="0 0 960 384" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
+      <div class="sky-scroll"><svg id="skyline" viewBox="0 -130 960 514" role="img" aria-label="Rangée de maisons de Nyhavn, une par nuit"></svg></div>
       <figcaption class="sky-legend">
         <p id="sky-cap">Une maison par nuit, une fenêtre par personne qui dort sur place&#8239;: <span class="key"></span>oui, <span class="key half"></span>peut-être. La tienne est cerclée. Au-dessus du 31, le feu d'artifice de Tivoli à 23&nbsp;h. Au-delà de 17, le surplus s’affiche au-dessus du toit. Touche une maison pour la lire.</p>
         <label class="toggle"><input type="checkbox" id="show-maybe" checked> Allumer les peut-être</label>
@@ -751,7 +751,7 @@ function buildSkyline(){
     });
 
     const apex = {pitch:40, step:44, bell:56, cornice:38}[H.g];
-    if (i === NYE) drawFireworks(cx, yb - apex, x);
+    if (i === NYE) drawFireworks(cx, yb - apex);
     overEls[i] = el("text", {class:"sk-over", x:i === NYE ? x + 6 : cx, y:yb - apex - 8, style:i === NYE ? "text-anchor:start" : ""}, g);
     const lab = el("text", {class:"sk-day" + (i === NYE ? " nye" : ""), x:cx, y:BASE+15}, svg);
     lab.textContent = `${wd(i)} ${dd(i)}`;
@@ -759,24 +759,41 @@ function buildSkyline(){
   });
 }
 
-/* feu d'artifice de Tivoli, le 31 à 23 h : une fusée qui monte du toit, deux bouquets */
-function drawFireworks(cx, roofTop, hx){
+/* feu d'artifice de Tivoli, le 31 : des bouquets en couleur dont les étincelles retombent */
+function drawFireworks(cx, roofTop){
+  const defs = svg.querySelector("defs");
+  const bl = el("filter", {id:"fw-glow", x:"-100%", y:"-100%", width:"300%", height:"300%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"9"}, bl);
+  const bs = el("filter", {id:"fw-soft", x:"-30%", y:"-30%", width:"160%", height:"160%"}, defs);
+  el("feGaussianBlur", {stdDeviation:"1.1"}, bs);
   const fw = el("g", {class:"fw", "aria-hidden":"true"}, svg);
-  const burst = (bx, by, r, n, cls, delay) => {
-    const b = el("g", {class:"fw-burst " + cls, style:`--fd:${delay}s`}, fw);
+  let seed = 31; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const q = (p0, p1, p2, t) => (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2;
+  const burst = (bx, by, r, n, color, delay) => {
+    const b = el("g", {class:"fw-burst", style:`--fd:${delay}s;--c:var(${color})`}, fw);
+    el("circle", {class:"fw-halo", cx:bx, cy:by, r:r*.9}, b);
+    const soft = el("g", {filter:"url(#fw-soft)"}, b), crisp = el("g", {}, b);
     for (let k = 0; k < n; k++){
-      const a = (k / n) * Math.PI * 2 + .2, r0 = r * .32;
-      el("line", {x1:bx + Math.cos(a)*r0, y1:by + Math.sin(a)*r0, x2:bx + Math.cos(a)*r, y2:by + Math.sin(a)*r}, b);
-      el("circle", {cx:bx + Math.cos(a)*(r+3), cy:by + Math.sin(a)*(r+3), r:1.3}, b);
+      const a = (k / n) * Math.PI * 2 + rnd() * .3, rr = r * (.82 + rnd() * .3);
+      const c1x = bx + Math.cos(a) * rr * .62, c1y = by + Math.sin(a) * rr * .62;
+      const ex = bx + Math.cos(a) * rr, ey = by + Math.sin(a) * rr + rr * .32; // la gravité courbe la gerbe
+      el("path", {class:"fw-ray", d:`M${bx + Math.cos(a)*r*.18} ${by + Math.sin(a)*r*.18} Q${c1x} ${c1y} ${ex} ${ey}`}, soft);
+      [[.55, 1.5], [.78, 1.25], [1, 1.05], [1.12, .7]].forEach(([t, rad]) => {
+        const tt = Math.min(t, 1), px = q(bx, c1x, ex, tt), py = q(by, c1y, ey, tt) + (t > 1 ? rr * .14 : 0);
+        el("circle", {class:"fw-spark", cx:px, cy:py, r:rad, opacity:(1.15 - t * .55).toFixed(2)}, crisp);
+      });
     }
-    el("circle", {class:"core", cx:bx, cy:by, r:1.8}, b);
+    el("circle", {class:"fw-core", cx:bx, cy:by, r:2.2}, b);
   };
-  const by = roofTop - 33;
-  el("path", {class:"fw-trail", d:`M${cx+3} ${roofTop - 4} C${cx+4} ${roofTop - 18} ${cx+2} ${by + 22} ${cx} ${by + 9}`}, fw);
-  burst(cx, by, 17, 14, "big", 0);
-  burst(cx + 32, by + 12, 9, 10, "small", .7);
-  const t = el("text", {class:"fw-lbl", x:cx - 27, y:by + 4}, fw);
-  t.textContent = "23\u00a0h";
+  // fusées qui montent du toit
+  [[0, -16], [-58, 18], [62, 4]].forEach(([dx, ty]) =>
+    el("path", {class:"fw-trail", d:`M${cx + dx*.15} ${roofTop - 6} Q${cx + dx*.4} ${roofTop - 40} ${cx + dx} ${ty + 14}`}, fw));
+  burst(cx,       -16, 44, 22, "--fw",   0);
+  burst(cx - 62,   18, 28, 16, "--fw-3", .9);
+  burst(cx + 66,    4, 30, 16, "--fw-2", .45);
+  burst(cx - 30,  -78, 20, 13, "--fw-4", 1.6);
+  burst(cx + 42,  -92, 16, 12, "--fw-2", 2.2);
+  burst(cx + 104, -56, 14, 11, "--fw",   1.2);
 }
 
 /* ---------- présence ---------- */
@@ -994,5 +1011,8 @@ renderAll();
 winEls.flat().forEach(w => w.setAttribute("class", "win"));
 first = true;
 requestAnimationFrame(() => requestAnimationFrame(renderSkyline));
+/* sur téléphone, la rangée défile : on la centre sur le 31 et son feu d'artifice */
+const sc = $(".sky-scroll");
+if (sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) * .62;
 })();
 </script>
