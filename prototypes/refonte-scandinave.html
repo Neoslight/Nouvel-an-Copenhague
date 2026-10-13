@@ -120,10 +120,10 @@ button{font:inherit;color:inherit}
 .rwin{fill:var(--amber);opacity:0;transition:opacity 1.6s var(--ease);transition-delay:calc(var(--d,0ms) + 250ms)}
 .rwin.on{opacity:.5}.rwin.half{opacity:.2}
 @media (prefers-reduced-motion:no-preference){
-  .rip.a{animation:drift 6s ease-in-out infinite alternate}
-  .rip.b{animation:drift 8s ease-in-out -3s infinite alternate-reverse}
+  .rip.a{animation:drift 8s ease-in-out infinite alternate}
+  .rip.b{animation:drift 11s ease-in-out -4s infinite alternate-reverse}
 }
-@keyframes drift{0%{transform:translate(-14px,0)}50%{transform:translate(0,1.2px)}100%{transform:translate(14px,0)}}
+@keyframes drift{0%{transform:translate(-10px,0)}50%{transform:translate(0,.6px)}100%{transform:translate(10px,0)}}
 .fw{mix-blend-mode:multiply}
 .fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
 .fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
@@ -697,9 +697,9 @@ function buildSkyline(){
   let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
   // les vaguelettes ondulent : un second bruit, plus fin et plus rapide, les courbe
   const wv = el("filter", {id:"wavelets", filterUnits:"userSpaceOnUse", x:-20, y:WY - 6, width:1000, height:WH + 12}, defs);
-  const t2 = el("feTurbulence", {type:"fractalNoise", baseFrequency:"0.012 0.07", numOctaves:1, seed:9, result:"n"}, wv);
-  if (!still) el("animate", {attributeName:"baseFrequency", dur:"7s", values:"0.012 0.07;0.016 0.1;0.012 0.07", repeatCount:"indefinite"}, t2);
-  el("feDisplacementMap", {in:"SourceGraphic", in2:"n", scale:6, xChannelSelector:"R", yChannelSelector:"G"}, wv);
+  const t2 = el("feTurbulence", {type:"fractalNoise", baseFrequency:"0.009 0.06", numOctaves:1, seed:9, result:"n"}, wv);
+  if (!still) el("animate", {attributeName:"baseFrequency", dur:"11s", values:"0.009 0.06;0.011 0.075;0.009 0.06", repeatCount:"indefinite"}, t2);
+  el("feDisplacementMap", {in:"SourceGraphic", in2:"n", scale:3, xChannelSelector:"R", yChannelSelector:"G"}, wv);
   const ripples = el("g", {filter:"url(#wavelets)"}, mirror);
   const ripA = el("g", {class:"rip a"}, ripples), ripB = el("g", {class:"rip b"}, ripples);
   for (let row = 0; row < 11; row++){
