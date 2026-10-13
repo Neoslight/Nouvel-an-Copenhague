@@ -20,7 +20,7 @@
   /* façades de Nyhavn, passées par l'hiver */
   --f-brick:#B57D6B; --f-sage:#A3B09D; --f-ochre:#D3AF6C; --f-zinc:#AAB2B6; --f-petrol:#55747A; --f-lin:#DDD3C1;
   --roof:#7D878C; --glass:#D3DCE0; --water:#D2DCE1; --water-deep:#AFC0C9; --water-line:#EEF2F3;
-  --late:#97452F; --fw:#D49A12; --fw-2:#C2462F; --fw-3:#2F7FA0; --fw-4:#5E9A57;
+  --late:#97452F; --dk-red:#C8102E; --fw:#D49A12; --fw-2:#C2462F; --fw-3:#2F7FA0; --fw-4:#5E9A57;
   /* type */
   --f:"Schibsted Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
   --t-xs:.75rem; --t-s:.875rem; --t-m:1rem; --t-l:1.25rem; --t-xl:clamp(1.6rem,3.2vw,2.1rem); --t-xxl:clamp(2.7rem,7.6vw,5.2rem);
@@ -65,7 +65,7 @@ button{font:inherit;color:inherit}
 
 /* ———————————————————— HERO ———————————————————— */
 .hero{background:linear-gradient(180deg,var(--sky-hi) 0%,var(--sky) 46%,var(--linen) 100%);padding-top:clamp(40px,8vw,88px)}
-.hero-head{display:grid;gap:var(--s3);position:relative;z-index:1}
+.hero-head{display:grid;gap:var(--s3);position:relative;z-index:1;pointer-events:none}
 .eyebrow{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t-s);color:var(--ink-2)}
 .eyebrow b{font-weight:600;color:var(--ink)}
 .hero h1{font-size:var(--t-xxl);font-weight:800;letter-spacing:-.045em;line-height:.94}
@@ -143,6 +143,35 @@ button{font:inherit;color:inherit}
 }
 @keyframes sail{from{transform:translateX(-140px)}to{transform:translateX(1100px)}}
 @keyframes bob{from{transform:rotate(-.7deg) translateY(-.4px)}to{transform:rotate(.7deg) translateY(.6px)}}
+.chim-hit,.a-hit,.fw-hit{fill:transparent;pointer-events:all;cursor:pointer}
+.fw-hit{cursor:default}
+/* Andersen */
+.andersen{opacity:0;transition:opacity 1.2s var(--ease)}
+.win.story .andersen{opacity:1}
+.a-candle{fill:url(#lamp)}
+.a-man{fill:var(--ink)}
+.a-quill{stroke:var(--ink);stroke-width:.7;stroke-linecap:round}
+/* hygge */
+.hygge .win .lamp{opacity:1;transition-delay:0ms}
+.hygge .win .halo{opacity:.32;transition-delay:0ms}
+.hygge .rwin{opacity:.42;transition-delay:0ms}
+.puff{fill:none;stroke:var(--ink-3);stroke-width:3.4;stroke-linecap:round;opacity:0;filter:url(#fw-soft)}
+@media (prefers-reduced-motion:no-preference){
+  .hygge .win .lamp{animation:flicker 1.9s ease-in-out var(--fl,0s) infinite alternate}
+  .puff{transform-box:fill-box;transform-origin:50% 100%;animation:puff 3.3s ease-out var(--sd) 2 both}
+}
+@media (prefers-reduced-motion:reduce){.puff{opacity:.35}}
+@keyframes flicker{0%{opacity:1}35%{opacity:.78}55%{opacity:.95}80%{opacity:.7}100%{opacity:.92}}
+@keyframes puff{0%{opacity:0;transform:translateY(4px) scale(.6)}25%{opacity:.75}100%{opacity:0;transform:translateY(-20px) scale(1.25)}}
+/* grand final */
+.fw-burst.once,.fw-burst.once .fw-halo{animation-iteration-count:1}
+g.once .fw-trail{animation-iteration-count:1}
+.dannebrog{opacity:0;transition:opacity .4s}
+.b-flag{transition:opacity .4s}
+.finale .b-flag{opacity:0}
+.finale .dannebrog{opacity:1}
+@media (prefers-reduced-motion:no-preference){.finale .dannebrog{animation:hoist 1.6s var(--ease) both}}
+@keyframes hoist{from{transform:translateY(120px)}to{transform:translateY(0)}}
 .fw{mix-blend-mode:multiply}
 .fw-halo{fill:var(--c);opacity:.18;filter:url(#fw-glow)}
 .fw-ray{fill:none;stroke:var(--c);stroke-width:1;stroke-linecap:round;opacity:.55}
@@ -160,7 +189,8 @@ button{font:inherit;color:inherit}
 @keyframes bloom{0%,6%{transform:scale(.1);opacity:0}8%{opacity:1}22%{transform:scale(1) translateY(0);opacity:1}62%{opacity:.85}88%,100%{transform:scale(1.06) translateY(6%);opacity:0}}
 @keyframes flash{0%,6%{opacity:0}10%{opacity:.55}30%{opacity:.18}80%{opacity:.08}88%,100%{opacity:0}}
 @keyframes twinkle{from{opacity:.25}to{opacity:1}}
-.house{cursor:pointer}
+.house{cursor:pointer;outline:none}
+.house:focus-visible .facade{stroke-width:1.8}
 @media (prefers-reduced-motion:reduce){.win .lamp,.win .halo{transition:none}html{scroll-behavior:auto}}
 
 /* commutateur sobre */
@@ -742,7 +772,8 @@ function buildSkyline(){
     // toit à la Mansart, cheminée et lucarne pour les maisons à corniche
     let attic;
     if (H.g === "cornice"){
-      el("rect", {class:"roof", x:x + w*.68, y:yb-32, width:7, height:14}, g); // cheminée
+      el("rect", {class:"roof chimney", x:x + w*.68, y:yb-32, width:7, height:14}, g); // cheminée
+      el("rect", {class:"chim-hit", x:x + w*.68 - 7, y:yb-44, width:21, height:28, "data-cx":x + w*.68 + 3.5, "data-cy":yb-32}, g);
       el("path", {class:"roof", d:`M${x+4} ${yb} L${x+14} ${yb-24} H${x+w-14} L${x+w-4} ${yb} Z`}, g);
       el("line", {class:"tile", x1:x+9, x2:x+w-9, y1:yb-12, y2:yb-12}, g);
       el("path", {class:"dormer", d:`M${cx-11} ${yb-8} V${yb-30} L${cx} ${yb-38} L${cx+11} ${yb-30} V${yb-8} Z`}, g);
@@ -853,6 +884,10 @@ function drawBoat(wl){
   L(64, -20, 118, -23, "b-spar");
   // pavillon
   el("path", {class:"b-flag", d:"M8 -172 L22 -168 L8 -164 Z"}, bob);
+  const dk = el("g", {class:"dannebrog"}, bob);
+  el("rect", {x:8, y:-174, width:20, height:13, fill:"var(--dk-red)"}, dk);
+  el("rect", {x:13.5, y:-174, width:2.6, height:13, fill:"var(--paper)"}, dk);
+  el("rect", {x:8, y:-168.8, width:20, height:2.6, fill:"var(--paper)"}, dk);
   // coque noire, liston de bois, rouf vernis
   el("path", {class:"b-hull", d:hull}, bob);
   el("path", {class:"b-rail", d:"M-73 -11 Q-2 -6 66 -18"}, bob);
@@ -861,6 +896,7 @@ function drawBoat(wl){
   el("rect", {class:"b-house", x:-50, y:-19, width:10, height:6}, bob);
 }
 
+let fwBurst, fwCx, fwRoof;
 /* feu d'artifice de Tivoli, le 31 : des bouquets en couleur dont les étincelles retombent */
 function drawFireworks(cx, roofTop){
   const defs = svg.querySelector("defs");
@@ -891,7 +927,11 @@ function drawFireworks(cx, roofTop){
       });
     }
     el("circle", {class:"fw-core", cx:bx, cy:by, r:2.2}, b);
+    return [tg, b];
   };
+  fwBurst = burst; fwCx = cx; fwRoof = roofTop;
+  // zone cliquable du feu d'artifice (le grand final se cache derrière trois clics)
+  el("rect", {class:"fw-hit", x:cx - 110, y:-120, width:250, height:roofTop + 114}, fw);
   //        x          y    rayon rayons couleur   durée phase
   burst(cx,       -16, 44, 22, "--fw",   9.6, .30);
   burst(cx - 62,   18, 28, 16, "--fw-3", 8.8, .62);
@@ -1119,6 +1159,75 @@ renderAll();
 winEls.flat().forEach(w => w.setAttribute("class", "win"));
 first = true;
 requestAnimationFrame(() => requestAnimationFrame(renderSkyline));
+/* ---------- trois secrets dans le dessin ---------- */
+const sayCap = html => { selHouse = null; svg.querySelectorAll(".house.sel").forEach(h => h.classList.remove("sel")); capEl.innerHTML = html; };
+
+/* 1. Andersen à sa fenêtre : double-clic ou appui long sur le grenier de la maison du 29 */
+const ANDERSEN = 3, attic = winEls[ANDERSEN][SLOTS - 1];
+(() => {
+  const gl = attic.querySelector(".glass"), x = +gl.getAttribute("x"), y = +gl.getAttribute("y"), w = +gl.getAttribute("width"), h = +gl.getAttribute("height");
+  const a = el("g", {class:"andersen"}, attic);
+  el("rect", {class:"a-candle", x, y, width:w, height:h}, a);
+  const sx = x + w*.45, sy = y + h;
+  el("path", {class:"a-man", d:`M${sx-4.6} ${sy} Q${sx-4.4} ${sy-6} ${sx} ${sy-6.4} Q${sx+4.4} ${sy-6} ${sx+4.6} ${sy} Z`}, a);   // épaules
+  el("circle", {class:"a-man", cx:sx, cy:sy-8.6, r:2.3}, a);                                                                   // tête
+  el("rect", {class:"a-man", x:sx-2.1, y:sy-15.4, width:4.2, height:5}, a);                                                    // haut-de-forme
+  el("rect", {class:"a-man", x:sx-3.4, y:sy-10.9, width:6.8, height:.9}, a);                                                   // bord du chapeau
+  el("line", {class:"a-quill", x1:sx+3, y1:sy-3, x2:sx+6.5, y2:sy-9}, a);                                                     // la plume
+  el("rect", {class:"a-hit", x:x-4, y:y-4, width:w+8, height:h+8}, attic);
+})();
+let andersenOn = false;
+function andersen(){
+  andersenOn = !andersenOn;
+  attic.classList.toggle("story", andersenOn);
+  if (andersenOn) sayCap(`<b>Hans Christian Andersen</b> a vécu à Nyhavn, au n°${NB}20, où il a écrit ses premiers contes, dont <i>La Princesse au petit pois</i>.`);
+  else capEl.innerHTML = capDefault;
+}
+attic.addEventListener("dblclick", e => { e.stopPropagation(); andersen(); });
+let press;
+attic.addEventListener("pointerdown", e => { if (e.pointerType === "mouse") return; press = setTimeout(() => { press = null; andersen(); }, 600); });
+["pointerup","pointerleave","pointercancel"].forEach(t => attic.addEventListener(t, () => { clearTimeout(press); }));
+
+/* 2. Hygge : une cheminée qui fume, une bougie à chaque fenêtre */
+let hyggeT;
+function hygge(chx, chy){
+  clearTimeout(hyggeT);
+  svg.querySelectorAll(".smoke").forEach(n => n.remove());
+  const sm = el("g", {class:"smoke"}, svg);
+  for (let k = 0; k < 3; k++)
+    el("path", {class:"puff", style:`--sd:${k * 1.1}s`, d:`M${chx} ${chy} c-5 -7 5 -11 0 -18 c-5 -7 5 -11 0 -18`}, sm);
+  svg.classList.add("hygge");
+  sayCap(`<b>Hygge.</b> Un feu dans la cheminée, une bougie à chaque fenêtre.`);
+  hyggeT = setTimeout(() => { svg.classList.remove("hygge"); sm.remove(); capEl.innerHTML = capDefault; }, 6500);
+}
+winEls.flat().forEach(w => w.querySelector(".lamp").style.setProperty("--fl", (-Math.random() * 2).toFixed(2) + "s"));
+
+/* 3. Le grand final : trois clics sur le feu d'artifice */
+let clicks = [], finaleT;
+function finale(){
+  if (svg.classList.contains("finale")) return;
+  svg.classList.add("finale");
+  const fw = svg.querySelector(".fw"), extra = [];
+  const COLORS = ["--fw","--fw-2","--fw-3","--fw-4"];
+  for (let k = 0; k < 14; k++){
+    const bx = fwCx + (Math.random() - .5) * 520, by = -100 + Math.random() * 150, r = 16 + Math.random() * 30;
+    const d = k * .28 + Math.random() * .3, dur = 5.2;
+    fwBurst(bx, by, r, 12 + Math.round(r / 3), COLORS[k % 4], dur, -d / dur).forEach(g => { g.classList.add("once"); extra.push(g); });
+  }
+  sayCap(`<b>Godt nytår&#8239;!</b> Rendez-vous à Tivoli le 31, 23${NB}h.`);
+  finaleT = setTimeout(() => { extra.forEach(g => g.remove()); svg.classList.remove("finale"); capEl.innerHTML = capDefault; }, 10000);
+}
+
+svg.addEventListener("click", e => {
+  const ch = e.target.closest(".chim-hit");
+  if (ch){ e.stopImmediatePropagation(); hygge(+ch.dataset.cx, +ch.dataset.cy); return; }
+  if (e.target.closest(".a-hit")){ e.stopImmediatePropagation(); return; }
+  if (e.target.closest(".fw")){
+    const now = Date.now(); clicks = clicks.filter(t => now - t < 1600); clicks.push(now);
+    if (clicks.length >= 3){ clicks = []; finale(); }
+  }
+}, true);
+
 /* sur téléphone, la rangée défile : on la centre sur le 31 et son feu d'artifice */
 const sc = $(".sky-scroll");
 if (sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) * .62;
